@@ -4,6 +4,8 @@
 
 We are looking at implementing digest authentication in the future but primary objective for now is to provide the functionality required for our agent-based manufacturing research program.
 
+It is also an **unofficial** open-source client for connecting to your Ultimaker.
+
 ## Configuring the Ultimaker
 
 To make use of this client, you will need to disable authentication and enable cors on the Ultimaker API.
@@ -14,7 +16,7 @@ To start, you will need to enable developer mode on your Ultimaker, which can be
 
 Now you need to `ssh` into your printer from your machine. The default user and password are **XX** and **YY**. After successfully connecting to the printer, you should see your terminal look a bit like this:
 
-**[TODO: add terminal content and check that you can nano into a file]**
+**[TODO: add terminal content and check that you can nano into a file, otherwise detail out how to scp the file out, edit and copy back in.]**
 
 You will want to modify the following file `/usr/share/griffin/griffin/interface/http/server.py` with the following content.
 
@@ -70,11 +72,32 @@ With the edits made, you can restart the Ultimaker API using `systemctl restart 
 
 ## Connecting to the printer with the client
 
-**[TODO]**
+To install the package, simply use the following command depending on whether you're using `npm` or `yarn` as your package manager.
+
+```
+npm install 
+// or
+yarn add ultimaker-client
+```
+
+You can then use in your code via by importing
+
+```typescript
+import { UltimakerClient } from "ultimaker-client"
+
+// Create a new client.
+const client = new UltimakerClient("000.000.000.000")
+
+// Retrieve the name of your printer.
+const name = client.getName()
+
+// Print it to the console.
+console.log(name)
+```
 
 ## Docs
 
-The docs have been produced using [TypeDoc](https://typedoc.org/).
+The docs have been produced using [TypeDoc](https://typedoc.org/) and can be accessed [here](https://jamesgopsill.github.io/ultimaker-client/).
 
 ## Testing
 
@@ -86,7 +109,7 @@ The first objective is to build a client that implements the entire v1 Ultimaker
 
 | Version  | Content |
 | ------------- | ------------- |
-| 0.1.0  | A smattering of API functions that we have needed to access for our research project. |
+| 0.1.0  | A smattering of API functions that we have needed to access/use in our research project. |
 | 0.2.0  | `/system` REST API functionality implemented. |
 | 0.3.0  | `/printer` REST API functionality implemented. |
 | 0.4.0  | `/job` REST API functionality implemented. |
@@ -108,3 +131,4 @@ To donate and provide continued support, please go to **[TODO: Setup]**.
 - [Ultimaker API and enabling CORS](https://community.ultimaker.com/topic/17964-um3-api-and-cors/)
 - [Manual Control Ultimaker (SSH and Developer Mode)](https://community.ultimaker.com/topic/18509-manual-control-for-ultimaker-3-over-the-lan-or-wifi/)
 - [More Ultimaker remote access stuff](https://community.ultimaker.com/topic/15604-inside-the-ultimaker-3-day-3-remote-access-part-2/)
+- [Git autocrlf](https://tanutaran.medium.com/solving-git-lf-will-be-replaced-by-crlf-7ca84eb0aad4)
