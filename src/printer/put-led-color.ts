@@ -1,5 +1,5 @@
-import { UltimakerClient } from ".."
 import { fetch } from "cross-fetch"
+import { UltimakerClient } from ".."
 
 /**
  * Set the LED color of the printer
@@ -8,7 +8,7 @@ import { fetch } from "cross-fetch"
  * @param color The color you wish to set the Ultimaker to (in HSV).
  * @returns
  */
-export const setLEDColor = function async(
+export const putLEDColor = function async(
 	this: UltimakerClient,
 	color: {
 		hue: number

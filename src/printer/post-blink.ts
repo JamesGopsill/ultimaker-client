@@ -1,5 +1,5 @@
-import { UltimakerClient } from ".."
 import { fetch } from "cross-fetch"
+import { UltimakerClient } from ".."
 
 /**
  * Blinks the Ultimaker LEDs.
@@ -9,7 +9,7 @@ import { fetch } from "cross-fetch"
  * @param count The number of times the LEDs will blink.
  * @returns
  */
-export const blink = function (
+export const postBlink = function (
 	this: UltimakerClient,
 	frequency: number,
 	count: number

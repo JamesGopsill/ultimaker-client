@@ -1,1 +1,1 @@
-export * from "./name"
+export * from "./get-name"

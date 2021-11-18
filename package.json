@@ -17,12 +17,16 @@
   "bugs": {
     "url": "https://github.com/JamesGopsill/ultimaker-client/issues"
   },
-  "files": ["dist"],
+  "homepage": "https://jamesgopsill.github.io/ultimaker-client/",
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "test": "jest",
     "build": "tsc",
     "docs": "typedoc",
-    "format": "prettier --write src/**/* && prettier --write tests/**/* "
+    "format": "prettier --write src/**/* && prettier --write tests/**/*",
+    "pre-commit": "yarn format && yarn docs"
   },
   "dependencies": {
     "cross-fetch": "^3.1.4",
@@ -32,6 +36,7 @@
     "@types/jest": "^27.0.2",
     "jest": "^27.3.1",
     "prettier": "^2.4.1",
+    "prettier-plugin-organize-imports": "^2.3.4",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0",
     "typedoc": "^0.22.9",

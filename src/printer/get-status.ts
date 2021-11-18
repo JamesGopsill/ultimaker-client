@@ -1,5 +1,5 @@
-import { UltimakerClient } from ".."
 import { fetch } from "cross-fetch"
+import { UltimakerClient } from ".."
 
 /**
  * Retrieves the status of the printer.
@@ -7,7 +7,7 @@ import { fetch } from "cross-fetch"
  * @param this An instance of UltimakerClient.
  * @returns Returns the status of the printer or null if the request fails.
  */
-export const status = async function (
+export const getStatus = async function (
 	this: UltimakerClient
 ): Promise<string | null> {
 	let res = await fetch(this.endpoint + "/api/v1/printer", {

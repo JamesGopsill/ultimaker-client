@@ -1,3 +1,3 @@
-export * from "./blink"
-export * from "./set-led-color"
-export * from "./status"
+export * from "./get-status"
+export * from "./post-blink"
+export * from "./put-led-color"

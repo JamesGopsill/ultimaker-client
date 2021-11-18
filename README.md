@@ -38,7 +38,7 @@ def __init__(self, import_name, **kwargs):
 	# [file continues...]
 ```
 
-Scroll down in the file a bit and add.
+Scroll down in the file and add this line to the end of the `__init__` function.
 
 
 ```python

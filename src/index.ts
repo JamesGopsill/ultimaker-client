@@ -1,7 +1,7 @@
 import isIp from "is-ip"
-import { blink, setLEDColor, status } from "./printer"
-import { name } from "./system"
-import { printJob } from "./job"
+import { postJob } from "./job"
+import { getStatus, postBlink, putLEDColor } from "./printer"
+import { getName } from "./system"
 
 export { UltimakerLEDColors } from "./printer"
 
@@ -28,10 +28,11 @@ export class UltimakerClient {
 		this.endpoint = "http://" + this.ip
 	}
 
-	public blink = blink
-	public name = name
-	public setLEDColor = setLEDColor
-	public status = status
-	public printJob = printJob
+	public postBlink = postBlink
+	public postJob = postJob
 
+	public getName = getName
+	public getStatus = getStatus
+
+	public putLEDColor = putLEDColor
 }

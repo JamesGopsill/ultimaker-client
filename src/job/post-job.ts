@@ -1,5 +1,5 @@
-import { UltimakerClient } from ".."
 import { fetch } from "cross-fetch"
+import { UltimakerClient } from ".."
 
 /**
  * Submit a job to the printer.
@@ -9,7 +9,7 @@ import { fetch } from "cross-fetch"
  * @param gcode Provide the gcode.
  * @returns
  */
-export const printJob = async function (
+export const postJob = async function (
 	this: UltimakerClient,
 	jobname: string,
 	gcode: string
