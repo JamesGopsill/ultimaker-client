@@ -1,0 +1,40 @@
+{
+  "name": "ultimaker-client",
+  "version": "0.1.0",
+  "description": "Client for interacting with the Ultimaker API",
+  "keywords": [
+    "ultimaker"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "author": "James Gopsill",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JamesGopsill/ultimaker-client"
+  },
+  "bugs": {
+    "url": "https://github.com/JamesGopsill/ultimaker-client/issues"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "test": "jest",
+    "build": "tsc",
+    "docs": "typedoc",
+    "format": "prettier --write src/**/* && prettier --write tests/**/* "
+  },
+  "dependencies": {
+    "cross-fetch": "^3.1.4",
+    "is-ip": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.2",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0",
+    "typedoc": "^0.22.9",
+    "typescript": "^4.4.4"
+  }
+}
