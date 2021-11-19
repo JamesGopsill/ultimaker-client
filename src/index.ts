@@ -3,7 +3,9 @@ import { postJob } from "./job"
 import { getPrinterStatus, postBlink, putLEDColor } from "./printer"
 import { getName } from "./system"
 
-export { UltimakerLEDColors } from "./printer"
+export * from "./printer"
+export * from "./job"
+export * from "./system"
 
 /**
  * Create the client to interface with the Ultimaker API.
@@ -83,9 +85,5 @@ export class UltimakerClient {
 	}) {
 		return putLEDColor(this.baseURL, color)
 	}
-
-
-
-
 
 }
