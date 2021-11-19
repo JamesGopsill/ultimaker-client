@@ -26,7 +26,7 @@
     "build": "tsc",
     "docs": "typedoc",
     "format": "prettier --write src/**/* && prettier --write tests/**/*",
-    "pre-commit": "yarn format && yarn docs"
+    "pre-add": "yarn format && yarn docs && yarn test"
   },
   "dependencies": {
     "cross-fetch": "^3.1.4",

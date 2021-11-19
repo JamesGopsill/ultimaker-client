@@ -1,8 +1,8 @@
 import { fetch } from "cross-fetch"
 
-export const getName = (baseURL: string) => {
+export const getPrinterStatus = (baseURL: string) => {
 	return new Promise<string>(async (resolve, reject) => {
-		const res = await fetch(baseURL + "/api/v1/system/name", {
+		const res = await fetch(baseURL + "/api/v1/printer", {
 			method: "GET",
 			mode: "cors",
 			headers: {
@@ -10,7 +10,10 @@ export const getName = (baseURL: string) => {
 			},
 		})
 
-		if (res.status == 200) resolve(res.json())
+		if (res.status == 200) {
+			const data = await res.json()
+			resolve(data.status)
+		}
 		reject(res)
 	})
 }

@@ -1,33 +1,30 @@
 import { fetch } from "cross-fetch"
-import { UltimakerClient } from ".."
 
-/**
- * Set the LED color of the printer
- *
- * @param this An instance of UltimakerClient.
- * @param color The color you wish to set the Ultimaker to (in HSV).
- * @returns
- */
-export const putLEDColor = function async(
-	this: UltimakerClient,
+export const putLEDColor = (
+	baseURL: string,
 	color: {
 		hue: number
 		saturation: number
 		brightness: number
 	}
-): Promise<Response> {
-	return fetch(this.endpoint + "/api/v1/printer/led", {
-		method: "PUT",
-		mode: "cors",
-		headers: {
-			Accept: "application/json",
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			hue: color.hue,
-			saturation: color.saturation,
-			brightness: color.brightness,
-		}),
+) => {
+	return new Promise<Response>(async (resolve, reject) => {
+		const res = await fetch(baseURL + "/api/v1/printer/led", {
+			method: "PUT",
+			mode: "cors",
+			headers: {
+				Accept: "application/json",
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				hue: color.hue,
+				saturation: color.saturation,
+				brightness: color.brightness,
+			}),
+		})
+
+		if (res.status == 200) resolve(res)
+		reject(res)
 	})
 }
 

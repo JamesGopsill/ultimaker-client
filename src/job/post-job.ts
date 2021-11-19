@@ -1,31 +1,23 @@
 import { fetch } from "cross-fetch"
-import { UltimakerClient } from ".."
 
-/**
- * Submit a job to the printer.
- *
- * @param this An instance of UltimakerClient.
- * @param jobname Provide a name for the job.
- * @param gcode Provide the gcode.
- * @returns
- */
-export const postJob = async function (
-	this: UltimakerClient,
-	jobname: string,
-	gcode: string
-): Promise<Response> {
-	const formData = new FormData()
-	formData.append("jobname", jobname)
+export const postJob = (baseURL: string, jobname: string, gcode: string) => {
+	return new Promise<Response>(async (resolve, reject) => {
+		const formData = new FormData()
+		formData.append("jobname", jobname)
 
-	const blob = new Blob([gcode], { type: "text/plain" })
-	formData.append("file", blob, "test.gcode")
+		const blob = new Blob([gcode], { type: "text/plain" })
+		formData.append("file", blob, "test.gcode")
 
-	return fetch(this.endpoint + "/api/v1/print_job", {
-		method: "POST",
-		mode: "cors",
-		headers: {
-			Accept: "application/json",
-		},
-		body: formData,
+		const res = await fetch(baseURL + "/api/v1/print_job", {
+			method: "POST",
+			mode: "cors",
+			headers: {
+				Accept: "application/json",
+			},
+			body: formData,
+		})
+
+		if (res.status == 200) resolve(res)
+		reject(res)
 	})
 }
