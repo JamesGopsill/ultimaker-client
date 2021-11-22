@@ -136,19 +136,19 @@ export const ip = "123.456.789.101"
 
 The first objective is to build a client that implements the entire v1 Ultimaker API without auth. Having achieved this, we will look to add digest auth and increment the version.
 
-| Version  | Content |
-| ------------- | ------------- |
-| 0.1.0 | A smattering of API functions that we have needed to access/use in our research project. Client codebase set up with typescript and testing support.|
-| 0.2.0 | `/system` implemented. |
-| 0.3.0 | `/materials` implemented. |
-| 0.4.0 | `/network` implemented. |
-| 0.5.0 | `/history` implemented. |
-| 0.6.0 | `/printer` implemented. |
-| 0.7.0 | `/print_job` implemented. |
-| 0.8.0 | `/camera` implemented. |
-| 0.9.0 | `/airmanager` implemented. |
-| 1.0.0 | All endpoints implemented. |
-| 1.1.0 | Digest authentication. `/auth`. |
+| Version | Content | Status |
+| --- | --- | --- |
+| 0.1.0 | A smattering of API functions that we have needed to access/use in our research project. Client codebase set up with typescript and testing support.| ✔ |
+| 0.2.0 | `/system` implemented. | ✔ |
+| 0.3.0 | `/materials` implemented. | - |
+| 0.4.0 | `/network` implemented. | - |
+| 0.5.0 | `/history` implemented. | - |
+| 0.6.0 | `/printer` implemented. | - |
+| 0.7.0 | `/print_job` implemented. | - |
+| 0.8.0 | `/camera` implemented. | - |
+| 0.9.0 | `/airmanager` implemented. | - |
+| 1.0.0 | All endpoints implemented. | - |
+| 1.1.0 | Digest authentication. `/auth`. | - |
 
 ## Contributing
 
@@ -158,7 +158,7 @@ We would love to have additional contributors to the project to help us maintain
 
 The project has been supported by the [EPSRC-funded Brokering Additive Manufacturing project (EP/V05113X/1)](https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/V05113X/1). More details on the project can be found at the [Design Manufacturing Futures Lab](https://dmf-lab.co.uk/) website.
 
-To donate and provide continued support, please go to **[TODO: Setup]**.
+To donate and provide continued support, please go to **[TODO]**.
 
 ## References
 

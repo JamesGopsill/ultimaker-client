@@ -1,4 +1,4 @@
-import { UltimakerJobTargetState } from "./job";
+import * as job from "./job";
 import * as system from "./system";
 export * from "./printer";
 export * from "./job";
@@ -13,7 +13,7 @@ export declare class UltimakerClient {
     /** The ip address of Ultimaker printer */
     readonly ip: string;
     readonly baseURL: string;
-    /** Checks if the IP address is a valid format before creating an instance of the client.  */
+    /** Checks if the IP address is a valid format before creating an instance of the client. */
     constructor(ip: string);
     getSystem(): Promise<{
         name: string;
@@ -59,7 +59,7 @@ export declare class UltimakerClient {
     getSystemCountry(): Promise<string>;
     putSystemCountry(country: string): Promise<Boolean>;
     getSystemLanguage(): Promise<string>;
-    getSystemUptime(): Promise<number>;
+    getSystemUpTime(): Promise<number>;
     getSystemType(): Promise<string>;
     getSystemVariant(): Promise<number>;
     getSystemHardware(): Promise<{
@@ -71,16 +71,16 @@ export declare class UltimakerClient {
     putSystemDisplayMessage(message: string, buttonCaption: string): Promise<Boolean>;
     getPrinterStatus(): Promise<string>;
     postPrinterBlink(frequency: number, count: number): Promise<Boolean>;
-    postJob(jobname: string, gcode: string): Promise<{
-        message: string;
-        uuid: string;
-    }>;
     putPrinterLED(color: {
         hue: number;
         saturation: number;
         brightness: number;
     }): Promise<Boolean>;
-    putJob(target: UltimakerJobTargetState): Promise<Boolean>;
+    postJob(jobname: string, gcode: string): Promise<{
+        message: string;
+        uuid: string;
+    }>;
+    putJob(target: job.UltimakerJobTargetState): Promise<Boolean>;
     getJob(): Promise<{
         time_elapsed: number;
         time_total: number;
@@ -95,7 +95,7 @@ export declare class UltimakerClient {
         reprint_original_uuid: string;
         progress: number;
         state: string;
-        result: string;
+        result: string; /** The ip address of Ultimaker printer */
     }>;
     getJobProgress(): Promise<number>;
     getJobTimeTotal(): Promise<number>;

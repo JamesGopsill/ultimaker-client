@@ -71,3 +71,54 @@ test("GET system time", async () => {
 	console.log(v)
 	expect(typeof v).toBe("object")
 })
+
+test("GET system log", async () => {
+	const v = await client.getSystemLog(0, 5)
+	console.log(v)
+	expect(typeof v).toBe("object")
+})
+
+test("GET system country", async () => {
+	const v = await client.getSystemCountry()
+	expect(typeof v).toBe("string")
+})
+
+test("PUT system country", async () => {
+	const success = await client.putSystemCountry("UK")
+	expect(success).toBe(true)
+})
+
+test("GET system language", async () => {
+	const v = await client.getSystemLanguage()
+	expect(typeof v).toBe("string")
+})
+
+test("GET system uptime", async () => {
+	const v = await client.getSystemUpTime()
+	expect(typeof v).toBe("number")
+})
+
+test("GET system variant", async () => {
+	const v = await client.getSystemVariant()
+	expect(typeof v).toBe("number")
+})
+
+test("GET system hardware", async () => {
+	const v = await client.getSystemHardware()
+	expect(typeof v).toBe("object")
+})
+
+test("GET system hardware typeid", async () => {
+	const v = await client.getSystemHardwareTypeId()
+	expect(typeof v).toBe("number")
+})
+
+test("GET system hardware revision", async () => {
+	const v = await client.getSystemHardwareRevision()
+	expect(typeof v).toBe("number")
+})
+
+test("PUT system display message", async () => {
+	const success = await client.putSystemDisplayMessage("Testing", "Done")
+	expect(success).toBe(true)
+})

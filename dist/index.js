@@ -27,8 +27,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UltimakerClient = void 0;
 const is_ip_1 = __importDefault(require("is-ip"));
-const job_1 = require("./job");
-const printer_1 = require("./printer");
+const job = __importStar(require("./job"));
+const printer = __importStar(require("./printer"));
 const system = __importStar(require("./system"));
 __exportStar(require("./printer"), exports);
 __exportStar(require("./job"), exports);
@@ -40,7 +40,7 @@ __exportStar(require("./system"), exports);
  * @returns An instance of UltimakerClient
  */
 class UltimakerClient {
-    /** Checks if the IP address is a valid format before creating an instance of the client.  */
+    /** Checks if the IP address is a valid format before creating an instance of the client. */
     constructor(ip) {
         if (!is_ip_1.default.v4(ip)) {
             throw new TypeError("[UltimakerClient] Invalid IP address");
@@ -104,7 +104,7 @@ class UltimakerClient {
     getSystemLanguage() {
         return system.getSystemLanguage(this.baseURL);
     }
-    getSystemUptime() {
+    getSystemUpTime() {
         return system.getSystemUpTime(this.baseURL);
     }
     getSystemType() {
@@ -126,32 +126,37 @@ class UltimakerClient {
         return system.putSystemDisplayMessage(this.baseURL, message, buttonCaption);
     }
     // ###
+    // Printer
+    // ###
     getPrinterStatus() {
-        return (0, printer_1.getPrinterStatus)(this.baseURL);
+        return printer.getPrinterStatus(this.baseURL);
     }
     postPrinterBlink(frequency, count) {
-        return (0, printer_1.postPrinterBlink)(this.baseURL, frequency, count);
-    }
-    postJob(jobname, gcode) {
-        return (0, job_1.postJob)(this.baseURL, jobname, gcode);
+        return printer.postPrinterBlink(this.baseURL, frequency, count);
     }
     putPrinterLED(color) {
-        return (0, printer_1.putPrinterLED)(this.baseURL, color);
+        return printer.putPrinterLED(this.baseURL, color);
+    }
+    // ###
+    // Job
+    // ###
+    postJob(jobname, gcode) {
+        return job.postJob(this.baseURL, jobname, gcode);
     }
     putJob(target) {
-        return (0, job_1.putJob)(this.baseURL, target);
+        return job.putJob(this.baseURL, target);
     }
     getJob() {
-        return (0, job_1.getJob)(this.baseURL);
+        return job.getJob(this.baseURL);
     }
     getJobProgress() {
-        return (0, job_1.getJobProgress)(this.baseURL);
+        return job.getJobProgress(this.baseURL);
     }
     getJobTimeTotal() {
-        return (0, job_1.getJobTimeTotal)(this.baseURL);
+        return job.getJobTimeTotal(this.baseURL);
     }
     getJobTimeElapsed() {
-        return (0, job_1.getJobTimeElapsed)(this.baseURL);
+        return job.getJobTimeElapsed(this.baseURL);
     }
 }
 exports.UltimakerClient = UltimakerClient;

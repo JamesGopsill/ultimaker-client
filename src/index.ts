@@ -1,6 +1,6 @@
 import isIp from "is-ip"
-import { postJob, putJob, UltimakerJobTargetState, getJob, getJobProgress, getJobTimeTotal, getJobTimeElapsed } from "./job"
-import { getPrinterStatus, postPrinterBlink, putPrinterLED } from "./printer"
+import * as job from "./job"
+import * as printer from "./printer"
 import * as system from "./system"
 
 export * from "./printer"
@@ -18,7 +18,7 @@ export class UltimakerClient {
 	public readonly ip: string
 	public readonly baseURL: string
 
-	/** Checks if the IP address is a valid format before creating an instance of the client.  */
+	/** Checks if the IP address is a valid format before creating an instance of the client. */
 	constructor(ip: string) {
 		if (!isIp.v4(ip)) {
 			throw new TypeError("[UltimakerClient] Invalid IP address")
@@ -103,7 +103,7 @@ export class UltimakerClient {
 		return system.getSystemLanguage(this.baseURL)
 	}
 
-	public getSystemUptime() {
+	public getSystemUpTime() {
 		return system.getSystemUpTime(this.baseURL)
 	}
 
@@ -132,17 +132,15 @@ export class UltimakerClient {
 	}
 
 	// ###
+	// Printer
+	// ###
 
 	public getPrinterStatus() {
-		return getPrinterStatus(this.baseURL)
+		return printer.getPrinterStatus(this.baseURL)
 	}
 
 	public postPrinterBlink(frequency: number, count: number) {
-		return postPrinterBlink(this.baseURL, frequency, count)
-	}
-
-	public postJob(jobname: string, gcode: string) {
-		return postJob(this.baseURL, jobname, gcode)
+		return printer.postPrinterBlink(this.baseURL, frequency, count)
 	}
 
 	public putPrinterLED(color: {
@@ -150,28 +148,35 @@ export class UltimakerClient {
 		saturation: number
 		brightness: number
 	}) {
-		return putPrinterLED(this.baseURL, color)
+		return printer.putPrinterLED(this.baseURL, color)
 	}
 
-	public putJob(target: UltimakerJobTargetState) {
-		return putJob(this.baseURL, target)
+	// ###
+	// Job
+	// ###
+
+	public postJob(jobname: string, gcode: string) {
+		return job.postJob(this.baseURL, jobname, gcode)
 	}
 
+	public putJob(target: job.UltimakerJobTargetState) {
+		return job.putJob(this.baseURL, target)
+	}
 
 	public getJob() {
-		return getJob(this.baseURL)
+		return job.getJob(this.baseURL)
 	}
 
 	public getJobProgress() {
-		return getJobProgress(this.baseURL)
+		return job.getJobProgress(this.baseURL)
 	}
 
 	public getJobTimeTotal() {
-		return getJobTimeTotal(this.baseURL)
+		return job.getJobTimeTotal(this.baseURL)
 	}
 
 	public getJobTimeElapsed() {
-		return getJobTimeElapsed(this.baseURL)
+		return job.getJobTimeElapsed(this.baseURL)
 	}
 
 }
