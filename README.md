@@ -84,7 +84,7 @@ You can restart the Ultimaker API using `systemctl restart griffin.interface.htt
 
 ## Connecting to the printer with the client
 
-To install the package, use the following code. I will look to put it onto npm soon.
+To install the package, use the following code. I will look to putting up on npm soon.
 
 ```
 yarn add https://github.com/JamesGopsill/ultimaker-client
@@ -100,13 +100,11 @@ const client = new UltimakerClient("000.000.000.000")
 
 // Retrieve the name of your printer.
 try {
-	const name = await client.getName()
+	const name = await client.getSystemName()
+	console.log(name)
 } catch (res) { // Promise reject will return the response that resulted in the error.
 	console.log(res)
 }
-
-// Print it to the console.
-console.log(name)
 ```
 
 ## Docs
