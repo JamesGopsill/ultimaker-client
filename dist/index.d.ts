@@ -3,6 +3,7 @@ import * as system from "./system";
 export * from "./printer";
 export * from "./job";
 export * from "./system";
+export * from "./materials";
 /**
  * Create the client to interface with the Ultimaker API.
  *
@@ -69,6 +70,10 @@ export declare class UltimakerClient {
     getSystemHardwareTypeId(): Promise<number>;
     getSystemHardwareRevision(): Promise<number>;
     putSystemDisplayMessage(message: string, buttonCaption: string): Promise<Boolean>;
+    getMaterials(): Promise<string[]>;
+    getMaterial(materialGUID: string): Promise<string>;
+    deleteMaterial(materialGUID: string): Promise<Boolean>;
+    putMaterial(materialGUID: string): Promise<Boolean>;
     getPrinterStatus(): Promise<string>;
     postPrinterBlink(frequency: number, count: number): Promise<Boolean>;
     putPrinterLED(color: {
@@ -89,13 +94,19 @@ export declare class UltimakerClient {
         datetime_cleaned: string;
         source: string;
         source_user: string;
+        /**
+         * Create the client to interface with the Ultimaker API.
+         *
+         * @param ip The IP address for the printer on your local network.
+         * @returns An instance of UltimakerClient
+         */
         source_application: string;
         name: string;
         uuid: string;
         reprint_original_uuid: string;
         progress: number;
         state: string;
-        result: string; /** The ip address of Ultimaker printer */
+        result: string;
     }>;
     getJobProgress(): Promise<number>;
     getJobTimeTotal(): Promise<number>;

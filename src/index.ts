@@ -2,10 +2,12 @@ import isIp from "is-ip"
 import * as job from "./job"
 import * as printer from "./printer"
 import * as system from "./system"
+import * as materials from "./materials"
 
 export * from "./printer"
 export * from "./job"
 export * from "./system"
+export * from "./materials"
 
 /**
  * Create the client to interface with the Ultimaker API.
@@ -129,6 +131,26 @@ export class UltimakerClient {
 
 	public putSystemDisplayMessage(message: string, buttonCaption: string) {
 		return system.putSystemDisplayMessage(this.baseURL, message, buttonCaption)
+	}
+
+	// ###
+	// Materials
+	// ###
+
+	public getMaterials() {
+		return materials.getMaterials(this.baseURL)
+	}
+
+	public getMaterial(materialGUID: string) {
+		return materials.getMaterial(this.baseURL, materialGUID)
+	}
+
+	public deleteMaterial(materialGUID: string) {
+		return materials.deleteMaterial(this.baseURL, materialGUID)
+	}
+
+	public putMaterial(materialGUID: string) {
+		return materials.putMaterial(this.baseURL, materialGUID)
 	}
 
 	// ###

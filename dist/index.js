@@ -30,9 +30,11 @@ const is_ip_1 = __importDefault(require("is-ip"));
 const job = __importStar(require("./job"));
 const printer = __importStar(require("./printer"));
 const system = __importStar(require("./system"));
+const materials = __importStar(require("./materials"));
 __exportStar(require("./printer"), exports);
 __exportStar(require("./job"), exports);
 __exportStar(require("./system"), exports);
+__exportStar(require("./materials"), exports);
 /**
  * Create the client to interface with the Ultimaker API.
  *
@@ -124,6 +126,21 @@ class UltimakerClient {
     }
     putSystemDisplayMessage(message, buttonCaption) {
         return system.putSystemDisplayMessage(this.baseURL, message, buttonCaption);
+    }
+    // ###
+    // Materials
+    // ###
+    getMaterials() {
+        return materials.getMaterials(this.baseURL);
+    }
+    getMaterial(materialGUID) {
+        return materials.getMaterial(this.baseURL, materialGUID);
+    }
+    deleteMaterial(materialGUID) {
+        return materials.deleteMaterial(this.baseURL, materialGUID);
+    }
+    putMaterial(materialGUID) {
+        return materials.putMaterial(this.baseURL, materialGUID);
     }
     // ###
     // Printer
