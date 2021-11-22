@@ -1,0 +1,55 @@
+import { UltimakerJobTargetState } from "./job";
+export * from "./printer";
+export * from "./job";
+export * from "./system";
+/**
+ * Create the client to interface with the Ultimaker API.
+ *
+ * @param ip The IP address for the printer on your local network.
+ * @returns An instance of UltimakerClient
+ */
+export declare class UltimakerClient {
+    /** The ip address of Ultimaker printer */
+    readonly ip: string;
+    readonly baseURL: string;
+    /** Checks if the IP address is a valid format before creating an instance of the client.  */
+    constructor(ip: string);
+    getSystemName(): Promise<string>;
+    getPrinterStatus(): Promise<string>;
+    postPrinterBlink(frequency: number, count: number): Promise<Boolean>;
+    postJob(jobname: string, gcode: string): Promise<{
+        message: string;
+        uuid: string;
+    }>;
+    putPrinterLED(color: {
+        hue: number;
+        saturation: number;
+        brightness: number;
+    }): Promise<Boolean>;
+    putJob(target: UltimakerJobTargetState): Promise<Boolean>;
+    getJob(): Promise<{
+        time_elapsed: number;
+        time_total: number;
+        datetime_started: string;
+        datetime_finished: string;
+        datetime_cleaned: string;
+        source: string;
+        source_user: string;
+        source_application: string;
+        name: string;
+        uuid: string;
+        reprint_original_uuid: string; /**
+         * Create the client to interface with the Ultimaker API.
+         *
+         * @param ip The IP address for the printer on your local network.
+         * @returns An instance of UltimakerClient
+         */
+        progress: number;
+        state: string;
+        result: string;
+    }>;
+    getSystemGUID(): Promise<string>;
+    getJobProgress(): Promise<number>;
+    getJobTimeTotal(): Promise<number>;
+    getJobTimeElapsed(): Promise<number>;
+}

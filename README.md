@@ -84,12 +84,10 @@ You can restart the Ultimaker API using `systemctl restart griffin.interface.htt
 
 ## Connecting to the printer with the client
 
-To install the package, simply use the following command depending on whether you're using `npm` or `yarn` as your package manager.
+To install the package, use the following code. I will look to put it onto npm soon.
 
 ```
-npm install 
-// or
-yarn add ultimaker-client
+yarn add https://github.com/JamesGopsill/ultimaker-client
 ```
 
 You can then use in your code via by importing
