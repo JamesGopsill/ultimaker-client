@@ -2,19 +2,33 @@
 <a href="#a-typescript-client-for-the-ultimaker-api" id="a-typescript-client-for-the-ultimaker-api" style="color: inherit; text-decoration: none;">
   <h1>A Typescript client for the Ultimaker API</h1>
 </a>
-<p><strong>Warning:</strong> This has been developed to be used for R&amp;D purposes only and currently requires one to disable the authentication on the Ultimaker as well as add CORS if one wishes to use the client within a webapp. Therefore, we stringy recommend using this on a closed local network to avoid people being able to access and send jobs to your printer.</p>
+<p>The client has been developed as part of a research programme investigating agent-based manufacturing systems. It currently requires one to disable the authentication on the Ultimaker as well as add CORS if one wishes to use the client within a webapp. Therefore, we strongly recommend using this on a closed local network to avoid people being able to access and send jobs to your printer!</p>
 <p>We are looking at implementing digest authentication in the future but primary objective for now is to provide the functionality required for our agent-based manufacturing research program.</p>
-<p>It is also an <strong>unofficial</strong> open-source client for connecting to your Ultimaker. It is being designed to be isomorphic so it should run both in Node.js and in the Browser.</p>
+<p>It is also an <strong>unofficial</strong> open-source client for connecting to your Ultimaker. It is isomorphic and able to both in Node.js and the Browser.</p>
+
+<a href="#contents" id="contents" style="color: inherit; text-decoration: none;">
+  <h2>Contents</h2>
+</a>
+<ul>
+<li><a href="#configuring-the-ultimaker">Configuring the Ultimaker</a></li>
+<li><a href="#using-ultimaker-client">Using ultimaker-client</a></li>
+<li><a href="#docs">Docs</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#roadmap">Roadmap</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#support-the-project">Support the Project</a></li>
+<li><a href="#references">References</a></li>
+</ul>
 
 <a href="#configuring-the-ultimaker" id="configuring-the-ultimaker" style="color: inherit; text-decoration: none;">
   <h2>Configuring the Ultimaker</h2>
 </a>
 <p>To make use of this client, you will need to disable authentication and enable cors on the Ultimaker API.</p>
 <p>To start, you will need to enable developer mode on your Ultimaker, which can be achieved through the settings menu on the printer. The screen will display that you&#39;re in developer mode and provide the local IP address of the printer.</p>
-<p><img src="figs/dev-mode.jpeg" alt="Ultimaker Developer Mode"></p>
+<p><img src="https://raw.githubusercontent.com/JamesGopsill/ultimaker-client/main/figs/dev-mode.jpeg" alt="Ultimaker in Developer Mode"></p>
 <p>Now you need to <code>ssh</code> into your printer from your machine. The default user and password are <code>root</code> and <code>ultimaker</code>. After successfully connecting to the printer, you should see your terminal look a bit like this:</p>
-<p><img src="figs/terminal.png" alt="SSH Ultimaker Terminal"></p>
-<p>You will want to modify the following file <code>/usr/share/griffin/griffin/interface/http/server.py</code> with the following content. I would recommend copying the file using <code>scp</code>:</p>
+<p><img src="https://raw.githubusercontent.com/JamesGopsill/ultimaker-client/main/figs/terminal.png" alt="SSH Ultimaker Terminal"></p>
+<p>You will want to modify <code>/usr/share/griffin/griffin/interface/http/server.py</code> with the following content. I would recommend copying the file using <code>scp</code>:</p>
 <pre><code><span class="hl-2">scp</span><span class="hl-1"> </span><span class="hl-2">root</span><span class="hl-1">@[</span><span class="hl-5">ULTIMAKER_IP_ADDRESS</span><span class="hl-1">]:/</span><span class="hl-2">usr</span><span class="hl-1">/</span><span class="hl-2">share</span><span class="hl-1">/</span><span class="hl-2">griffin</span><span class="hl-1">/</span><span class="hl-2">griffin</span><span class="hl-1">/</span><span class="hl-2">interface</span><span class="hl-1">/</span><span class="hl-2">http</span><span class="hl-1">/</span><span class="hl-2">server</span><span class="hl-1">.</span><span class="hl-2">py</span><span class="hl-1"> ./</span><span class="hl-2">server</span><span class="hl-1">.</span><span class="hl-2">py</span>
 </code></pre>
 <p>Make a backup and then edit <code>server.py</code> using your favourite code editor with the following:</p>
@@ -32,8 +46,8 @@
 </code></pre>
 <p>You can restart the Ultimaker API using <code>systemctl restart griffin.interface.http</code> or simply restarting the machine.</p>
 
-<a href="#connecting-to-the-printer-with-the-client" id="connecting-to-the-printer-with-the-client" style="color: inherit; text-decoration: none;">
-  <h2>Connecting to the printer with the client</h2>
+<a href="#using-ultimaker-client" id="using-ultimaker-client" style="color: inherit; text-decoration: none;">
+  <h2>Using ultimaker-client</h2>
 </a>
 <p>To install the package, use the following code. I will look to putting up on npm soon.</p>
 <pre><code><span class="hl-2">yarn</span><span class="hl-1"> </span><span class="hl-2">add</span><span class="hl-1"> </span><span class="hl-9">https</span><span class="hl-1">:</span><span class="hl-7">//github.com/JamesGopsill/ultimaker-client</span>
@@ -50,7 +64,10 @@
 <a href="#testing" id="testing" style="color: inherit; text-decoration: none;">
   <h2>Testing</h2>
 </a>
-<p>Testing is performed using jest. We use a range of Ultimakers in the lab and are currently testing with printers using version 6.40 Ultimaker firmware.</p>
+<p>Testing uses jest. We use a range of Ultimakers in the lab and are currently testing with printers using version 6.40 Ultimaker firmware.</p>
+<p>To test the functionality, make sure you have an Ultimaker on the network and create a <code>test.config.ts</code> file in the test directory (This is ignore by git via .gitignore). Then add the following export to make sure the tests know the ip address of the printer.</p>
+<pre><code><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">ip</span><span class="hl-1"> = </span><span class="hl-3">&quot;123.456.789.101&quot;</span>
+</code></pre>
 
 <a href="#roadmap" id="roadmap" style="color: inherit; text-decoration: none;">
   <h2>Roadmap</h2>
@@ -109,31 +126,25 @@
 </tr>
 </tbody></table>
 
-<a href="#contributors" id="contributors" style="color: inherit; text-decoration: none;">
-  <h2>Contributors</h2>
+<a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
+  <h2>Contributing</h2>
 </a>
 <p>We would love to have additional contributors to the project to help us maintain and add functionality to the project.</p>
 
-<a href="#testing-1" id="testing-1" style="color: inherit; text-decoration: none;">
-  <h2>Testing</h2>
+<a href="#support-the-project" id="support-the-project" style="color: inherit; text-decoration: none;">
+  <h2>Support the Project</h2>
 </a>
-<p>To test the functionality, make sure you have an Ultimaker on the network and create a <code>test.config.ts</code> file in the test directory (This is ignore by git via .gitignore). Then add the following export to make sure the tests know the ip address of the printer.</p>
-<pre><code><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">ip</span><span class="hl-1"> = </span><span class="hl-3">&quot;123.456.789.101&quot;</span>
-</code></pre>
-
-<a href="#support" id="support" style="color: inherit; text-decoration: none;">
-  <h2>Support</h2>
-</a>
-<p>The project has been supported by the <a href="https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/V05113X/1">EPSRC-funded Brokering Additive Manufacturing project (EP/V05113X/1)</a>. Mor details on the project can be found at the <a href="https://dmf-lab.co.uk/">Design Manufacturing Futures Lab</a> website.</p>
+<p>The project has been supported by the <a href="https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/V05113X/1">EPSRC-funded Brokering Additive Manufacturing project (EP/V05113X/1)</a>. More details on the project can be found at the <a href="https://dmf-lab.co.uk/">Design Manufacturing Futures Lab</a> website.</p>
 <p>To donate and provide continued support, please go to <strong>[TODO: Setup]</strong>.</p>
 
 <a href="#references" id="references" style="color: inherit; text-decoration: none;">
   <h2>References</h2>
 </a>
 <ul>
+<li><a href="https://dmf-lab.co.uk/brokering-additive-manufacturing/">Brokering Additive Manufacturing</a></li>
 <li><a href="https://community.ultimaker.com/topic/17964-um3-api-and-cors/">Ultimaker API and enabling CORS</a></li>
 <li><a href="https://community.ultimaker.com/topic/18509-manual-control-for-ultimaker-3-over-the-lan-or-wifi/">Manual Control Ultimaker (SSH and Developer Mode)</a></li>
 <li><a href="https://community.ultimaker.com/topic/15604-inside-the-ultimaker-3-day-3-remote-access-part-2/">More Ultimaker remote access stuff</a></li>
 <li><a href="https://tanutaran.medium.com/solving-git-lf-will-be-replaced-by-crlf-7ca84eb0aad4">Git autocrlf</a></li>
 </ul>
-</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-enum"><a href="enums/UltimakerJobTargetState.html" class="tsd-kind-icon">Ultimaker<wbr/>Job<wbr/>Target<wbr/>State</a></li><li class="tsd-kind-class"><a href="classes/UltimakerClient.html" class="tsd-kind-icon">Ultimaker<wbr/>Client</a></li><li class="tsd-kind-variable"><a href="modules.html#UltimakerLEDColors" class="tsd-kind-icon">UltimakerLEDColors</a></li><li class="tsd-kind-function"><a href="modules.html#getJob" class="tsd-kind-icon">get<wbr/>Job</a></li><li class="tsd-kind-function"><a href="modules.html#getJobProgress" class="tsd-kind-icon">get<wbr/>Job<wbr/>Progress</a></li><li class="tsd-kind-function"><a href="modules.html#getJobTimeElapsed" class="tsd-kind-icon">get<wbr/>Job<wbr/>Time<wbr/>Elapsed</a></li><li class="tsd-kind-function"><a href="modules.html#getJobTimeTotal" class="tsd-kind-icon">get<wbr/>Job<wbr/>Time<wbr/>Total</a></li><li class="tsd-kind-function"><a href="modules.html#getPrinterStatus" class="tsd-kind-icon">get<wbr/>Printer<wbr/>Status</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemGUID" class="tsd-kind-icon">get<wbr/>SystemGUID</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemName" class="tsd-kind-icon">get<wbr/>System<wbr/>Name</a></li><li class="tsd-kind-function"><a href="modules.html#postJob" class="tsd-kind-icon">post<wbr/>Job</a></li><li class="tsd-kind-function"><a href="modules.html#postPrinterBlink" class="tsd-kind-icon">post<wbr/>Printer<wbr/>Blink</a></li><li class="tsd-kind-function"><a href="modules.html#putJob" class="tsd-kind-icon">put<wbr/>Job</a></li><li class="tsd-kind-function"><a href="modules.html#putPrinterLED" class="tsd-kind-icon">put<wbr/>PrinterLED</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-enum"><a href="enums/UltimakerJobTargetState.html" class="tsd-kind-icon">Ultimaker<wbr/>Job<wbr/>Target<wbr/>State</a></li><li class="tsd-kind-enum"><a href="enums/UltimakerSystemUpdateType.html" class="tsd-kind-icon">Ultimaker<wbr/>System<wbr/>Update<wbr/>Type</a></li><li class="tsd-kind-class"><a href="classes/UltimakerClient.html" class="tsd-kind-icon">Ultimaker<wbr/>Client</a></li><li class="tsd-kind-variable"><a href="modules.html#UltimakerLEDColors" class="tsd-kind-icon">UltimakerLEDColors</a></li><li class="tsd-kind-function"><a href="modules.html#getJob" class="tsd-kind-icon">get<wbr/>Job</a></li><li class="tsd-kind-function"><a href="modules.html#getJobProgress" class="tsd-kind-icon">get<wbr/>Job<wbr/>Progress</a></li><li class="tsd-kind-function"><a href="modules.html#getJobTimeElapsed" class="tsd-kind-icon">get<wbr/>Job<wbr/>Time<wbr/>Elapsed</a></li><li class="tsd-kind-function"><a href="modules.html#getJobTimeTotal" class="tsd-kind-icon">get<wbr/>Job<wbr/>Time<wbr/>Total</a></li><li class="tsd-kind-function"><a href="modules.html#getPrinterStatus" class="tsd-kind-icon">get<wbr/>Printer<wbr/>Status</a></li><li class="tsd-kind-function"><a href="modules.html#getSystem" class="tsd-kind-icon">get<wbr/>System</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemCountry" class="tsd-kind-icon">get<wbr/>System<wbr/>Country</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemFirmware" class="tsd-kind-icon">get<wbr/>System<wbr/>Firmware</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemFirmwareStable" class="tsd-kind-icon">get<wbr/>System<wbr/>Firmware<wbr/>Stable</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemFirmwareStatus" class="tsd-kind-icon">get<wbr/>System<wbr/>Firmware<wbr/>Status</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemFirmwareTesting" class="tsd-kind-icon">get<wbr/>System<wbr/>Firmware<wbr/>Testing</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemGUID" class="tsd-kind-icon">get<wbr/>SystemGUID</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemHardware" class="tsd-kind-icon">get<wbr/>System<wbr/>Hardware</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemHardwareRevision" class="tsd-kind-icon">get<wbr/>System<wbr/>Hardware<wbr/>Revision</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemHardwareTypeId" class="tsd-kind-icon">get<wbr/>System<wbr/>Hardware<wbr/>Type<wbr/>Id</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemHostname" class="tsd-kind-icon">get<wbr/>System<wbr/>Hostname</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemLanguage" class="tsd-kind-icon">get<wbr/>System<wbr/>Language</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemLog" class="tsd-kind-icon">get<wbr/>System<wbr/>Log</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemMemory" class="tsd-kind-icon">get<wbr/>System<wbr/>Memory</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemName" class="tsd-kind-icon">get<wbr/>System<wbr/>Name</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemPlatform" class="tsd-kind-icon">get<wbr/>System<wbr/>Platform</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemTime" class="tsd-kind-icon">get<wbr/>System<wbr/>Time</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemType" class="tsd-kind-icon">get<wbr/>System<wbr/>Type</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemUpTime" class="tsd-kind-icon">get<wbr/>System<wbr/>Up<wbr/>Time</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemVariant" class="tsd-kind-icon">get<wbr/>System<wbr/>Variant</a></li><li class="tsd-kind-function"><a href="modules.html#postJob" class="tsd-kind-icon">post<wbr/>Job</a></li><li class="tsd-kind-function"><a href="modules.html#postPrinterBlink" class="tsd-kind-icon">post<wbr/>Printer<wbr/>Blink</a></li><li class="tsd-kind-function"><a href="modules.html#putJob" class="tsd-kind-icon">put<wbr/>Job</a></li><li class="tsd-kind-function"><a href="modules.html#putPrinterLED" class="tsd-kind-icon">put<wbr/>PrinterLED</a></li><li class="tsd-kind-function"><a href="modules.html#putSystemCountry" class="tsd-kind-icon">put<wbr/>System<wbr/>Country</a></li><li class="tsd-kind-function"><a href="modules.html#putSystemDisplayMessage" class="tsd-kind-icon">put<wbr/>System<wbr/>Display<wbr/>Message</a></li><li class="tsd-kind-function"><a href="modules.html#putSystemFirmware" class="tsd-kind-icon">put<wbr/>System<wbr/>Firmware</a></li><li class="tsd-kind-function"><a href="modules.html#putSystemName" class="tsd-kind-icon">put<wbr/>System<wbr/>Name</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

@@ -27,6 +27,7 @@
     "test:no-printer": "jest tests/instantiation.test.ts",
     "test:all": "jest --runInBand",
     "test:job": "jest --runInBand tests/job.test.ts",
+    "test:system": "jest --runInBand tests/system.test.ts",
     "build": "tsc",
     "docs": "typedoc",
     "format": "prettier --write src/**/* && prettier --write tests/**/*",
