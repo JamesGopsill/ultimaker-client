@@ -1,7 +1,7 @@
 import isIp from "is-ip"
-import { postJob } from "./job"
-import { getPrinterStatus, postBlink, putLEDColor } from "./printer"
-import { getName } from "./system"
+import { postJob, putJob, UltimakerJobTargetState, getJob, getJobProgress, getJobTimeTotal, getJobTimeElapsed } from "./job"
+import { getPrinterStatus, postPrinterBlink, putPrinterLED } from "./printer"
+import { getSystemName, getSystemGUID } from "./system"
 
 export * from "./printer"
 export * from "./job"
@@ -24,7 +24,7 @@ export class UltimakerClient {
 			throw new TypeError("[UltimakerClient] Invalid IP address")
 		}
 
-		// TODO: Ping the IP and see if we get a response from the Ultimaker.
+		// TODO: Check if we can get a response from the Ultimaker.
 
 		this.ip = ip
 		this.baseURL = "http://" + this.ip
@@ -32,58 +32,53 @@ export class UltimakerClient {
 
 	// Methods
 
-	/**
-	 * Retrieves the name of the Ultimaker Printer.
-	 *
-	 * @returns The name of the printer or rejects with an error containing the http response for further analysis.
-	 */
-	public getName() {
-		return getName(this.baseURL)
+	public getSystemName() {
+		return getSystemName(this.baseURL)
 	}
 
-	/**
-	 * Retrieves the status of the printer.
-	 *
-	 * @returns Returns the status of the printer or rejects with an error containing the http response for further analysis.
-	 */
 	public getPrinterStatus() {
 		return getPrinterStatus(this.baseURL)
 	}
 
-	/**
-	 * Blinks the Ultimaker LEDs.
-	 *
-	 * @param frequency The frequency of the blink.
-	 * @param count The number of times the LEDs will blink.
-	 * @returns
- 	 */
-	public postBlink(frequency: number, count: number) {
-		return postBlink(this.baseURL, frequency, count)
+	public postPrinterBlink(frequency: number, count: number) {
+		return postPrinterBlink(this.baseURL, frequency, count)
 	}
 
-	/**
-	 * Submit a job to the printer.
-	 *
-	 * @param jobname Provide a name for the job.
-	 * @param gcode Provide the gcode.
-	 * @returns
-	 */
 	public postJob(jobname: string, gcode: string) {
 		return postJob(this.baseURL, jobname, gcode)
 	}
 
-	/**
-	 * Set the LED color of the printer
-	 *
-	 * @param color The color you wish to set the Ultimaker to (in HSV).
-	 * @returns
-	 */
-	public putLEDColor(color: {
+	public putPrinterLED(color: {
 		hue: number
 		saturation: number
 		brightness: number
 	}) {
-		return putLEDColor(this.baseURL, color)
+		return putPrinterLED(this.baseURL, color)
+	}
+
+	public putJob(target: UltimakerJobTargetState) {
+		return putJob(this.baseURL, target)
+	}
+
+
+	public getJob() {
+		return getJob(this.baseURL)
+	}
+
+	public getSystemGUID() {
+		return getSystemGUID(this.baseURL)
+	}
+
+	public getJobProgress() {
+		return getJobProgress(this.baseURL)
+	}
+
+	public getJobTimeTotal() {
+		return getJobTimeTotal(this.baseURL)
+	}
+
+	public getJobTimeElapsed() {
+		return getJobTimeElapsed(this.baseURL)
 	}
 
 }

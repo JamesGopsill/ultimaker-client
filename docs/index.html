@@ -4,27 +4,33 @@
 </a>
 <p><strong>Warning:</strong> This has been developed to be used for R&amp;D purposes only and currently requires one to disable the authentication on the Ultimaker as well as add CORS if one wishes to use the client within a webapp. Therefore, we stringy recommend using this on a closed local network to avoid people being able to access and send jobs to your printer.</p>
 <p>We are looking at implementing digest authentication in the future but primary objective for now is to provide the functionality required for our agent-based manufacturing research program.</p>
-<p>It is also an <strong>unofficial</strong> open-source client for connecting to your Ultimaker.</p>
+<p>It is also an <strong>unofficial</strong> open-source client for connecting to your Ultimaker. It is being designed to be isomorphic so it should run both in Node.js and in the Browser.</p>
 
 <a href="#configuring-the-ultimaker" id="configuring-the-ultimaker" style="color: inherit; text-decoration: none;">
   <h2>Configuring the Ultimaker</h2>
 </a>
 <p>To make use of this client, you will need to disable authentication and enable cors on the Ultimaker API.</p>
 <p>To start, you will need to enable developer mode on your Ultimaker, which can be achieved through the settings menu on the printer. The screen will display that you&#39;re in developer mode and provide the local IP address of the printer.</p>
-<p><strong>[TODO: add image]</strong></p>
-<p>Now you need to <code>ssh</code> into your printer from your machine. The default user and password are <strong>XX</strong> and <strong>YY</strong>. After successfully connecting to the printer, you should see your terminal look a bit like this:</p>
-<p><strong>[TODO: add terminal content and check that you can nano into a file, otherwise detail out how to scp the file out, edit and copy back in.]</strong></p>
-<p>You will want to modify the following file <code>/usr/share/griffin/griffin/interface/http/server.py</code> with the following content.</p>
+<p><img src="figs/dev-mode.jpeg" alt="Ultimaker Developer Mode"></p>
+<p>Now you need to <code>ssh</code> into your printer from your machine. The default user and password are <code>root</code> and <code>ultimaker</code>. After successfully connecting to the printer, you should see your terminal look a bit like this:</p>
+<p><img src="figs/terminal.png" alt="SSH Ultimaker Terminal"></p>
+<p>You will want to modify the following file <code>/usr/share/griffin/griffin/interface/http/server.py</code> with the following content. I would recommend copying the file using <code>scp</code>:</p>
+<pre><code><span class="hl-2">scp</span><span class="hl-1"> </span><span class="hl-2">root</span><span class="hl-1">@[</span><span class="hl-5">ULTIMAKER_IP_ADDRESS</span><span class="hl-1">]:/</span><span class="hl-2">usr</span><span class="hl-1">/</span><span class="hl-2">share</span><span class="hl-1">/</span><span class="hl-2">griffin</span><span class="hl-1">/</span><span class="hl-2">griffin</span><span class="hl-1">/</span><span class="hl-2">interface</span><span class="hl-1">/</span><span class="hl-2">http</span><span class="hl-1">/</span><span class="hl-2">server</span><span class="hl-1">.</span><span class="hl-2">py</span><span class="hl-1"> ./</span><span class="hl-2">server</span><span class="hl-1">.</span><span class="hl-2">py</span>
+</code></pre>
+<p>Make a backup and then edit <code>server.py</code> using your favourite code editor with the following:</p>
 <pre><code class="language-python"><span class="hl-7"># [...find this bit in the file]</span><br/><br/><span class="hl-4">def</span><span class="hl-1"> </span><span class="hl-6">__init__</span><span class="hl-1">(</span><span class="hl-2">self</span><span class="hl-1">, </span><span class="hl-2">import_name</span><span class="hl-1">, **</span><span class="hl-2">kwargs</span><span class="hl-1">):</span><br/><span class="hl-1">    </span><span class="hl-0">if</span><span class="hl-1"> Server._instance </span><span class="hl-4">is</span><span class="hl-1"> </span><span class="hl-4">not</span><span class="hl-1"> </span><span class="hl-4">None</span><span class="hl-1">:</span><br/><span class="hl-1">        </span><span class="hl-0">raise</span><span class="hl-1"> </span><span class="hl-8">ValueError</span><span class="hl-1">(</span><span class="hl-3">&quot;Duplicate singleton creation&quot;</span><span class="hl-1">)</span><br/><br/><span class="hl-1">    </span><span class="hl-7"># If the constructor is called and there is no instance, set the instance to self.</span><br/><span class="hl-1">    </span><span class="hl-7"># This is done because we can&#39;t make constructor private</span><br/><span class="hl-1">    Server._instance = </span><span class="hl-4">self</span><br/><br/><span class="hl-1">    </span><span class="hl-7"># Create the authentication container, this keeps track of sessions and authenticated users.</span><br/><span class="hl-1">    </span><span class="hl-4">self</span><span class="hl-1">._authentication = AuthenticationController()</span><br/><br/><span class="hl-1">    </span><span class="hl-7"># [!! add the line below to disable authentication !!]</span><br/><span class="hl-1">    </span><span class="hl-4">self</span><span class="hl-1">._authentication.disableAuthentication()</span><br/><br/><span class="hl-1">    </span><span class="hl-7"># [file continues...]</span>
 </code></pre>
 <p>Scroll down in the file and add this line to the end of the <code>__init__</code> function.</p>
 <pre><code class="language-python"><span class="hl-7"># [...find this bit in the file]</span><br/><span class="hl-7"># Disable the default werkzeug logger, this logs all http requests, which spams the logs</span><br/><span class="hl-1">logging.getLogger(</span><span class="hl-3">&#39;werkzeug&#39;</span><span class="hl-1">).disabled = </span><span class="hl-4">True</span><br/><br/><span class="hl-7"># [!! add the line below to add CORS support !!]</span><br/><span class="hl-4">self</span><span class="hl-1">.after_request(Server.allow_cors)</span><br/><span class="hl-7"># [file continues...]</span>
 </code></pre>
 <p>And at the end of the class, add the <code>allow_cors</code> function.</p>
-<pre><code class="language-python"><span class="hl-1">    </span><span class="hl-7"># [...at the bottom of the class add this method to provide open access via CORS]</span><br/><span class="hl-1">    </span><span class="hl-6">@</span><span class="hl-8">staticmethod</span><br/><span class="hl-1">    </span><span class="hl-4">def</span><span class="hl-1"> </span><span class="hl-6">allow_cors</span><span class="hl-1">(</span><span class="hl-2">response</span><span class="hl-1">):</span><br/><span class="hl-1">        response.headers.add(</span><span class="hl-3">&#39;Access-Control-Allow-Origin&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;*&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">        response.headers.add(</span><span class="hl-3">&#39;Access-Control-Allow-Headers&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;Content-Type,Authorization&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">        response.headers.add(</span><span class="hl-3">&#39;Access-Control-Allow-Methods&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;GET,PUT,POST,DELETE,OPTIONS&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">        response.headers.add(</span><span class="hl-3">&#39;Access-Control-Allow-Credentials&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;true&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">        </span><span class="hl-0">return</span><span class="hl-1"> response </span>
+<pre><code class="language-python"><span class="hl-7"># [...at the bottom of the class add this method to provide open access via CORS]</span><br/><span class="hl-6">@</span><span class="hl-8">staticmethod</span><br/><span class="hl-4">def</span><span class="hl-1"> </span><span class="hl-6">allow_cors</span><span class="hl-1">(</span><span class="hl-2">response</span><span class="hl-1">):</span><br/><span class="hl-1">    response.headers.add(</span><span class="hl-3">&#39;Access-Control-Allow-Origin&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;*&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">    response.headers.add(</span><span class="hl-3">&#39;Access-Control-Allow-Headers&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;Content-Type,Authorization&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">    response.headers.add(</span><span class="hl-3">&#39;Access-Control-Allow-Methods&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;GET,PUT,POST,DELETE,OPTIONS&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">    response.headers.add(</span><span class="hl-3">&#39;Access-Control-Allow-Credentials&#39;</span><span class="hl-1">, </span><span class="hl-3">&#39;true&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">    </span><span class="hl-0">return</span><span class="hl-1"> response </span>
 </code></pre>
 <p>Make sure you make a copy of the original file just in case.</p>
-<p>With the edits made, you can restart the Ultimaker API using <code>systemctl restart griffin.interface.http</code> or simply restarting the machine.</p>
+<p>With the edits made, <code>scp</code> the file back to the printer.</p>
+<pre><code><span class="hl-2">scp</span><span class="hl-1"> ./</span><span class="hl-2">server</span><span class="hl-1">.</span><span class="hl-2">py</span><span class="hl-1"> </span><span class="hl-2">root</span><span class="hl-1">@[</span><span class="hl-5">ULTIMAKER_IP_ADDRESS</span><span class="hl-1">]:/</span><span class="hl-2">usr</span><span class="hl-1">/</span><span class="hl-2">share</span><span class="hl-1">/</span><span class="hl-2">griffin</span><span class="hl-1">/</span><span class="hl-2">griffin</span><span class="hl-1">/</span><span class="hl-2">interface</span><span class="hl-1">/</span><span class="hl-2">http</span><span class="hl-1">/</span><span class="hl-2">server</span><span class="hl-1">.</span><span class="hl-2">py</span>
+</code></pre>
+<p>You can restart the Ultimaker API using <code>systemctl restart griffin.interface.http</code> or simply restarting the machine.</p>
 
 <a href="#connecting-to-the-printer-with-the-client" id="connecting-to-the-printer-with-the-client" style="color: inherit; text-decoration: none;">
   <h2>Connecting to the printer with the client</h2>
@@ -33,7 +39,7 @@
 <pre><code><span class="hl-2">npm</span><span class="hl-1"> </span><span class="hl-2">install</span><span class="hl-1"> </span><br/><span class="hl-7">// or</span><br/><span class="hl-2">yarn</span><span class="hl-1"> </span><span class="hl-2">add</span><span class="hl-1"> </span><span class="hl-2">ultimaker</span><span class="hl-1">-</span><span class="hl-2">client</span>
 </code></pre>
 <p>You can then use in your code via by importing</p>
-<pre><code class="language-typescript"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">UltimakerClient</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;ultimaker-client&quot;</span><br/><br/><span class="hl-7">// Create a new client.</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">client</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">UltimakerClient</span><span class="hl-1">(</span><span class="hl-3">&quot;000.000.000.000&quot;</span><span class="hl-1">)</span><br/><br/><span class="hl-7">// Retrieve the name of your printer.</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">name</span><span class="hl-1"> = </span><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-6">getName</span><span class="hl-1">()</span><br/><br/><span class="hl-7">// Print it to the console.</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-2">name</span><span class="hl-1">)</span>
+<pre><code class="language-typescript"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">UltimakerClient</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&quot;ultimaker-client&quot;</span><br/><br/><span class="hl-7">// Create a new client.</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">client</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-6">UltimakerClient</span><span class="hl-1">(</span><span class="hl-3">&quot;000.000.000.000&quot;</span><span class="hl-1">)</span><br/><br/><span class="hl-7">// Retrieve the name of your printer.</span><br/><span class="hl-0">try</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">name</span><span class="hl-1"> = </span><span class="hl-0">await</span><span class="hl-1"> </span><span class="hl-2">client</span><span class="hl-1">.</span><span class="hl-6">getName</span><span class="hl-1">()</span><br/><span class="hl-1">} </span><span class="hl-0">catch</span><span class="hl-1"> (</span><span class="hl-2">res</span><span class="hl-1">) { </span><span class="hl-7">// Promise reject will return the response that resulted in the error.</span><br/><span class="hl-1">    </span><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-2">res</span><span class="hl-1">)</span><br/><span class="hl-1">}</span><br/><br/><span class="hl-7">// Print it to the console.</span><br/><span class="hl-2">console</span><span class="hl-1">.</span><span class="hl-6">log</span><span class="hl-1">(</span><span class="hl-2">name</span><span class="hl-1">)</span>
 </code></pre>
 
 <a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
@@ -44,7 +50,7 @@
 <a href="#testing" id="testing" style="color: inherit; text-decoration: none;">
   <h2>Testing</h2>
 </a>
-<p>Testing is performed using jest. We use a range of Ultimakers in the lab and are currently testing with printers using version X.XX Ultimaker firmware.</p>
+<p>Testing is performed using jest. We use a range of Ultimakers in the lab and are currently testing with printers using version 6.40 Ultimaker firmware.</p>
 
 <a href="#roadmap" id="roadmap" style="color: inherit; text-decoration: none;">
   <h2>Roadmap</h2>
@@ -59,19 +65,39 @@
 </thead>
 <tbody><tr>
 <td>0.1.0</td>
-<td>A smattering of API functions that we have needed to access/use in our research project.</td>
+<td>A smattering of API functions that we have needed to access/use in our research project. Client codebase set up with typescript and testing support.</td>
 </tr>
 <tr>
 <td>0.2.0</td>
-<td><code>/system</code> REST API functionality implemented.</td>
+<td><code>/system</code> implemented.</td>
 </tr>
 <tr>
 <td>0.3.0</td>
-<td><code>/printer</code> REST API functionality implemented.</td>
+<td><code>/materials</code> implemented.</td>
 </tr>
 <tr>
 <td>0.4.0</td>
-<td><code>/job</code> REST API functionality implemented.</td>
+<td><code>/network</code> implemented.</td>
+</tr>
+<tr>
+<td>0.5.0</td>
+<td><code>/history</code> implemented.</td>
+</tr>
+<tr>
+<td>0.6.0</td>
+<td><code>/printer</code> implemented.</td>
+</tr>
+<tr>
+<td>0.7.0</td>
+<td><code>/print_job</code> implemented.</td>
+</tr>
+<tr>
+<td>0.8.0</td>
+<td><code>/camera</code> implemented.</td>
+</tr>
+<tr>
+<td>0.9.0</td>
+<td><code>/airmanager</code> implemented.</td>
 </tr>
 <tr>
 <td>1.0.0</td>
@@ -79,7 +105,7 @@
 </tr>
 <tr>
 <td>1.1.0</td>
-<td>Digest authentication.</td>
+<td>Digest authentication. <code>/auth</code>.</td>
 </tr>
 </tbody></table>
 
@@ -87,6 +113,13 @@
   <h2>Contributors</h2>
 </a>
 <p>We would love to have additional contributors to the project to help us maintain and add functionality to the project.</p>
+
+<a href="#testing-1" id="testing-1" style="color: inherit; text-decoration: none;">
+  <h2>Testing</h2>
+</a>
+<p>To test the functionality, make sure you have an Ultimaker on the network and create a <code>test.config.ts</code> file in the test directory (This is ignore by git via .gitignore). Then add the following export to make sure the tests know the ip address of the printer.</p>
+<pre><code><span class="hl-0">export</span><span class="hl-1"> </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-5">ip</span><span class="hl-1"> = </span><span class="hl-3">&quot;123.456.789.101&quot;</span>
+</code></pre>
 
 <a href="#support" id="support" style="color: inherit; text-decoration: none;">
   <h2>Support</h2>
@@ -103,4 +136,4 @@
 <li><a href="https://community.ultimaker.com/topic/15604-inside-the-ultimaker-3-day-3-remote-access-part-2/">More Ultimaker remote access stuff</a></li>
 <li><a href="https://tanutaran.medium.com/solving-git-lf-will-be-replaced-by-crlf-7ca84eb0aad4">Git autocrlf</a></li>
 </ul>
-</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-class"><a href="classes/UltimakerClient.html" class="tsd-kind-icon">Ultimaker<wbr/>Client</a></li><li class="tsd-kind-variable"><a href="modules.html#UltimakerLEDColors" class="tsd-kind-icon">UltimakerLEDColors</a></li><li class="tsd-kind-function"><a href="modules.html#getName" class="tsd-kind-icon">get<wbr/>Name</a></li><li class="tsd-kind-function"><a href="modules.html#getPrinterStatus" class="tsd-kind-icon">get<wbr/>Printer<wbr/>Status</a></li><li class="tsd-kind-function"><a href="modules.html#postBlink" class="tsd-kind-icon">post<wbr/>Blink</a></li><li class="tsd-kind-function"><a href="modules.html#postJob" class="tsd-kind-icon">post<wbr/>Job</a></li><li class="tsd-kind-function"><a href="modules.html#putLEDColor" class="tsd-kind-icon">putLEDColor</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-enum"><a href="enums/UltimakerJobTargetState.html" class="tsd-kind-icon">Ultimaker<wbr/>Job<wbr/>Target<wbr/>State</a></li><li class="tsd-kind-class"><a href="classes/UltimakerClient.html" class="tsd-kind-icon">Ultimaker<wbr/>Client</a></li><li class="tsd-kind-variable"><a href="modules.html#UltimakerLEDColors" class="tsd-kind-icon">UltimakerLEDColors</a></li><li class="tsd-kind-function"><a href="modules.html#getJob" class="tsd-kind-icon">get<wbr/>Job</a></li><li class="tsd-kind-function"><a href="modules.html#getJobProgress" class="tsd-kind-icon">get<wbr/>Job<wbr/>Progress</a></li><li class="tsd-kind-function"><a href="modules.html#getJobTimeElapsed" class="tsd-kind-icon">get<wbr/>Job<wbr/>Time<wbr/>Elapsed</a></li><li class="tsd-kind-function"><a href="modules.html#getJobTimeTotal" class="tsd-kind-icon">get<wbr/>Job<wbr/>Time<wbr/>Total</a></li><li class="tsd-kind-function"><a href="modules.html#getPrinterStatus" class="tsd-kind-icon">get<wbr/>Printer<wbr/>Status</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemGUID" class="tsd-kind-icon">get<wbr/>SystemGUID</a></li><li class="tsd-kind-function"><a href="modules.html#getSystemName" class="tsd-kind-icon">get<wbr/>System<wbr/>Name</a></li><li class="tsd-kind-function"><a href="modules.html#postJob" class="tsd-kind-icon">post<wbr/>Job</a></li><li class="tsd-kind-function"><a href="modules.html#postPrinterBlink" class="tsd-kind-icon">post<wbr/>Printer<wbr/>Blink</a></li><li class="tsd-kind-function"><a href="modules.html#putJob" class="tsd-kind-icon">put<wbr/>Job</a></li><li class="tsd-kind-function"><a href="modules.html#putPrinterLED" class="tsd-kind-icon">put<wbr/>PrinterLED</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Legend</h2><div class="tsd-legend-group"><ul class="tsd-legend"><li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li><li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li><li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li></ul></div><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>

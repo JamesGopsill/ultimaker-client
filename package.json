@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "Client for interacting with the Ultimaker API",
   "keywords": [
-    "ultimaker"
+    "ultimaker",
+    "3d printing",
+    "additive manufacturing"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,18 +24,22 @@
     "dist/**/*"
   ],
   "scripts": {
-    "test": "jest",
+    "test:no-printer": "jest tests/instantiation.test.ts",
+    "test:all": "jest --runInBand",
+    "test:job": "jest --runInBand tests/job.test.ts",
     "build": "tsc",
     "docs": "typedoc",
     "format": "prettier --write src/**/* && prettier --write tests/**/*",
-    "pre-add": "yarn format && yarn docs && yarn test"
+    "pre-add": "yarn format && yarn docs"
   },
   "dependencies": {
     "cross-fetch": "^3.1.4",
+    "form-data": "^4.0.0",
     "is-ip": "^3.1.0"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
+    "@types/node": "^16.11.9",
     "jest": "^27.3.1",
     "prettier": "^2.4.1",
     "prettier-plugin-organize-imports": "^2.3.4",

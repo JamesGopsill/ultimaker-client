@@ -1,6 +1,6 @@
 import { fetch } from "cross-fetch"
 
-export const getName = (baseURL: string) => {
+export const getSystemName = (baseURL: string) => {
 	return new Promise<string>(async (resolve, reject) => {
 		const res = await fetch(baseURL + "/api/v1/system/name", {
 			method: "GET",

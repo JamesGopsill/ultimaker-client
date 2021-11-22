@@ -4,7 +4,7 @@
 
 We are looking at implementing digest authentication in the future but primary objective for now is to provide the functionality required for our agent-based manufacturing research program.
 
-It is also an **unofficial** open-source client for connecting to your Ultimaker.
+It is also an **unofficial** open-source client for connecting to your Ultimaker. It is being designed to be isomorphic so it should run both in Node.js and in the Browser.
 
 ## Configuring the Ultimaker
 
@@ -12,13 +12,19 @@ To make use of this client, you will need to disable authentication and enable c
 
 To start, you will need to enable developer mode on your Ultimaker, which can be achieved through the settings menu on the printer. The screen will display that you're in developer mode and provide the local IP address of the printer.
 
-**[TODO: add image]**
+![Ultimaker Developer Mode](figs/dev-mode.jpeg)
 
-Now you need to `ssh` into your printer from your machine. The default user and password are **XX** and **YY**. After successfully connecting to the printer, you should see your terminal look a bit like this:
+Now you need to `ssh` into your printer from your machine. The default user and password are `root` and `ultimaker`. After successfully connecting to the printer, you should see your terminal look a bit like this:
 
-**[TODO: add terminal content and check that you can nano into a file, otherwise detail out how to scp the file out, edit and copy back in.]**
+![SSH Ultimaker Terminal](figs/terminal.png)
 
-You will want to modify the following file `/usr/share/griffin/griffin/interface/http/server.py` with the following content.
+You will want to modify the following file `/usr/share/griffin/griffin/interface/http/server.py` with the following content. I would recommend copying the file using `scp`:
+
+```
+scp root@[ULTIMAKER_IP_ADDRESS]:/usr/share/griffin/griffin/interface/http/server.py ./server.py
+```
+
+Make a backup and then edit `server.py` using your favourite code editor with the following:
 
 ```python
 # [...find this bit in the file]
@@ -56,19 +62,25 @@ self.after_request(Server.allow_cors)
 And at the end of the class, add the `allow_cors` function.
 
 ```python
-	# [...at the bottom of the class add this method to provide open access via CORS]
-	@staticmethod
-    def allow_cors(response):
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-        response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-        response.headers.add('Access-Control-Allow-Credentials', 'true')
-        return response 
+# [...at the bottom of the class add this method to provide open access via CORS]
+@staticmethod
+def allow_cors(response):
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+	response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+	response.headers.add('Access-Control-Allow-Credentials', 'true')
+	return response 
 ```
 
 Make sure you make a copy of the original file just in case.
 
-With the edits made, you can restart the Ultimaker API using `systemctl restart griffin.interface.http` or simply restarting the machine.
+With the edits made, `scp` the file back to the printer.
+
+```
+scp ./server.py root@[ULTIMAKER_IP_ADDRESS]:/usr/share/griffin/griffin/interface/http/server.py
+```
+
+You can restart the Ultimaker API using `systemctl restart griffin.interface.http` or simply restarting the machine.
 
 ## Connecting to the printer with the client
 
@@ -89,7 +101,11 @@ import { UltimakerClient } from "ultimaker-client"
 const client = new UltimakerClient("000.000.000.000")
 
 // Retrieve the name of your printer.
-const name = client.getName()
+try {
+	const name = await client.getName()
+} catch (res) { // Promise reject will return the response that resulted in the error.
+	console.log(res)
+}
 
 // Print it to the console.
 console.log(name)
@@ -101,7 +117,7 @@ The docs have been produced using [TypeDoc](https://typedoc.org/) and can be acc
 
 ## Testing
 
-Testing is performed using jest. We use a range of Ultimakers in the lab and are currently testing with printers using version X.XX Ultimaker firmware.
+Testing is performed using jest. We use a range of Ultimakers in the lab and are currently testing with printers using version 6.40 Ultimaker firmware.
 
 ## Roadmap
 
@@ -109,16 +125,29 @@ The first objective is to build a client that implements the entire v1 Ultimaker
 
 | Version  | Content |
 | ------------- | ------------- |
-| 0.1.0  | A smattering of API functions that we have needed to access/use in our research project. |
-| 0.2.0  | `/system` REST API functionality implemented. |
-| 0.3.0  | `/printer` REST API functionality implemented. |
-| 0.4.0  | `/job` REST API functionality implemented. |
-| 1.0.0  | All endpoints implemented. |
-| 1.1.0  | Digest authentication. |
+| 0.1.0 | A smattering of API functions that we have needed to access/use in our research project. Client codebase set up with typescript and testing support.|
+| 0.2.0 | `/system` implemented. |
+| 0.3.0 | `/materials` implemented. |
+| 0.4.0 | `/network` implemented. |
+| 0.5.0 | `/history` implemented. |
+| 0.6.0 | `/printer` implemented. |
+| 0.7.0 | `/print_job` implemented. |
+| 0.8.0 | `/camera` implemented. |
+| 0.9.0 | `/airmanager` implemented. |
+| 1.0.0 | All endpoints implemented. |
+| 1.1.0 | Digest authentication. `/auth`. |
 
 ## Contributors
 
 We would love to have additional contributors to the project to help us maintain and add functionality to the project.
+
+## Testing
+
+To test the functionality, make sure you have an Ultimaker on the network and create a `test.config.ts` file in the test directory (This is ignore by git via .gitignore). Then add the following export to make sure the tests know the ip address of the printer.
+
+```
+export const ip = "123.456.789.101"
+```
 
 ## Support
 

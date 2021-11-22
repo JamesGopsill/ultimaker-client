@@ -1,6 +1,6 @@
 import { fetch } from "cross-fetch"
 
-export const putLEDColor = (
+export const putPrinterLED = (
 	baseURL: string,
 	color: {
 		hue: number
@@ -8,7 +8,7 @@ export const putLEDColor = (
 		brightness: number
 	}
 ) => {
-	return new Promise<Response>(async (resolve, reject) => {
+	return new Promise<Boolean>(async (resolve, reject) => {
 		const res = await fetch(baseURL + "/api/v1/printer/led", {
 			method: "PUT",
 			mode: "cors",
@@ -23,7 +23,7 @@ export const putLEDColor = (
 			}),
 		})
 
-		if (res.status == 200) resolve(res)
+		if (res.status == 204) resolve(true)
 		reject(res)
 	})
 }
@@ -39,37 +39,37 @@ export const putLEDColor = (
  * ```
  */
 export const UltimakerLEDColors = {
-	red: {
+	RED: {
 		hue: 0,
 		saturation: 100,
 		brightness: 100,
 	},
-	blue: {
+	BLUE: {
 		hue: 240,
 		saturation: 100,
 		brightness: 100,
 	},
-	white: {
+	WHITE: {
 		hue: 0,
 		saturation: 0,
 		brightness: 100,
 	},
-	green: {
+	GREEN: {
 		hue: 120,
 		saturation: 100,
 		brightness: 100,
 	},
-	yellow: {
+	YELLOW: {
 		hue: 60,
 		saturation: 100,
 		brightness: 100,
 	},
-	magenta: {
+	MAGENTA: {
 		hue: 300,
 		saturation: 100,
 		brightness: 100,
 	},
-	cyan: {
+	CYAN: {
 		hue: 180,
 		saturation: 100,
 		brightness: 100,

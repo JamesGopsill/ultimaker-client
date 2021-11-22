@@ -1,3 +1,3 @@
 export * from "./get-printer-status"
-export * from "./post-blink"
-export * from "./put-led-color"
+export * from "./post-printer-blink"
+export * from "./put-printer-led"
