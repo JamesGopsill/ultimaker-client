@@ -4,13 +4,17 @@ import * as printer from "./printer"
 import * as system from "./system"
 import * as materials from "./materials"
 import * as networks from "./network"
+import * as history from "./history"
 
+// Export the individual endpoints in case someone wants to use them directly
 export * as UltimakerPrinterEndpoint from "./printer"
 export * as UltimakerJobEndpoint from "./job"
 export * as UltimakerSystemEndpoint from "./system"
 export * as UltimakerMaterialsEndpoint from "./materials"
 export * as UltimakerNetworksEndpoint from "./network"
+export * as UltimakerHistoryEndpoint from "./history"
 
+// Export the interfaces and consts that users may want to use
 export { UltimakerLEDColors } from "./printer"
 export { UltimakerJobTargetState } from "./job"
 export { UltimakerSystemUpdateType } from "./system"
@@ -177,6 +181,29 @@ export class UltimakerClient {
 
 	public putWifiNetwork(ssid: string, passphrase: string) {
 		return networks.putWifiNetwork(this.baseURL, ssid, passphrase)
+	}
+
+	// ###
+	// History
+	// ###
+
+	public getJobHistory(offset: number = 0, count: number = 50) {
+		return history.getJobHistory(this.baseURL, offset, count)
+	}
+
+	public getSingleJobHistory(uuid: string) {
+		return history.getSingleJobHistory(this.baseURL, uuid)
+	}
+
+	public getEventHistory(offset: number = 0, count: number = 50, typeID?: number) {
+		if (typeof typeID != "undefined") {
+			return history.getEventHistory(this.baseURL, offset, count)
+		}
+		return history.getEventHistory(this.baseURL, offset, count, typeID)
+	}
+
+	public putEventHistory(typeID: number, parameters: string[]) {
+		return history.putEventHistory(this.baseURL, typeID, parameters)
 	}
 
 	// ###

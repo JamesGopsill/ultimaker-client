@@ -5,6 +5,7 @@ export * as UltimakerJobEndpoint from "./job";
 export * as UltimakerSystemEndpoint from "./system";
 export * as UltimakerMaterialsEndpoint from "./materials";
 export * as UltimakerNetworksEndpoint from "./network";
+export * as UltimakerHistoryEndpoint from "./history";
 export { UltimakerLEDColors } from "./printer";
 export { UltimakerJobTargetState } from "./job";
 export { UltimakerSystemUpdateType } from "./system";
@@ -102,6 +103,39 @@ export declare class UltimakerClient {
     }]>;
     deleteWifiNetwork(ssid: string): Promise<boolean>;
     putWifiNetwork(ssid: string, passphrase: string): Promise<boolean>;
+    getJobHistory(offset?: number, count?: number): Promise<[{
+        time_elapsed: number;
+        time_estimated: number;
+        time_total: number;
+        datetime_sarted: string;
+        datetime_finished: string;
+        datetime_cleaned: string;
+        result: string;
+        source: string;
+        reprint_original_uuid: string;
+        name: string;
+        uuid: string;
+    }]>;
+    getSingleJobHistory(uuid: string): Promise<{
+        time_elapsed: number;
+        time_estimated: number;
+        time_total: number;
+        datetime_sarted: string;
+        datetime_finished: string;
+        datetime_cleaned: string;
+        result: string;
+        source: string;
+        reprint_original_uuid: string;
+        name: string;
+        uuid: string;
+    }>;
+    getEventHistory(offset?: number, count?: number, typeID?: number): Promise<[{
+        time: string;
+        type_id: number;
+        message: string;
+        parameters: string[];
+    }]>;
+    putEventHistory(typeID: number, parameters: string[]): Promise<boolean>;
     getPrinterStatus(): Promise<string>;
     postPrinterBlink(frequency: number, count: number): Promise<Boolean>;
     putPrinterLED(color: {

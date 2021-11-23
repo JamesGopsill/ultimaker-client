@@ -29,6 +29,7 @@
     "test:job": "jest --runInBand tests/job.test.ts",
     "test:system": "jest --runInBand tests/system.test.ts",
     "test:printer": "jest --runInBand tests/printer.test.ts",
+    "test:history": "jest --runInBand tests/history.test.ts",
     "build": "tsc",
     "docs": "typedoc",
     "format": "prettier --write src/**/* && prettier --write tests/**/*",

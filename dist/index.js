@@ -22,18 +22,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UltimakerClient = exports.UltimakerSystemUpdateType = exports.UltimakerJobTargetState = exports.UltimakerLEDColors = exports.UltimakerNetworksEndpoint = exports.UltimakerMaterialsEndpoint = exports.UltimakerSystemEndpoint = exports.UltimakerJobEndpoint = exports.UltimakerPrinterEndpoint = void 0;
+exports.UltimakerClient = exports.UltimakerSystemUpdateType = exports.UltimakerJobTargetState = exports.UltimakerLEDColors = exports.UltimakerHistoryEndpoint = exports.UltimakerNetworksEndpoint = exports.UltimakerMaterialsEndpoint = exports.UltimakerSystemEndpoint = exports.UltimakerJobEndpoint = exports.UltimakerPrinterEndpoint = void 0;
 const is_ip_1 = __importDefault(require("is-ip"));
 const job = __importStar(require("./job"));
 const printer = __importStar(require("./printer"));
 const system = __importStar(require("./system"));
 const materials = __importStar(require("./materials"));
 const networks = __importStar(require("./network"));
+const history = __importStar(require("./history"));
+// Export the individual endpoints in case someone wants to use them directly
 exports.UltimakerPrinterEndpoint = __importStar(require("./printer"));
 exports.UltimakerJobEndpoint = __importStar(require("./job"));
 exports.UltimakerSystemEndpoint = __importStar(require("./system"));
 exports.UltimakerMaterialsEndpoint = __importStar(require("./materials"));
 exports.UltimakerNetworksEndpoint = __importStar(require("./network"));
+exports.UltimakerHistoryEndpoint = __importStar(require("./history"));
+// Export the interfaces and consts that users may want to use
 var printer_1 = require("./printer");
 Object.defineProperty(exports, "UltimakerLEDColors", { enumerable: true, get: function () { return printer_1.UltimakerLEDColors; } });
 var job_1 = require("./job");
@@ -161,6 +165,24 @@ class UltimakerClient {
     }
     putWifiNetwork(ssid, passphrase) {
         return networks.putWifiNetwork(this.baseURL, ssid, passphrase);
+    }
+    // ###
+    // History
+    // ###
+    getJobHistory(offset = 0, count = 50) {
+        return history.getJobHistory(this.baseURL, offset, count);
+    }
+    getSingleJobHistory(uuid) {
+        return history.getSingleJobHistory(this.baseURL, uuid);
+    }
+    getEventHistory(offset = 0, count = 50, typeID) {
+        if (typeof typeID != "undefined") {
+            return history.getEventHistory(this.baseURL, offset, count);
+        }
+        return history.getEventHistory(this.baseURL, offset, count, typeID);
+    }
+    putEventHistory(typeID, parameters) {
+        return history.putEventHistory(this.baseURL, typeID, parameters);
     }
     // ###
     // Printer
