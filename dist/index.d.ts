@@ -1,9 +1,13 @@
 import * as job from "./job";
 import * as system from "./system";
-export * from "./printer";
-export * from "./job";
-export * from "./system";
-export * from "./materials";
+export * as UltimakerPrinterEndpoint from "./printer";
+export * as UltimakerJobEndpoint from "./job";
+export * as UltimakerSystemEndpoint from "./system";
+export * as UltimakerMaterialsEndpoint from "./materials";
+export * as UltimakerNetworksEndpoint from "./network";
+export { UltimakerLEDColors } from "./printer";
+export { UltimakerJobTargetState } from "./job";
+export { UltimakerSystemUpdateType } from "./system";
 /**
  * Create the client to interface with the Ultimaker API.
  *
@@ -74,6 +78,30 @@ export declare class UltimakerClient {
     getMaterial(materialGUID: string): Promise<string>;
     deleteMaterial(materialGUID: string): Promise<Boolean>;
     putMaterial(materialGUID: string): Promise<Boolean>;
+    getNetwork(): Promise<{
+        wifi: {
+            connected: boolean;
+            enabled: boolean;
+            mode: string;
+            ssid: string;
+        };
+        wifi_networks: [{
+            ssid: string;
+            security_required: boolean;
+            strength: number;
+        }];
+        ethernet: {
+            connected: boolean;
+            enebaled: boolean;
+        };
+    }>;
+    getWifiNetworks(): Promise<[{
+        ssid: string;
+        security_required: boolean;
+        strength: number;
+    }]>;
+    deleteWifiNetwork(ssid: string): Promise<boolean>;
+    putWifiNetwork(ssid: string, passphrase: string): Promise<boolean>;
     getPrinterStatus(): Promise<string>;
     postPrinterBlink(frequency: number, count: number): Promise<Boolean>;
     putPrinterLED(color: {
@@ -94,12 +122,6 @@ export declare class UltimakerClient {
         datetime_cleaned: string;
         source: string;
         source_user: string;
-        /**
-         * Create the client to interface with the Ultimaker API.
-         *
-         * @param ip The IP address for the printer on your local network.
-         * @returns An instance of UltimakerClient
-         */
         source_application: string;
         name: string;
         uuid: string;

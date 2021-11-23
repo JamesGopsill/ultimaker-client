@@ -18,23 +18,28 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UltimakerClient = void 0;
+exports.UltimakerClient = exports.UltimakerSystemUpdateType = exports.UltimakerJobTargetState = exports.UltimakerLEDColors = exports.UltimakerNetworksEndpoint = exports.UltimakerMaterialsEndpoint = exports.UltimakerSystemEndpoint = exports.UltimakerJobEndpoint = exports.UltimakerPrinterEndpoint = void 0;
 const is_ip_1 = __importDefault(require("is-ip"));
 const job = __importStar(require("./job"));
 const printer = __importStar(require("./printer"));
 const system = __importStar(require("./system"));
 const materials = __importStar(require("./materials"));
-__exportStar(require("./printer"), exports);
-__exportStar(require("./job"), exports);
-__exportStar(require("./system"), exports);
-__exportStar(require("./materials"), exports);
+const networks = __importStar(require("./network"));
+exports.UltimakerPrinterEndpoint = __importStar(require("./printer"));
+exports.UltimakerJobEndpoint = __importStar(require("./job"));
+exports.UltimakerSystemEndpoint = __importStar(require("./system"));
+exports.UltimakerMaterialsEndpoint = __importStar(require("./materials"));
+exports.UltimakerNetworksEndpoint = __importStar(require("./network"));
+var printer_1 = require("./printer");
+Object.defineProperty(exports, "UltimakerLEDColors", { enumerable: true, get: function () { return printer_1.UltimakerLEDColors; } });
+var job_1 = require("./job");
+Object.defineProperty(exports, "UltimakerJobTargetState", { enumerable: true, get: function () { return job_1.UltimakerJobTargetState; } });
+var system_1 = require("./system");
+Object.defineProperty(exports, "UltimakerSystemUpdateType", { enumerable: true, get: function () { return system_1.UltimakerSystemUpdateType; } });
 /**
  * Create the client to interface with the Ultimaker API.
  *
@@ -141,6 +146,21 @@ class UltimakerClient {
     }
     putMaterial(materialGUID) {
         return materials.putMaterial(this.baseURL, materialGUID);
+    }
+    // ###
+    // Networks
+    // ###
+    getNetwork() {
+        return networks.getNetwork(this.baseURL);
+    }
+    getWifiNetworks() {
+        return networks.getWifiNetworks(this.baseURL);
+    }
+    deleteWifiNetwork(ssid) {
+        return networks.deleteWifiNetwork(this.baseURL, ssid);
+    }
+    putWifiNetwork(ssid, passphrase) {
+        return networks.putWifiNetwork(this.baseURL, ssid, passphrase);
     }
     // ###
     // Printer

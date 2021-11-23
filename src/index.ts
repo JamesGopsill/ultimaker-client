@@ -3,11 +3,17 @@ import * as job from "./job"
 import * as printer from "./printer"
 import * as system from "./system"
 import * as materials from "./materials"
+import * as networks from "./network"
 
-export * from "./printer"
-export * from "./job"
-export * from "./system"
-export * from "./materials"
+export * as UltimakerPrinterEndpoint from "./printer"
+export * as UltimakerJobEndpoint from "./job"
+export * as UltimakerSystemEndpoint from "./system"
+export * as UltimakerMaterialsEndpoint from "./materials"
+export * as UltimakerNetworksEndpoint from "./network"
+
+export { UltimakerLEDColors } from "./printer"
+export { UltimakerJobTargetState } from "./job"
+export { UltimakerSystemUpdateType } from "./system"
 
 /**
  * Create the client to interface with the Ultimaker API.
@@ -151,6 +157,26 @@ export class UltimakerClient {
 
 	public putMaterial(materialGUID: string) {
 		return materials.putMaterial(this.baseURL, materialGUID)
+	}
+
+	// ###
+	// Networks
+	// ###
+
+	public getNetwork() {
+		return networks.getNetwork(this.baseURL)
+	}
+
+	public getWifiNetworks() {
+		return networks.getWifiNetworks(this.baseURL)
+	}
+
+	public deleteWifiNetwork(ssid: string) {
+		return networks.deleteWifiNetwork(this.baseURL, ssid)
+	}
+
+	public putWifiNetwork(ssid: string, passphrase: string) {
+		return networks.putWifiNetwork(this.baseURL, ssid, passphrase)
 	}
 
 	// ###
