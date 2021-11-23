@@ -16,11 +16,6 @@ export * as UltimakerNetworksEndpoint from "./network"
 export * as UltimakerHistoryEndpoint from "./history"
 export * as UltimakerAirManagerEndpoint from "./airmanager"
 
-// Export the interfaces and consts that users may want to use
-export { UltimakerLEDColors } from "./printer"
-export { UltimakerJobTargetState } from "./job"
-export { UltimakerSystemUpdateType } from "./system"
-
 /**
  * Create the client to interface with the Ultimaker API.
  *
@@ -212,8 +207,76 @@ export class UltimakerClient {
 	// Printer
 	// ###
 
+	public getPrinter() {
+		return printer.getPrinter(this.baseURL)
+	}
+
 	public getPrinterStatus() {
 		return printer.getPrinterStatus(this.baseURL)
+	}
+
+	public getPrinterLED() {
+		return printer.getPrinterLED(this.baseURL)
+	}
+
+	public getPrinterLEDHue() {
+		return printer.getPrinterLEDHue(this.baseURL)
+	}
+
+	public getPrinterLEDSaturation() {
+		return printer.getPrinterLEDSaturation(this.baseURL)
+	}
+
+	public getPrinterLEDBrightness() {
+		return printer.getPrinterLEDBrightness(this.baseURL)
+	}
+
+	public getPrinterHeads() {
+		return printer.getPrinterHeads(this.baseURL)
+	}
+
+	public getPrinterHead(headID: string) {
+		return printer.getPrinterHead(this.baseURL, headID)
+	}
+
+	public getPrinterPosition(headID: string) {
+		return printer.getPrinterHeadPosition(this.baseURL, headID)
+	}
+
+	public getPrinterHeadMaxSpeed(headID: string) {
+		return printer.getPrinterHeadMaxSpeed(this.baseURL, headID)
+	}
+
+	public getPrinterHeadAcceleration(headID: string) {
+		return printer.getPrinterHeadAcceleration(this.baseURL, headID)
+	}
+
+	public getPrinterHeadJerk(headID: string) {
+		return printer.getPrinterHeadJerk(this.baseURL, headID)
+	}
+
+	public getPrinterHeadExtruders(headID: string) {
+		return printer.getPrinterHeadExtruders(this.baseURL, headID)
+	}
+
+	public getPrinterHeadExtruder(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruder(this.baseURL, headID, extruderID)
+	}
+
+	public getPrinterBed() {
+		return printer.getPrinterBed(this.baseURL)
+	}
+
+	public getPrinterBedTemperature() {
+		return printer.getPrinterBedTemperature(this.baseURL)
+	}
+
+	public getPrinterBedPreHeat() {
+		return printer.getPrinterBedPreHeat(this.baseURL)
+	}
+
+	public getPrinterBedType() {
+		return printer.getPrinterBedType(this.baseURL)
 	}
 
 	public postPrinterBlink(frequency: number, count: number) {

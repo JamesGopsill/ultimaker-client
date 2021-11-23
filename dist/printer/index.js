@@ -10,6 +10,8 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./get-printer-status"), exports);
-__exportStar(require("./post-printer-blink"), exports);
-__exportStar(require("./put-printer-led"), exports);
+__exportStar(require("./get"), exports);
+__exportStar(require("./interfaces"), exports);
+//export * from "./get-printer-status"
+__exportStar(require("./post"), exports);
+__exportStar(require("./put"), exports);

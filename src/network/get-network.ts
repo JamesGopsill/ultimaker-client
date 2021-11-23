@@ -1,7 +1,7 @@
-import { getTypedJSON } from "../helpers/get-typed-json"
+import { get } from "../helpers"
 
 export const getNetwork = (baseURL: string) => {
-	return getTypedJSON<{
+	return get<{
 		wifi: {
 			connected: boolean
 			enabled: boolean

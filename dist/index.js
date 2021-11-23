@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UltimakerClient = exports.UltimakerSystemUpdateType = exports.UltimakerJobTargetState = exports.UltimakerLEDColors = exports.UltimakerAirManagerEndpoint = exports.UltimakerHistoryEndpoint = exports.UltimakerNetworksEndpoint = exports.UltimakerMaterialsEndpoint = exports.UltimakerSystemEndpoint = exports.UltimakerJobEndpoint = exports.UltimakerPrinterEndpoint = void 0;
+exports.UltimakerClient = exports.UltimakerAirManagerEndpoint = exports.UltimakerHistoryEndpoint = exports.UltimakerNetworksEndpoint = exports.UltimakerMaterialsEndpoint = exports.UltimakerSystemEndpoint = exports.UltimakerJobEndpoint = exports.UltimakerPrinterEndpoint = void 0;
 const is_ip_1 = __importDefault(require("is-ip"));
 const job = __importStar(require("./job"));
 const printer = __importStar(require("./printer"));
@@ -39,13 +39,6 @@ exports.UltimakerMaterialsEndpoint = __importStar(require("./materials"));
 exports.UltimakerNetworksEndpoint = __importStar(require("./network"));
 exports.UltimakerHistoryEndpoint = __importStar(require("./history"));
 exports.UltimakerAirManagerEndpoint = __importStar(require("./airmanager"));
-// Export the interfaces and consts that users may want to use
-var printer_1 = require("./printer");
-Object.defineProperty(exports, "UltimakerLEDColors", { enumerable: true, get: function () { return printer_1.UltimakerLEDColors; } });
-var job_1 = require("./job");
-Object.defineProperty(exports, "UltimakerJobTargetState", { enumerable: true, get: function () { return job_1.UltimakerJobTargetState; } });
-var system_1 = require("./system");
-Object.defineProperty(exports, "UltimakerSystemUpdateType", { enumerable: true, get: function () { return system_1.UltimakerSystemUpdateType; } });
 /**
  * Create the client to interface with the Ultimaker API.
  *
@@ -189,8 +182,59 @@ class UltimakerClient {
     // ###
     // Printer
     // ###
+    getPrinter() {
+        return printer.getPrinter(this.baseURL);
+    }
     getPrinterStatus() {
         return printer.getPrinterStatus(this.baseURL);
+    }
+    getPrinterLED() {
+        return printer.getPrinterLED(this.baseURL);
+    }
+    getPrinterLEDHue() {
+        return printer.getPrinterLEDHue(this.baseURL);
+    }
+    getPrinterLEDSaturation() {
+        return printer.getPrinterLEDSaturation(this.baseURL);
+    }
+    getPrinterLEDBrightness() {
+        return printer.getPrinterLEDBrightness(this.baseURL);
+    }
+    getPrinterHeads() {
+        return printer.getPrinterHeads(this.baseURL);
+    }
+    getPrinterHead(headID) {
+        return printer.getPrinterHead(this.baseURL, headID);
+    }
+    getPrinterPosition(headID) {
+        return printer.getPrinterHeadPosition(this.baseURL, headID);
+    }
+    getPrinterHeadMaxSpeed(headID) {
+        return printer.getPrinterHeadMaxSpeed(this.baseURL, headID);
+    }
+    getPrinterHeadAcceleration(headID) {
+        return printer.getPrinterHeadAcceleration(this.baseURL, headID);
+    }
+    getPrinterHeadJerk(headID) {
+        return printer.getPrinterHeadJerk(this.baseURL, headID);
+    }
+    getPrinterHeadExtruders(headID) {
+        return printer.getPrinterHeadExtruders(this.baseURL, headID);
+    }
+    getPrinterHeadExtruder(headID, extruderID) {
+        return printer.getPrinterHeadExtruder(this.baseURL, headID, extruderID);
+    }
+    getPrinterBed() {
+        return printer.getPrinterBed(this.baseURL);
+    }
+    getPrinterBedTemperature() {
+        return printer.getPrinterBedTemperature(this.baseURL);
+    }
+    getPrinterBedPreHeat() {
+        return printer.getPrinterBedPreHeat(this.baseURL);
+    }
+    getPrinterBedType() {
+        return printer.getPrinterBedType(this.baseURL);
     }
     postPrinterBlink(frequency, count) {
         return printer.postPrinterBlink(this.baseURL, frequency, count);

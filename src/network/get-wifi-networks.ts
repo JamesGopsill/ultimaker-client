@@ -1,7 +1,7 @@
-import { getTypedJSON } from "../helpers/get-typed-json"
+import { get } from "../helpers"
 
 export const getWifiNetworks = (baseURL: string) => {
-	return getTypedJSON<
+	return get<
 		[
 			{
 				ssid: string
