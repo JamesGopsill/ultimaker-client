@@ -1,1 +1,1 @@
-export declare const getSourceUser: (baseURL: string) => Promise<string>;
+export declare const getJobSourceUser: (baseURL: string) => Promise<string>;

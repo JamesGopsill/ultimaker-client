@@ -1,6 +1,9 @@
 import { fetch } from "cross-fetch"
 
-export const putJob = (baseURL: string, target: UltimakerJobTargetState) => {
+export const putJobState = (
+	baseURL: string,
+	target: UltimakerJobTargetState
+) => {
 	return new Promise<Boolean>(async (resolve, reject) => {
 		const res = await fetch(baseURL + "/api/v1/print_job/state", {
 			method: "PUT",

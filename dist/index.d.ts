@@ -6,6 +6,7 @@ export * as UltimakerSystemEndpoint from "./system";
 export * as UltimakerMaterialsEndpoint from "./materials";
 export * as UltimakerNetworksEndpoint from "./network";
 export * as UltimakerHistoryEndpoint from "./history";
+export * as UltimakerAirManagerEndpoint from "./airmanager";
 export { UltimakerLEDColors } from "./printer";
 export { UltimakerJobTargetState } from "./job";
 export { UltimakerSystemUpdateType } from "./system";
@@ -148,6 +149,21 @@ export declare class UltimakerClient {
         uuid: string;
     }>;
     putJob(target: job.UltimakerJobTargetState): Promise<Boolean>;
+    getJobDateTimeCleaned(): Promise<string>;
+    getJobDateTimeFinished(): Promise<string>;
+    getJobDateTimeStarted(): Promise<string>;
+    getJobName(): Promise<string>;
+    getJobPauseSource(): Promise<string>;
+    getJobProgress(): Promise<number>;
+    getJobReprintOriginalUUID(): Promise<string>;
+    getJobResult(): Promise<string>;
+    getJobSourceApplication(): Promise<string>;
+    getJobSourceUser(): Promise<string>;
+    getJobSource(): Promise<job.UltimakerJobSource>;
+    getJobState(): Promise<job.UltimakerJobTargetState>;
+    getJobTimeElapsed(): Promise<number>;
+    getJobTimeTotal(): Promise<number>;
+    getJobUUID(): Promise<string>;
     getJob(): Promise<{
         time_elapsed: number;
         time_total: number;
@@ -164,7 +180,12 @@ export declare class UltimakerClient {
         state: string;
         result: string;
     }>;
-    getJobProgress(): Promise<number>;
-    getJobTimeTotal(): Promise<number>;
-    getJobTimeElapsed(): Promise<number>;
+    getAirManager(): Promise<{
+        firmware_version: string;
+        filter_age: number;
+        filter_max_age: number;
+        filter_status: string;
+        status: string;
+        fan_speed: number;
+    }>;
 }

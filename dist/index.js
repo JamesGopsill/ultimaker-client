@@ -22,7 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UltimakerClient = exports.UltimakerSystemUpdateType = exports.UltimakerJobTargetState = exports.UltimakerLEDColors = exports.UltimakerHistoryEndpoint = exports.UltimakerNetworksEndpoint = exports.UltimakerMaterialsEndpoint = exports.UltimakerSystemEndpoint = exports.UltimakerJobEndpoint = exports.UltimakerPrinterEndpoint = void 0;
+exports.UltimakerClient = exports.UltimakerSystemUpdateType = exports.UltimakerJobTargetState = exports.UltimakerLEDColors = exports.UltimakerAirManagerEndpoint = exports.UltimakerHistoryEndpoint = exports.UltimakerNetworksEndpoint = exports.UltimakerMaterialsEndpoint = exports.UltimakerSystemEndpoint = exports.UltimakerJobEndpoint = exports.UltimakerPrinterEndpoint = void 0;
 const is_ip_1 = __importDefault(require("is-ip"));
 const job = __importStar(require("./job"));
 const printer = __importStar(require("./printer"));
@@ -30,6 +30,7 @@ const system = __importStar(require("./system"));
 const materials = __importStar(require("./materials"));
 const networks = __importStar(require("./network"));
 const history = __importStar(require("./history"));
+const airmanager = __importStar(require("./airmanager"));
 // Export the individual endpoints in case someone wants to use them directly
 exports.UltimakerPrinterEndpoint = __importStar(require("./printer"));
 exports.UltimakerJobEndpoint = __importStar(require("./job"));
@@ -37,6 +38,7 @@ exports.UltimakerSystemEndpoint = __importStar(require("./system"));
 exports.UltimakerMaterialsEndpoint = __importStar(require("./materials"));
 exports.UltimakerNetworksEndpoint = __importStar(require("./network"));
 exports.UltimakerHistoryEndpoint = __importStar(require("./history"));
+exports.UltimakerAirManagerEndpoint = __importStar(require("./airmanager"));
 // Export the interfaces and consts that users may want to use
 var printer_1 = require("./printer");
 Object.defineProperty(exports, "UltimakerLEDColors", { enumerable: true, get: function () { return printer_1.UltimakerLEDColors; } });
@@ -203,19 +205,61 @@ class UltimakerClient {
         return job.postJob(this.baseURL, jobname, gcode);
     }
     putJob(target) {
-        return job.putJob(this.baseURL, target);
+        return job.putJobState(this.baseURL, target);
     }
-    getJob() {
-        return job.getJob(this.baseURL);
+    getJobDateTimeCleaned() {
+        return job.getJobDateTimeCleaned(this.baseURL);
+    }
+    getJobDateTimeFinished() {
+        return job.getJobDateTimeFinished(this.baseURL);
+    }
+    getJobDateTimeStarted() {
+        return job.getJobDateTimeStarted(this.baseURL);
+    }
+    getJobName() {
+        return job.getJobName(this.baseURL);
+    }
+    getJobPauseSource() {
+        return job.getJobPauseSource(this.baseURL);
     }
     getJobProgress() {
         return job.getJobProgress(this.baseURL);
     }
-    getJobTimeTotal() {
-        return job.getJobTimeTotal(this.baseURL);
+    getJobReprintOriginalUUID() {
+        return job.getJobReprintOriginalUUID(this.baseURL);
+    }
+    getJobResult() {
+        return job.getJobResult(this.baseURL);
+    }
+    getJobSourceApplication() {
+        return job.getJobSourceApplication(this.baseURL);
+    }
+    getJobSourceUser() {
+        return job.getJobSourceUser(this.baseURL);
+    }
+    getJobSource() {
+        return job.getJobSource(this.baseURL);
+    }
+    getJobState() {
+        return job.getJobState(this.baseURL);
     }
     getJobTimeElapsed() {
         return job.getJobTimeElapsed(this.baseURL);
+    }
+    getJobTimeTotal() {
+        return job.getJobTimeTotal(this.baseURL);
+    }
+    getJobUUID() {
+        return job.getJobUUID(this.baseURL);
+    }
+    getJob() {
+        return job.getJob(this.baseURL);
+    }
+    // ###
+    // AirManager
+    // ###
+    getAirManager() {
+        return airmanager.getAirManager(this.baseURL);
     }
 }
 exports.UltimakerClient = UltimakerClient;

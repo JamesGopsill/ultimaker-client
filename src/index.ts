@@ -5,6 +5,7 @@ import * as system from "./system"
 import * as materials from "./materials"
 import * as networks from "./network"
 import * as history from "./history"
+import * as airmanager from "./airmanager"
 
 // Export the individual endpoints in case someone wants to use them directly
 export * as UltimakerPrinterEndpoint from "./printer"
@@ -13,6 +14,7 @@ export * as UltimakerSystemEndpoint from "./system"
 export * as UltimakerMaterialsEndpoint from "./materials"
 export * as UltimakerNetworksEndpoint from "./network"
 export * as UltimakerHistoryEndpoint from "./history"
+export * as UltimakerAirManagerEndpoint from "./airmanager"
 
 // Export the interfaces and consts that users may want to use
 export { UltimakerLEDColors } from "./printer"
@@ -235,23 +237,79 @@ export class UltimakerClient {
 	}
 
 	public putJob(target: job.UltimakerJobTargetState) {
-		return job.putJob(this.baseURL, target)
+		return job.putJobState(this.baseURL, target)
 	}
 
-	public getJob() {
-		return job.getJob(this.baseURL)
+	public getJobDateTimeCleaned() {
+		return job.getJobDateTimeCleaned(this.baseURL)
+	}
+
+	public getJobDateTimeFinished() {
+		return job.getJobDateTimeFinished(this.baseURL)
+	}
+
+	public getJobDateTimeStarted() {
+		return job.getJobDateTimeStarted(this.baseURL)
+	}
+
+	public getJobName() {
+		return job.getJobName(this.baseURL)
+	}
+
+	public getJobPauseSource() {
+		return job.getJobPauseSource(this.baseURL)
 	}
 
 	public getJobProgress() {
 		return job.getJobProgress(this.baseURL)
 	}
 
-	public getJobTimeTotal() {
-		return job.getJobTimeTotal(this.baseURL)
+	public getJobReprintOriginalUUID() {
+		return job.getJobReprintOriginalUUID(this.baseURL)
+	}
+
+	public getJobResult() {
+		return job.getJobResult(this.baseURL)
+	}
+
+	public getJobSourceApplication() {
+		return job.getJobSourceApplication(this.baseURL)
+	}
+
+	public getJobSourceUser() {
+		return job.getJobSourceUser(this.baseURL)
+	}
+
+	public getJobSource() {
+		return job.getJobSource(this.baseURL)
+	}
+
+	public getJobState() {
+		return job.getJobState(this.baseURL)
 	}
 
 	public getJobTimeElapsed() {
 		return job.getJobTimeElapsed(this.baseURL)
+	}
+
+	public getJobTimeTotal() {
+		return job.getJobTimeTotal(this.baseURL)
+	}
+
+	public getJobUUID() {
+		return job.getJobUUID(this.baseURL)
+	}
+
+	public getJob() {
+		return job.getJob(this.baseURL)
+	}
+
+	// ###
+	// AirManager
+	// ###
+
+	public getAirManager() {
+		return airmanager.getAirManager(this.baseURL)
 	}
 
 }

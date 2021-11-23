@@ -1,6 +1,6 @@
 {
   "name": "ultimaker-client",
-  "version": "0.2.0",
+  "version": "0.7.0",
   "description": "Client for interacting with the Ultimaker API",
   "keywords": [
     "ultimaker",
@@ -30,6 +30,7 @@
     "test:system": "jest --runInBand tests/system.test.ts",
     "test:printer": "jest --runInBand tests/printer.test.ts",
     "test:history": "jest --runInBand tests/history.test.ts",
+    "test:airmanager": "jest --runInBand tests/airmanager.test.ts",
     "build": "tsc",
     "docs": "typedoc",
     "format": "prettier --write src/**/* && prettier --write tests/**/*",

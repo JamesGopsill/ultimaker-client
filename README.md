@@ -143,10 +143,10 @@ The first objective is to build a client that implements the entire v1 Ultimaker
 | 0.3.0 | `/materials` implemented. | ✔ |
 | 0.4.0 | `/network` implemented. | ✔ |
 | 0.5.0 | `/history` implemented. | ✔ |
-| 0.6.0 | `/printer` implemented. | - |
-| 0.7.0 | `/print_job` implemented. | - |
-| 0.8.0 | `/camera` implemented. | - |
-| 0.9.0 | `/airmanager` implemented. | - |
+| 0.6.0 | `/print_job` implemented. | ✔ |
+| 0.7.0 | `/airmanager` implemented. | ✔ |
+| 0.8.0 | `/printer` implemented. | - |
+| 0.9.0 | `/camera` implemented. | - |
 | 1.0.0 | All endpoints implemented. | - |
 | 1.1.0 | Digest authentication. `/auth`. | - |
 
