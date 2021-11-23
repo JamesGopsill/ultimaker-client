@@ -1,24 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getJobHistory = void 0;
-const cross_fetch_1 = require("cross-fetch");
+const get_typed_json_1 = require("../helpers/get-typed-json");
 const getJobHistory = (baseURL, offset = 0, count = 50) => {
-    return new Promise(async (resolve, reject) => {
-        const res = await (0, cross_fetch_1.fetch)(baseURL + "/api/v1/history/print_jobs", {
-            method: "GET",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-            },
-            body: JSON.stringify({
-                offset,
-                count,
-            }),
-        });
-        if (res.status == 200)
-            resolve(res.json());
-        reject(res);
+    return (0, get_typed_json_1.getTypedJSON)(baseURL + "/api/v1/history/print_jobs", {
+        offset,
+        count,
     });
 };
 exports.getJobHistory = getJobHistory;

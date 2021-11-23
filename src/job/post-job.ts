@@ -41,7 +41,5 @@ export const postJob = (baseURL: string, jobname: string, gcode: string) => {
 
 		if (res.status == 201) resolve(res.json())
 		reject(res)
-
-		// reject("Incomplete")
 	})
 }

@@ -1,19 +1,8 @@
-import { fetch } from "cross-fetch"
+import { getTypedJSON } from "../helpers/get-typed-json"
 
 export const getSystemHardware = (baseURL: string) => {
-	return new Promise<{
+	return getTypedJSON<{
 		typeid: number
 		revision: number
-	}>(async (resolve, reject) => {
-		const res = await fetch(baseURL + "/api/v1/system/hardware", {
-			method: "GET",
-			mode: "cors",
-			headers: {
-				Accept: "application/json",
-			},
-		})
-
-		if (res.status == 200) resolve(res.json())
-		reject(res)
-	})
+	}>(baseURL + "/api/v1/system/hardware")
 }

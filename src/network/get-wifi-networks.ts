@@ -1,7 +1,7 @@
-import { fetch } from "cross-fetch"
+import { getTypedJSON } from "../helpers/get-typed-json"
 
 export const getWifiNetworks = (baseURL: string) => {
-	return new Promise<
+	return getTypedJSON<
 		[
 			{
 				ssid: string
@@ -9,16 +9,5 @@ export const getWifiNetworks = (baseURL: string) => {
 				strength: number
 			}
 		]
-	>(async (resolve, reject) => {
-		const res = await fetch(baseURL + "/api/v1/printer/network/wifi_networks", {
-			method: "GET",
-			mode: "cors",
-			headers: {
-				Accept: "application/json",
-			},
-		})
-
-		if (res.status == 200) resolve(res.json())
-		reject(res)
-	})
+	>(baseURL + "/api/v1/printer/network/wifi_networks")
 }

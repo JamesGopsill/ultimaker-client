@@ -1,1 +1,1 @@
-export declare const getSystemHardwareRevision: (baseURL: string) => Promise<number>;
+export declare const getSystemHardwareRevision: (baseURL: string) => Promise<string>;

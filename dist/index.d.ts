@@ -73,7 +73,7 @@ export declare class UltimakerClient {
         revision: number;
     }>;
     getSystemHardwareTypeId(): Promise<number>;
-    getSystemHardwareRevision(): Promise<number>;
+    getSystemHardwareRevision(): Promise<string>;
     putSystemDisplayMessage(message: string, buttonCaption: string): Promise<Boolean>;
     getMaterials(): Promise<string[]>;
     getMaterial(materialGUID: string): Promise<string>;

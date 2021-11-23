@@ -1,19 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getSystemLog = void 0;
-const cross_fetch_1 = require("cross-fetch");
+const get_typed_json_1 = require("../helpers/get-typed-json");
 const getSystemLog = (baseURL, boot = 0, lines = 50) => {
-    return new Promise(async (resolve, reject) => {
-        const res = await (0, cross_fetch_1.fetch)(baseURL + "/api/v1/system/log", {
-            method: "GET",
-            mode: "cors",
-            headers: {
-                Accept: "application/json",
-            },
-        });
-        if (res.status == 200)
-            resolve(res.json());
-        reject(res);
+    return (0, get_typed_json_1.getTypedJSON)(baseURL + "/api/v1/system/log", {
+        boot,
+        lines,
     });
 };
 exports.getSystemLog = getSystemLog;

@@ -1,7 +1,7 @@
-import { fetch } from "cross-fetch"
+import { getTypedJSON } from "../helpers/get-typed-json"
 
 export const getJob = (baseURL: string) => {
-	return new Promise<{
+	return getTypedJSON<{
 		time_elapsed: number
 		time_total: number
 		datetime_started: string
@@ -16,17 +16,5 @@ export const getJob = (baseURL: string) => {
 		progress: number
 		state: string
 		result: string
-	}>(async (resolve, reject) => {
-		const res = await fetch(baseURL + "/api/v1/print_job", {
-			method: "GET",
-			mode: "cors",
-			headers: {
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-		})
-
-		if (res.status == 200) resolve(res.json())
-		reject(res)
-	})
+	}>(baseURL + "/api/v1/print_job")
 }
