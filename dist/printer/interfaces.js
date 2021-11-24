@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UltimakerLEDColors = void 0;
+exports.PrinterHeadPosition = exports.UltimakerLEDColors = void 0;
 /**
  * An array of pre-defined colors to be used with setLEDColor.
  *
@@ -42,3 +42,7 @@ exports.UltimakerLEDColors = {
         brightness: 100,
     },
 };
+var PrinterHeadPosition;
+(function (PrinterHeadPosition) {
+    PrinterHeadPosition["HOME"] = "home";
+})(PrinterHeadPosition = exports.PrinterHeadPosition || (exports.PrinterHeadPosition = {}));

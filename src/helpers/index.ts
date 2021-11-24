@@ -30,7 +30,37 @@ export const get = <Type>(url: string, bodyArgs?: {}) => {
 	})
 }
 
-export const put = (url: string, bodyArgs?: {}, status: number = 200) => {
+export const put = (url: string, status: number, bodyArgs?: {}) => {
+	return new Promise<boolean>(async (resolve, reject) => {
+		let res
+
+		if (typeof bodyArgs != "undefined") {
+			res = await fetch(url, {
+				method: "PUT",
+				mode: "cors",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+				body: JSON.stringify(bodyArgs),
+			})
+		} else {
+			res = await fetch(url, {
+				method: "PUT",
+				mode: "cors",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+			})
+		}
+
+		if (res.status == status) resolve(true)
+		reject(res)
+	})
+}
+
+export const post = (url: string, status: number, bodyArgs?: {}) => {
 	return new Promise<boolean>(async (resolve, reject) => {
 		let res
 

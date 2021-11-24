@@ -1,2 +1,2 @@
 import { UltimakerJobTargetState } from "./interfaces";
-export declare const putJobState: (baseURL: string, target: UltimakerJobTargetState) => Promise<Boolean>;
+export declare const putJobState: (baseURL: string, target: UltimakerJobTargetState) => Promise<boolean>;

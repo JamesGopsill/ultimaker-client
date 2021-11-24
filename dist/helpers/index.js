@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.put = exports.get = void 0;
+exports.post = exports.put = exports.get = void 0;
 const cross_fetch_1 = require("cross-fetch");
 const get = (url, bodyArgs) => {
     return new Promise(async (resolve, reject) => {
@@ -32,7 +32,7 @@ const get = (url, bodyArgs) => {
     });
 };
 exports.get = get;
-const put = (url, bodyArgs, status = 200) => {
+const put = (url, status, bodyArgs) => {
     return new Promise(async (resolve, reject) => {
         let res;
         if (typeof bodyArgs != "undefined") {
@@ -62,3 +62,33 @@ const put = (url, bodyArgs, status = 200) => {
     });
 };
 exports.put = put;
+const post = (url, status, bodyArgs) => {
+    return new Promise(async (resolve, reject) => {
+        let res;
+        if (typeof bodyArgs != "undefined") {
+            res = await (0, cross_fetch_1.fetch)(url, {
+                method: "PUT",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify(bodyArgs),
+            });
+        }
+        else {
+            res = await (0, cross_fetch_1.fetch)(url, {
+                method: "PUT",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+            });
+        }
+        if (res.status == status)
+            resolve(true);
+        reject(res);
+    });
+};
+exports.post = post;

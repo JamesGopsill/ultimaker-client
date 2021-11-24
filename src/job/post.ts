@@ -19,7 +19,7 @@ export const postJob = (baseURL: string, jobname: string, gcode: string) => {
 
 			formData = new FormData()
 			formData.append("jobname", jobname)
-			formData.append("file", gcode, "test.gcode")
+			formData.append("file", blob, "test.gcode")
 		} else {
 			// Browser
 

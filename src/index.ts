@@ -323,12 +323,40 @@ export class UltimakerClient {
 		return printer.postPrinterBlink(this.baseURL, frequency, count)
 	}
 
-	public putPrinterLED(color: {
-		hue: number
-		saturation: number
-		brightness: number
-	}) {
+	public putPrinterLED(color: printer.HSV) {
 		return printer.putPrinterLED(this.baseURL, color)
+	}
+
+	public putPrinterLEDHue(hue: number) {
+		return printer.putPrinterLEDHue(this.baseURL, hue)
+	}
+
+	public putPrinterLEDSaturation(saturation: number) {
+		return printer.putPrinterLEDSaturation(this.baseURL, saturation)
+	}
+
+	public putPrinterLEDBrightness(brightness: number) {
+		return printer.putPrinterLEDBrightness(this.baseURL, brightness)
+	}
+
+	public putPrinterHeadPosition(headID: string, x: number, y: number, z: number, speed: number) {
+		return printer.putPrinterHeadPosition(this.baseURL, headID, x, y, z, speed)
+	}
+
+	public putPrinterHeadMaxSpeed(headID: string, xyz: printer.Cartesian) {
+		return printer.putPrinterHeadMaxSpeed(this.baseURL, headID, xyz)
+	}
+
+	public putPrinterHeadJerk(headID: string, xyz: printer.Cartesian) {
+		return printer.putPrinterHeadJerk(this.baseURL, headID, xyz)
+	}
+
+	public putPrinterBedTemperature(temperature: number) {
+		return printer.putPrinterBedTemperature(this.baseURL, temperature)
+	}
+
+	public putPrinterBedPreHeat(temperature: number, duration: number) {
+		return printer.putPrinterBedPreHeat(this.baseURL, temperature, duration)
 	}
 
 	// ###

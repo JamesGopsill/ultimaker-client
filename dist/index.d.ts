@@ -57,7 +57,7 @@ export declare class UltimakerClient {
     getMaterials(): Promise<string[]>;
     getMaterial(materialGUID: string): Promise<string>;
     deleteMaterial(materialGUID: string): Promise<Boolean>;
-    putMaterial(materialGUID: string): Promise<Boolean>;
+    putMaterial(materialGUID: string): Promise<boolean>;
     getNetwork(): Promise<{
         wifi: {
             connected: boolean;
@@ -132,17 +132,21 @@ export declare class UltimakerClient {
         remaining: number;
     }>;
     getPrinterBedType(): Promise<string>;
-    postPrinterBlink(frequency: number, count: number): Promise<Boolean>;
-    putPrinterLED(color: {
-        hue: number;
-        saturation: number;
-        brightness: number;
-    }): Promise<boolean>;
+    postPrinterBlink(frequency: number, count: number): Promise<boolean>;
+    putPrinterLED(color: printer.HSV): Promise<boolean>;
+    putPrinterLEDHue(hue: number): Promise<boolean>;
+    putPrinterLEDSaturation(saturation: number): Promise<boolean>;
+    putPrinterLEDBrightness(brightness: number): Promise<boolean>;
+    putPrinterHeadPosition(headID: string, x: number, y: number, z: number, speed: number): Promise<boolean>;
+    putPrinterHeadMaxSpeed(headID: string, xyz: printer.Cartesian): Promise<boolean>;
+    putPrinterHeadJerk(headID: string, xyz: printer.Cartesian): Promise<boolean>;
+    putPrinterBedTemperature(temperature: number): Promise<boolean>;
+    putPrinterBedPreHeat(temperature: number, duration: number): Promise<boolean>;
     postJob(jobname: string, gcode: string): Promise<{
         message: string;
         uuid: string;
     }>;
-    putJob(target: job.UltimakerJobTargetState): Promise<Boolean>;
+    putJob(target: job.UltimakerJobTargetState): Promise<boolean>;
     getJobDateTimeCleaned(): Promise<string>;
     getJobDateTimeFinished(): Promise<string>;
     getJobDateTimeStarted(): Promise<string>;

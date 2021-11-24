@@ -139,3 +139,20 @@ export const UltimakerLEDColors = {
 		brightness: 100,
 	},
 }
+
+export interface ValidateHeaderResponse {
+	fault_code: string
+	fault_level: string
+	message: string
+	data: string
+}
+
+export enum PrinterHeadPosition {
+	HOME = "home",
+}
+
+export interface HSV {
+	hue: number
+	saturation: number
+	brightness: number
+}

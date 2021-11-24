@@ -1,1 +1,1 @@
-export declare const putMaterial: (baseURL: string, materialGUID: string) => Promise<Boolean>;
+export declare const putMaterial: (baseURL: string, materialGUID: string) => Promise<boolean>;

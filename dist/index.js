@@ -272,6 +272,30 @@ class UltimakerClient {
     putPrinterLED(color) {
         return printer.putPrinterLED(this.baseURL, color);
     }
+    putPrinterLEDHue(hue) {
+        return printer.putPrinterLEDHue(this.baseURL, hue);
+    }
+    putPrinterLEDSaturation(saturation) {
+        return printer.putPrinterLEDSaturation(this.baseURL, saturation);
+    }
+    putPrinterLEDBrightness(brightness) {
+        return printer.putPrinterLEDBrightness(this.baseURL, brightness);
+    }
+    putPrinterHeadPosition(headID, x, y, z, speed) {
+        return printer.putPrinterHeadPosition(this.baseURL, headID, x, y, z, speed);
+    }
+    putPrinterHeadMaxSpeed(headID, xyz) {
+        return printer.putPrinterHeadMaxSpeed(this.baseURL, headID, xyz);
+    }
+    putPrinterHeadJerk(headID, xyz) {
+        return printer.putPrinterHeadJerk(this.baseURL, headID, xyz);
+    }
+    putPrinterBedTemperature(temperature) {
+        return printer.putPrinterBedTemperature(this.baseURL, temperature);
+    }
+    putPrinterBedPreHeat(temperature, duration) {
+        return printer.putPrinterBedPreHeat(this.baseURL, temperature, duration);
+    }
     // ###
     // Job
     // ###

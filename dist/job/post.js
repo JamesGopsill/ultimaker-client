@@ -14,7 +14,7 @@ const postJob = (baseURL, jobname, gcode) => {
             const FormData = require("form-data");
             formData = new FormData();
             formData.append("jobname", jobname);
-            formData.append("file", gcode, "test.gcode");
+            formData.append("file", blob, "test.gcode");
         }
         else {
             // Browser
