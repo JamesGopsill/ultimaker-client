@@ -59,33 +59,39 @@ export interface Cartesian {
 	z: number
 }
 
+export interface HotendOffset {
+	x: number
+	y: number
+	z: number
+	state: string
+}
+
+export interface Feeder {
+	position: number
+	max_speed: number
+	jerk: number
+	acceleration: number
+}
+
+export interface Hotend {
+	id: string
+	serial: string
+	temperature: {
+		target: number
+		current: number
+	}
+	offset: HotendOffset
+	statistics: {
+		last_material_guid: string
+		material_extruded: number
+		max_temperature_exposed: number
+		time_spent_hot: number
+	}
+}
+
 export interface ExtruderDetails {
-	hotend: {
-		id: string
-		serial: string
-		temperature: {
-			target: number
-			current: number
-		}
-		offset: {
-			x: number
-			y: number
-			z: number
-			state: string
-		}
-		statistics: {
-			last_material_guid: string
-			material_extruded: number
-			max_temperature_exposed: number
-			time_spent_hot: number
-		}
-	}
-	feeder: {
-		position: number
-		max_speed: number
-		jerk: number
-		acceleration: number
-	}
+	hotend: Hotend
+	feeder: Feeder
 	active_material: {
 		length_remaining: number
 		GUID: string

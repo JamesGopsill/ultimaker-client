@@ -224,6 +224,36 @@ class UltimakerClient {
     getPrinterHeadExtruder(headID, extruderID) {
         return printer.getPrinterHeadExtruder(this.baseURL, headID, extruderID);
     }
+    getPrinterHeadExtruderHotendOffset(headID, extruderID) {
+        return printer.getPrinterHeadExtruderHotendOffset(this.baseURL, headID, extruderID);
+    }
+    getPrinterHeadExtruderFeeder(headID, extruderID) {
+        return printer.getPrinterHeadExtruderFeeder(this.baseURL, headID, extruderID);
+    }
+    getPrinterHeadExtruderFeederJerk(headID, extruderID) {
+        return printer.getPrinterHeadExtruderFeederJerk(this.baseURL, headID, extruderID);
+    }
+    getPrinterHeadExtruderFeederMaxSpeed(headID, extruderID) {
+        return printer.getPrinterHeadExtruderFeederMaxSpeed(this.baseURL, headID, extruderID);
+    }
+    getPrinterHeadExtruderFeederAcceleration(headID, extruderID) {
+        return printer.getPrinterHeadExtruderFeederAcceleration(this.baseURL, headID, extruderID);
+    }
+    getPrinterHeadExtruderActiveMaterial(headID, extruderID) {
+        return printer.getPrinterHeadExtruderActiveMaterial(this.baseURL, headID, extruderID);
+    }
+    getPrinterHeadExtruderActiveMaterialLengthRemaining(headID, extruderID) {
+        return printer.getPrinterHeadExtruderActiveMaterialLengthRemaining(this.baseURL, headID, extruderID);
+    }
+    getPrinterHeadExtruderActiveMaterialGUID(headID, extruderID) {
+        return printer.getPrinterHeadExtruderActiveMaterialGUID(this.baseURL, headID, extruderID);
+    }
+    getPrinterHeadExtruderHotend(headID, extruderID) {
+        return printer.getPrinterHeadExtruderHotend(this.baseURL, headID, extruderID);
+    }
+    getPrinterHeadExtruderHotendTemperature(headID, extruderID) {
+        return printer.getPrinterHeadExtruderHotendTemperature(this.baseURL, headID, extruderID);
+    }
     getPrinterBed() {
         return printer.getPrinterBed(this.baseURL);
     }

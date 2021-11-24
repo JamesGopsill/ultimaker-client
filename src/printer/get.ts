@@ -2,6 +2,9 @@ import { get } from "../helpers"
 import {
 	Cartesian,
 	ExtruderDetails,
+	Feeder,
+	Hotend,
+	HotendOffset,
 	PrinterDetails,
 	PrinterHead,
 } from "./interfaces"
@@ -82,6 +85,99 @@ export const getPrinterHeadExtruder = (
 ) => {
 	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}`
 	return get<ExtruderDetails>(url)
+}
+
+export const getPrinterHeadExtruderHotendOffset = (
+	baseURL: string,
+	headID: string,
+	extruderID: string
+) => {
+	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/hotend/offset`
+	return get<HotendOffset>(url)
+}
+
+export const getPrinterHeadExtruderFeeder = (
+	baseURL: string,
+	headID: string,
+	extruderID: string
+) => {
+	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/feeder`
+	return get<Feeder>(url)
+}
+
+export const getPrinterHeadExtruderFeederJerk = (
+	baseURL: string,
+	headID: string,
+	extruderID: string
+) => {
+	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/feeder/jerk`
+	return get<number>(url)
+}
+
+export const getPrinterHeadExtruderFeederMaxSpeed = (
+	baseURL: string,
+	headID: string,
+	extruderID: string
+) => {
+	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/feeder/max_speed`
+	return get<number>(url)
+}
+
+export const getPrinterHeadExtruderFeederAcceleration = (
+	baseURL: string,
+	headID: string,
+	extruderID: string
+) => {
+	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/feeder/acceleration`
+	return get<number>(url)
+}
+
+export const getPrinterHeadExtruderActiveMaterial = (
+	baseURL: string,
+	headID: string,
+	extruderID: string
+) => {
+	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/active_material`
+	return get<{
+		length_remaining: number
+		GUID: string
+	}>(url)
+}
+
+export const getPrinterHeadExtruderActiveMaterialLengthRemaining = (
+	baseURL: string,
+	headID: string,
+	extruderID: string
+) => {
+	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/active_material/length_remaining`
+	return get<number>(url)
+}
+
+export const getPrinterHeadExtruderActiveMaterialGUID = (
+	baseURL: string,
+	headID: string,
+	extruderID: string
+) => {
+	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/active_material_guid`
+	return get<string>(url)
+}
+
+export const getPrinterHeadExtruderHotend = (
+	baseURL: string,
+	headID: string,
+	extruderID: string
+) => {
+	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/hotend`
+	return get<Hotend>(url)
+}
+
+export const getPrinterHeadExtruderHotendTemperature = (
+	baseURL: string,
+	headID: string,
+	extruderID: string
+) => {
+	const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/hotend/temperature`
+	return get<number>(url)
 }
 
 export const getPrinterBed = (baseURL: string) => {

@@ -260,7 +260,47 @@ export class UltimakerClient {
 	}
 
 	public getPrinterHeadExtruder(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruder(this.baseURL, headID, extruderID)
+		return printer.getPrinterHeadExtruder(this.baseURL, headID, extruderID)	
+	}
+
+	public getPrinterHeadExtruderHotendOffset(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruderHotendOffset(this.baseURL, headID, extruderID)
+	}
+
+	public getPrinterHeadExtruderFeeder(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruderFeeder(this.baseURL, headID, extruderID)
+	}
+
+	public getPrinterHeadExtruderFeederJerk(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruderFeederJerk(this.baseURL, headID, extruderID)
+	}
+
+	public getPrinterHeadExtruderFeederMaxSpeed(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruderFeederMaxSpeed(this.baseURL, headID, extruderID)
+	}
+
+	public getPrinterHeadExtruderFeederAcceleration(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruderFeederAcceleration(this.baseURL, headID, extruderID)
+	}
+
+	public getPrinterHeadExtruderActiveMaterial(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruderActiveMaterial(this.baseURL, headID, extruderID)
+	}
+
+	public getPrinterHeadExtruderActiveMaterialLengthRemaining(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruderActiveMaterialLengthRemaining(this.baseURL, headID, extruderID)
+	}
+
+	public getPrinterHeadExtruderActiveMaterialGUID(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruderActiveMaterialGUID(this.baseURL, headID, extruderID)
+	}
+
+	public getPrinterHeadExtruderHotend(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruderHotend(this.baseURL, headID, extruderID)
+	}
+
+	public getPrinterHeadExtruderHotendTemperature(headID: string, extruderID: string) {
+		return printer.getPrinterHeadExtruderHotendTemperature(this.baseURL, headID, extruderID)
 	}
 
 	public getPrinterBed() {

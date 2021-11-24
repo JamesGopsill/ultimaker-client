@@ -104,6 +104,19 @@ export declare class UltimakerClient {
     getPrinterHeadJerk(headID: string): Promise<printer.Cartesian>;
     getPrinterHeadExtruders(headID: string): Promise<printer.ExtruderDetails[]>;
     getPrinterHeadExtruder(headID: string, extruderID: string): Promise<printer.ExtruderDetails>;
+    getPrinterHeadExtruderHotendOffset(headID: string, extruderID: string): Promise<printer.HotendOffset>;
+    getPrinterHeadExtruderFeeder(headID: string, extruderID: string): Promise<printer.Feeder>;
+    getPrinterHeadExtruderFeederJerk(headID: string, extruderID: string): Promise<number>;
+    getPrinterHeadExtruderFeederMaxSpeed(headID: string, extruderID: string): Promise<number>;
+    getPrinterHeadExtruderFeederAcceleration(headID: string, extruderID: string): Promise<number>;
+    getPrinterHeadExtruderActiveMaterial(headID: string, extruderID: string): Promise<{
+        length_remaining: number;
+        GUID: string;
+    }>;
+    getPrinterHeadExtruderActiveMaterialLengthRemaining(headID: string, extruderID: string): Promise<number>;
+    getPrinterHeadExtruderActiveMaterialGUID(headID: string, extruderID: string): Promise<string>;
+    getPrinterHeadExtruderHotend(headID: string, extruderID: string): Promise<printer.Hotend>;
+    getPrinterHeadExtruderHotendTemperature(headID: string, extruderID: string): Promise<number>;
     getPrinterBed(): Promise<{
         temperature: {
             target: number;
