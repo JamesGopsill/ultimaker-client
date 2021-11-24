@@ -1,5 +1,5 @@
 import * as fs from "fs"
-import { UltimakerClient, UltimakerJobTargetState } from "../src"
+import { UltimakerClient, UltimakerJobEndpoint } from "../src"
 import { ip } from "./test.config"
 
 const client = new UltimakerClient(ip)
@@ -115,6 +115,8 @@ test("GET job", async () => {
 })
 
 test("PUT job - stop", async () => {
-	const success = await client.putJob(UltimakerJobTargetState.ABORT)
+	const success = await client.putJob(
+		UltimakerJobEndpoint.UltimakerJobTargetState.ABORT
+	)
 	expect(success).toBe(true)
 })

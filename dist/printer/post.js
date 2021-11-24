@@ -31,21 +31,21 @@ exports.postPrinterHeadPosition = postPrinterHeadPosition;
 const postValidateHeader = (baseURL, gcode) => {
     return new Promise(async (resolve, reject) => {
         let formData;
-        let blob;
+        // let blob: any
         // Check if we are running in the browser or on node.js
         if (typeof window === "undefined") {
             // Node.js
-            const buffer = require("buffer");
-            blob = new buffer.Blob([gcode], { type: "text/plain" });
+            //const buffer = require("buffer")
+            //blob = new buffer.Blob([gcode], { type: "text/plain" })
             const FormData = require("form-data");
             formData = new FormData();
-            formData.append("file", blob);
+            formData.append("file", gcode);
         }
         else {
             // Browser
-            blob = new Blob([gcode], { type: "text/plain" });
+            //blob = new Blob([gcode], { type: "text/plain" })
             formData = new FormData();
-            formData.append("file", blob);
+            formData.append("file", gcode);
         }
         const res = await (0, cross_fetch_1.fetch)(baseURL + "/api/v1/printer/validate_header", {
             method: "POST",
