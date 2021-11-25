@@ -24,12 +24,12 @@ export declare class UltimakerClient {
     constructor(ip: string);
     getSystem(): Promise<system.UltimakerSystemDetails>;
     getSystemName(): Promise<string>;
-    putSystemName(name: string): void;
+    putSystemName(name: string): Promise<boolean>;
     getSystemGUID(): Promise<string>;
     getSystemHostname(): Promise<string>;
     getSystemPlatform(): Promise<string>;
     getSystemFirmware(): Promise<string>;
-    putSystemFirmware(updateType: system.UltimakerSystemUpdateType): void;
+    putSystemFirmware(updateType: system.UltimakerSystemUpdateType): Promise<boolean>;
     getSystemFirmwareStatus(): Promise<string>;
     getSystemFirmwareStable(): Promise<string>;
     getSystemFirmwareTesting(): Promise<string>;
@@ -40,20 +40,20 @@ export declare class UltimakerClient {
     getSystemTime(): Promise<{
         utc: number;
     }>;
-    getSystemLog(boot?: number, lines?: number): Promise<string[]>;
+    getSystemLog(): Promise<string[]>;
     getSystemCountry(): Promise<string>;
     putSystemCountry(country: string): Promise<boolean>;
     getSystemLanguage(): Promise<string>;
     getSystemUpTime(): Promise<number>;
     getSystemType(): Promise<string>;
-    getSystemVariant(): Promise<number>;
+    getSystemVariant(): Promise<string>;
     getSystemHardware(): Promise<{
         typeid: number;
         revision: number;
     }>;
     getSystemHardwareTypeId(): Promise<number>;
     getSystemHardwareRevision(): Promise<string>;
-    putSystemDisplayMessage(message: string, buttonCaption: string): void;
+    putSystemDisplayMessage(message: string, buttonCaption: string): Promise<boolean>;
     getMaterials(): Promise<string[]>;
     getMaterial(materialGUID: string): Promise<string>;
     deleteMaterial(materialGUID: string): Promise<Boolean>;
@@ -82,9 +82,9 @@ export declare class UltimakerClient {
     }]>;
     deleteWifiNetwork(ssid: string): Promise<boolean>;
     putWifiNetwork(ssid: string, passphrase: string): Promise<boolean>;
-    getJobHistory(offset?: number, count?: number): Promise<history.UltimakerHistoricJob[]>;
+    getJobHistory(): Promise<history.UltimakerHistoricJob[]>;
     getSingleJobHistory(uuid: string): Promise<history.UltimakerHistoricJob>;
-    getEventHistory(offset?: number, count?: number, typeID?: number): Promise<history.UltimakerEvent[]>;
+    getEventHistory(): Promise<history.UltimakerEvent[]>;
     putEventHistory(typeID: number, parameters: string[]): Promise<boolean>;
     getPrinter(): Promise<printer.PrinterDetails>;
     getPrinterStatus(): Promise<string>;
@@ -97,39 +97,34 @@ export declare class UltimakerClient {
     getPrinterLEDSaturation(): Promise<number>;
     getPrinterLEDBrightness(): Promise<number>;
     getPrinterHeads(): Promise<printer.PrinterHead[]>;
-    getPrinterHead(headID: string): Promise<printer.PrinterHead>;
-    getPrinterPosition(headID: string): Promise<printer.Cartesian>;
-    getPrinterHeadMaxSpeed(headID: string): Promise<printer.Cartesian>;
-    getPrinterHeadAcceleration(headID: string): Promise<number>;
-    getPrinterHeadJerk(headID: string): Promise<printer.Cartesian>;
-    getPrinterHeadExtruders(headID: string): Promise<printer.ExtruderDetails[]>;
-    getPrinterHeadExtruder(headID: string, extruderID: string): Promise<printer.ExtruderDetails>;
-    getPrinterHeadExtruderHotendOffset(headID: string, extruderID: string): Promise<printer.HotendOffset>;
-    getPrinterHeadExtruderFeeder(headID: string, extruderID: string): Promise<printer.Feeder>;
-    getPrinterHeadExtruderFeederJerk(headID: string, extruderID: string): Promise<number>;
-    getPrinterHeadExtruderFeederMaxSpeed(headID: string, extruderID: string): Promise<number>;
-    getPrinterHeadExtruderFeederAcceleration(headID: string, extruderID: string): Promise<number>;
-    getPrinterHeadExtruderActiveMaterial(headID: string, extruderID: string): Promise<{
+    getPrinterHead(headIndex: string): Promise<printer.PrinterHead>;
+    getPrinterPosition(headIndex: string): Promise<printer.Cartesian>;
+    getPrinterHeadMaxSpeed(headIndex: string): Promise<printer.Cartesian>;
+    getPrinterHeadAcceleration(headIndex: string): Promise<number>;
+    getPrinterHeadJerk(headIndex: string): Promise<printer.Cartesian>;
+    getPrinterHeadExtruders(headIndex: string): Promise<printer.ExtruderDetails[]>;
+    getPrinterHeadExtruder(headIndex: string, extruderIndex: string): Promise<printer.ExtruderDetails>;
+    getPrinterHeadExtruderHotendOffset(headIndex: string, extruderIndex: string): Promise<printer.HotendOffset>;
+    getPrinterHeadExtruderFeeder(headIndex: string, extruderIndex: string): Promise<printer.Feeder>;
+    getPrinterHeadExtruderFeederJerk(headIndex: string, extruderIndex: string): Promise<number>;
+    getPrinterHeadExtruderFeederMaxSpeed(headIndex: string, extruderIndex: string): Promise<number>;
+    getPrinterHeadExtruderFeederAcceleration(headIndex: string, extruderIndex: string): Promise<number>;
+    getPrinterHeadExtruderActiveMaterial(headIndex: string, extruderIndex: string): Promise<{
         length_remaining: number;
         GUID: string;
     }>;
-    getPrinterHeadExtruderActiveMaterialLengthRemaining(headID: string, extruderID: string): Promise<number>;
-    getPrinterHeadExtruderActiveMaterialGUID(headID: string, extruderID: string): Promise<string>;
-    getPrinterHeadExtruderHotend(headID: string, extruderID: string): Promise<printer.Hotend>;
-    getPrinterHeadExtruderHotendTemperature(headID: string, extruderID: string): Promise<number>;
-    getPrinterBed(): Promise<{
-        temperature: {
-            target: number;
-            current: number;
-        };
-    }>;
+    getPrinterHeadExtruderActiveMaterialLengthRemaining(headIndex: string, extruderIndex: string): Promise<number>;
+    getPrinterHeadExtruderActiveMaterialGUID(headIndex: string, extruderIndex: string): Promise<string>;
+    getPrinterHeadExtruderHotend(headIndex: string, extruderIndex: string): Promise<printer.Hotend>;
+    getPrinterHeadExtruderHotendTemperature(headIndex: string, extruderIndex: string): Promise<number>;
+    getPrinterBed(): Promise<printer.PrinterBed>;
     getPrinterBedTemperature(): Promise<{
         target: number;
         current: number;
     }>;
     getPrinterBedPreHeat(): Promise<{
         active: boolean;
-        remaining: number;
+        remaining?: number | undefined;
     }>;
     getPrinterBedType(): Promise<string>;
     postPrinterBlink(frequency: number, count: number): Promise<boolean>;
@@ -137,9 +132,9 @@ export declare class UltimakerClient {
     putPrinterLEDHue(hue: number): Promise<boolean>;
     putPrinterLEDSaturation(saturation: number): Promise<boolean>;
     putPrinterLEDBrightness(brightness: number): Promise<boolean>;
-    putPrinterHeadPosition(headID: string, x: number, y: number, z: number, speed: number): Promise<boolean>;
-    putPrinterHeadMaxSpeed(headID: string, xyz: printer.Cartesian): Promise<boolean>;
-    putPrinterHeadJerk(headID: string, xyz: printer.Cartesian): Promise<boolean>;
+    putPrinterHeadPosition(headIndex: string, x: number, y: number, z: number, speed: number): Promise<boolean>;
+    putPrinterHeadMaxSpeed(headIndex: string, xyz: printer.Cartesian): Promise<boolean>;
+    putPrinterHeadJerk(headIndex: string, xyz: printer.Cartesian): Promise<boolean>;
     putPrinterBedTemperature(temperature: number): Promise<boolean>;
     putPrinterBedPreHeat(temperature: number, duration: number): Promise<boolean>;
     postJob(jobname: string, gcode: string): Promise<{
@@ -147,9 +142,9 @@ export declare class UltimakerClient {
         uuid: string;
     }>;
     putJob(target: job.UltimakerJobTargetState): Promise<boolean>;
-    getJobDateTimeCleaned(): Promise<string>;
-    getJobDateTimeFinished(): Promise<string>;
-    getJobDateTimeStarted(): Promise<string>;
+    getJobDateTimeCleaned(): Promise<Date | null>;
+    getJobDateTimeFinished(): Promise<Date | null>;
+    getJobDateTimeStarted(): Promise<Date | null>;
     getJobName(): Promise<string>;
     getJobPauseSource(): Promise<string>;
     getJobProgress(): Promise<number>;
@@ -163,5 +158,5 @@ export declare class UltimakerClient {
     getJobTimeTotal(): Promise<number>;
     getJobUUID(): Promise<string>;
     getJob(): Promise<job.UltimakerJobDetails>;
-    getAirManager(): Promise<airmanager.AirManagerDetails>;
+    getAirManager(): Promise<airmanager.AirManagerDetailsResponse | airmanager.AirManagerNotAvailableResponse>;
 }

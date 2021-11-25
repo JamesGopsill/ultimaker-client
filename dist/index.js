@@ -98,8 +98,8 @@ class UltimakerClient {
     getSystemTime() {
         return system.getSystemTime(this.baseURL);
     }
-    getSystemLog(boot = 0, lines = 50) {
-        return system.getSystemLog(this.baseURL, boot, lines);
+    getSystemLog() {
+        return system.getSystemLog(this.baseURL);
     }
     getSystemCountry() {
         return system.getSystemCountry(this.baseURL);
@@ -164,17 +164,14 @@ class UltimakerClient {
     // ###
     // History
     // ###
-    getJobHistory(offset = 0, count = 50) {
-        return history.getJobHistory(this.baseURL, offset, count);
+    getJobHistory() {
+        return history.getJobHistory(this.baseURL);
     }
     getSingleJobHistory(uuid) {
         return history.getSingleJobHistory(this.baseURL, uuid);
     }
-    getEventHistory(offset = 0, count = 50, typeID) {
-        if (typeof typeID != "undefined") {
-            return history.getEventHistory(this.baseURL, offset, count);
-        }
-        return history.getEventHistory(this.baseURL, offset, count, typeID);
+    getEventHistory() {
+        return history.getEventHistory(this.baseURL);
     }
     putEventHistory(typeID, parameters) {
         return history.putEventHistory(this.baseURL, typeID, parameters);
@@ -203,56 +200,56 @@ class UltimakerClient {
     getPrinterHeads() {
         return printer.getPrinterHeads(this.baseURL);
     }
-    getPrinterHead(headID) {
-        return printer.getPrinterHead(this.baseURL, headID);
+    getPrinterHead(headIndex) {
+        return printer.getPrinterHead(this.baseURL, headIndex);
     }
-    getPrinterPosition(headID) {
-        return printer.getPrinterHeadPosition(this.baseURL, headID);
+    getPrinterPosition(headIndex) {
+        return printer.getPrinterHeadPosition(this.baseURL, headIndex);
     }
-    getPrinterHeadMaxSpeed(headID) {
-        return printer.getPrinterHeadMaxSpeed(this.baseURL, headID);
+    getPrinterHeadMaxSpeed(headIndex) {
+        return printer.getPrinterHeadMaxSpeed(this.baseURL, headIndex);
     }
-    getPrinterHeadAcceleration(headID) {
-        return printer.getPrinterHeadAcceleration(this.baseURL, headID);
+    getPrinterHeadAcceleration(headIndex) {
+        return printer.getPrinterHeadAcceleration(this.baseURL, headIndex);
     }
-    getPrinterHeadJerk(headID) {
-        return printer.getPrinterHeadJerk(this.baseURL, headID);
+    getPrinterHeadJerk(headIndex) {
+        return printer.getPrinterHeadJerk(this.baseURL, headIndex);
     }
-    getPrinterHeadExtruders(headID) {
-        return printer.getPrinterHeadExtruders(this.baseURL, headID);
+    getPrinterHeadExtruders(headIndex) {
+        return printer.getPrinterHeadExtruders(this.baseURL, headIndex);
     }
-    getPrinterHeadExtruder(headID, extruderID) {
-        return printer.getPrinterHeadExtruder(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruder(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruder(this.baseURL, headIndex, extruderIndex);
     }
-    getPrinterHeadExtruderHotendOffset(headID, extruderID) {
-        return printer.getPrinterHeadExtruderHotendOffset(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruderHotendOffset(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruderHotendOffset(this.baseURL, headIndex, extruderIndex);
     }
-    getPrinterHeadExtruderFeeder(headID, extruderID) {
-        return printer.getPrinterHeadExtruderFeeder(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruderFeeder(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruderFeeder(this.baseURL, headIndex, extruderIndex);
     }
-    getPrinterHeadExtruderFeederJerk(headID, extruderID) {
-        return printer.getPrinterHeadExtruderFeederJerk(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruderFeederJerk(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruderFeederJerk(this.baseURL, headIndex, extruderIndex);
     }
-    getPrinterHeadExtruderFeederMaxSpeed(headID, extruderID) {
-        return printer.getPrinterHeadExtruderFeederMaxSpeed(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruderFeederMaxSpeed(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruderFeederMaxSpeed(this.baseURL, headIndex, extruderIndex);
     }
-    getPrinterHeadExtruderFeederAcceleration(headID, extruderID) {
-        return printer.getPrinterHeadExtruderFeederAcceleration(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruderFeederAcceleration(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruderFeederAcceleration(this.baseURL, headIndex, extruderIndex);
     }
-    getPrinterHeadExtruderActiveMaterial(headID, extruderID) {
-        return printer.getPrinterHeadExtruderActiveMaterial(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruderActiveMaterial(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruderActiveMaterial(this.baseURL, headIndex, extruderIndex);
     }
-    getPrinterHeadExtruderActiveMaterialLengthRemaining(headID, extruderID) {
-        return printer.getPrinterHeadExtruderActiveMaterialLengthRemaining(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruderActiveMaterialLengthRemaining(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruderActiveMaterialLengthRemaining(this.baseURL, headIndex, extruderIndex);
     }
-    getPrinterHeadExtruderActiveMaterialGUID(headID, extruderID) {
-        return printer.getPrinterHeadExtruderActiveMaterialGUID(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruderActiveMaterialGUID(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruderActiveMaterialGUID(this.baseURL, headIndex, extruderIndex);
     }
-    getPrinterHeadExtruderHotend(headID, extruderID) {
-        return printer.getPrinterHeadExtruderHotend(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruderHotend(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruderHotend(this.baseURL, headIndex, extruderIndex);
     }
-    getPrinterHeadExtruderHotendTemperature(headID, extruderID) {
-        return printer.getPrinterHeadExtruderHotendTemperature(this.baseURL, headID, extruderID);
+    getPrinterHeadExtruderHotendTemperature(headIndex, extruderIndex) {
+        return printer.getPrinterHeadExtruderHotendTemperature(this.baseURL, headIndex, extruderIndex);
     }
     getPrinterBed() {
         return printer.getPrinterBed(this.baseURL);
@@ -269,6 +266,11 @@ class UltimakerClient {
     postPrinterBlink(frequency, count) {
         return printer.postPrinterBlink(this.baseURL, frequency, count);
     }
+    /*
+    public postPrinterValidateHeader(gcode: string) {
+        return printer.postPrinterValidateHeader(this.baseURL, gcode)
+    }
+    */
     putPrinterLED(color) {
         return printer.putPrinterLED(this.baseURL, color);
     }
@@ -281,14 +283,14 @@ class UltimakerClient {
     putPrinterLEDBrightness(brightness) {
         return printer.putPrinterLEDBrightness(this.baseURL, brightness);
     }
-    putPrinterHeadPosition(headID, x, y, z, speed) {
-        return printer.putPrinterHeadPosition(this.baseURL, headID, x, y, z, speed);
+    putPrinterHeadPosition(headIndex, x, y, z, speed) {
+        return printer.putPrinterHeadPosition(this.baseURL, headIndex, x, y, z, speed);
     }
-    putPrinterHeadMaxSpeed(headID, xyz) {
-        return printer.putPrinterHeadMaxSpeed(this.baseURL, headID, xyz);
+    putPrinterHeadMaxSpeed(headIndex, xyz) {
+        return printer.putPrinterHeadMaxSpeed(this.baseURL, headIndex, xyz);
     }
-    putPrinterHeadJerk(headID, xyz) {
-        return printer.putPrinterHeadJerk(this.baseURL, headID, xyz);
+    putPrinterHeadJerk(headIndex, xyz) {
+        return printer.putPrinterHeadJerk(this.baseURL, headIndex, xyz);
     }
     putPrinterBedTemperature(temperature) {
         return printer.putPrinterBedTemperature(this.baseURL, temperature);

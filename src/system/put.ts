@@ -4,7 +4,7 @@ import { UltimakerSystemUpdateType } from "./interfaces"
 export const putSystemCountry = (baseURL: string, country: string) => {
 	const url = `${baseURL}/api/v1/system/country`
 	const bodyArgs = { country: country }
-	return put(url, 204, bodyArgs)
+	return put(url, 200, bodyArgs)
 }
 
 export const putSystemDisplayMessage = (
@@ -17,7 +17,7 @@ export const putSystemDisplayMessage = (
 		message: message,
 		button_caption: buttonCaption,
 	}
-	put(url, 200, bodyArgs)
+	return put(url, 200, bodyArgs)
 }
 
 export const putSystemFirmware = (
@@ -26,11 +26,11 @@ export const putSystemFirmware = (
 ) => {
 	const url = `${baseURL}/api/v1/system/firmware`
 	const bodyArgs = { update_type: updateType }
-	put(url, 200, bodyArgs)
+	return put(url, 200, bodyArgs)
 }
 
 export const putSystemName = (baseURL: string, name: string) => {
 	const url = `${baseURL}/api/v1/system/name`
 	const bodyArgs = { name: name }
-	put(url, 204, bodyArgs)
+	return put(url, 204, bodyArgs)
 }

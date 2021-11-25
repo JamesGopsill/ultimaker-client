@@ -67,7 +67,7 @@ const post = (url, status, bodyArgs) => {
         let res;
         if (typeof bodyArgs != "undefined") {
             res = await (0, cross_fetch_1.fetch)(url, {
-                method: "PUT",
+                method: "POST",
                 mode: "cors",
                 headers: {
                     "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const post = (url, status, bodyArgs) => {
         }
         else {
             res = await (0, cross_fetch_1.fetch)(url, {
-                method: "PUT",
+                method: "POST",
                 mode: "cors",
                 headers: {
                     "Content-Type": "application/json",

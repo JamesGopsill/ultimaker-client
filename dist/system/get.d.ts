@@ -13,7 +13,7 @@ export declare const getSystemHardware: (baseURL: string) => Promise<{
 }>;
 export declare const getSystemHostname: (baseURL: string) => Promise<string>;
 export declare const getSystemLanguage: (baseURL: string) => Promise<string>;
-export declare const getSystemLog: (baseURL: string, boot?: number, lines?: number) => Promise<string[]>;
+export declare const getSystemLog: (baseURL: string) => Promise<string[]>;
 export declare const getSystemMemory: (baseURL: string) => Promise<{
     total: number;
     used: number;
@@ -25,5 +25,5 @@ export declare const getSystemTime: (baseURL: string) => Promise<{
 }>;
 export declare const getSystemType: (baseURL: string) => Promise<string>;
 export declare const getSystemUpTime: (baseURL: string) => Promise<number>;
-export declare const getSystemVariant: (baseURL: string) => Promise<number>;
+export declare const getSystemVariant: (baseURL: string) => Promise<string>;
 export declare const getSystem: (baseURL: string) => Promise<UltimakerSystemDetails>;

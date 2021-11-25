@@ -139,16 +139,17 @@ The first objective is to build a client that implements the entire v1 Ultimaker
 | Version | Content | Status |
 | --- | --- | --- |
 | 0.1.0 | A smattering of API functions that we have needed to access/use in our research project. Client codebase set up with typescript and testing support.| ✔ |
-| 0.2.0 | `/system` implemented. | ✔ |
+| 0.2.0 | `/system` implemented. | ✔* |
 | 0.3.0 | `/materials` implemented. | ✔ |
 | 0.4.0 | `/network` implemented. | ✔ |
 | 0.5.0 | `/history` implemented. | ✔ |
 | 0.6.0 | `/print_job` implemented. | ✔ |
 | 0.7.0 | `/airmanager` implemented. | ✔ |
-| 0.8.0 | `/printer` implemented. | - |
+| 0.8.0 | `/printer` implemented. | ✔* |
 | 0.9.0 | `/camera` implemented. | - |
 | 1.0.0 | All endpoints implemented. | - |
 | 1.1.0 | Digest authentication. `/auth`. | - |
+* denotes partial test coverage.
 
 ## Contributing
 

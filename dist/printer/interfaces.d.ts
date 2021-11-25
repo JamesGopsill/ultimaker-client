@@ -3,11 +3,17 @@ export interface PrinterDetails {
     camera: {
         feed: string;
     };
+    beep: {};
+    diagonistics: {};
     bed: {
+        pre_heat: {
+            active: boolean;
+        };
         temperature: {
             target: number;
             current: number;
         };
+        type: string;
     };
     network: {
         wifi: {
@@ -29,6 +35,7 @@ export interface PrinterDetails {
         };
     };
     led: {
+        blink: {};
         hue: number;
         saturation: number;
         brightness: number;
@@ -145,4 +152,14 @@ export interface HSV {
     hue: number;
     saturation: number;
     brightness: number;
+}
+export interface PrinterBed {
+    pre_heat: {
+        active: boolean;
+    };
+    temperature: {
+        current: number;
+        target: number;
+    };
+    type: string;
 }

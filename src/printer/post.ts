@@ -40,7 +40,7 @@ export const postPrinterHeadPosition = (
 	})
 }
 
-export const postValidateHeader = (baseURL: string, gcode: string) => {
+export const postPrinterValidateHeader = (baseURL: string, gcode: string) => {
 	return new Promise<ValidateHeaderResponse>(async (resolve, reject) => {
 		let formData: any
 		// let blob: any

@@ -8,7 +8,7 @@ const getPrinter = (baseURL) => {
 };
 exports.getPrinter = getPrinter;
 const getPrinterStatus = (baseURL) => {
-    const url = `${baseURL}/api/v1/printer`;
+    const url = `${baseURL}/api/v1/printer/status`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterStatus = getPrinterStatus;
@@ -37,88 +37,88 @@ const getPrinterHeads = (baseURL) => {
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeads = getPrinterHeads;
-const getPrinterHead = (baseURL, headID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}`;
+const getPrinterHead = (baseURL, headIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHead = getPrinterHead;
-const getPrinterHeadPosition = (baseURL, headID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/position`;
+const getPrinterHeadPosition = (baseURL, headIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/position`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadPosition = getPrinterHeadPosition;
-const getPrinterHeadMaxSpeed = (baseURL, headID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/max_speed`;
+const getPrinterHeadMaxSpeed = (baseURL, headIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/max_speed`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadMaxSpeed = getPrinterHeadMaxSpeed;
-const getPrinterHeadAcceleration = (baseURL, headID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/max_speed`;
+const getPrinterHeadAcceleration = (baseURL, headIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/max_speed`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadAcceleration = getPrinterHeadAcceleration;
-const getPrinterHeadJerk = (baseURL, headID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/jerk`;
+const getPrinterHeadJerk = (baseURL, headIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/jerk`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadJerk = getPrinterHeadJerk;
-const getPrinterHeadExtruders = (baseURL, headID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders`;
+const getPrinterHeadExtruders = (baseURL, headIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruders = getPrinterHeadExtruders;
-const getPrinterHeadExtruder = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}`;
+const getPrinterHeadExtruder = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruder = getPrinterHeadExtruder;
-const getPrinterHeadExtruderHotendOffset = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/hotend/offset`;
+const getPrinterHeadExtruderHotendOffset = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}/hotend/offset`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruderHotendOffset = getPrinterHeadExtruderHotendOffset;
-const getPrinterHeadExtruderFeeder = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/feeder`;
+const getPrinterHeadExtruderFeeder = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}/feeder`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruderFeeder = getPrinterHeadExtruderFeeder;
-const getPrinterHeadExtruderFeederJerk = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/feeder/jerk`;
+const getPrinterHeadExtruderFeederJerk = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}/feeder/jerk`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruderFeederJerk = getPrinterHeadExtruderFeederJerk;
-const getPrinterHeadExtruderFeederMaxSpeed = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/feeder/max_speed`;
+const getPrinterHeadExtruderFeederMaxSpeed = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}/feeder/max_speed`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruderFeederMaxSpeed = getPrinterHeadExtruderFeederMaxSpeed;
-const getPrinterHeadExtruderFeederAcceleration = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/feeder/acceleration`;
+const getPrinterHeadExtruderFeederAcceleration = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}/feeder/acceleration`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruderFeederAcceleration = getPrinterHeadExtruderFeederAcceleration;
-const getPrinterHeadExtruderActiveMaterial = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/active_material`;
+const getPrinterHeadExtruderActiveMaterial = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}/active_material`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruderActiveMaterial = getPrinterHeadExtruderActiveMaterial;
-const getPrinterHeadExtruderActiveMaterialLengthRemaining = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/active_material/length_remaining`;
+const getPrinterHeadExtruderActiveMaterialLengthRemaining = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}/active_material/length_remaining`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruderActiveMaterialLengthRemaining = getPrinterHeadExtruderActiveMaterialLengthRemaining;
-const getPrinterHeadExtruderActiveMaterialGUID = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/active_material_guid`;
+const getPrinterHeadExtruderActiveMaterialGUID = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}/active_material_guid`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruderActiveMaterialGUID = getPrinterHeadExtruderActiveMaterialGUID;
-const getPrinterHeadExtruderHotend = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/hotend`;
+const getPrinterHeadExtruderHotend = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}/hotend`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruderHotend = getPrinterHeadExtruderHotend;
-const getPrinterHeadExtruderHotendTemperature = (baseURL, headID, extruderID) => {
-    const url = `${baseURL}/api/v1/printer/heads/${headID}/extruders/${extruderID}/hotend/temperature`;
+const getPrinterHeadExtruderHotendTemperature = (baseURL, headIndex, extruderIndex) => {
+    const url = `${baseURL}/api/v1/printer/heads/${headIndex}/extruders/${extruderIndex}/hotend/temperature`;
     return (0, helpers_1.get)(url);
 };
 exports.getPrinterHeadExtruderHotendTemperature = getPrinterHeadExtruderHotendTemperature;

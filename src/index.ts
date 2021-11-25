@@ -96,8 +96,8 @@ export class UltimakerClient {
 		return system.getSystemTime(this.baseURL)
 	}
 
-	public getSystemLog(boot: number = 0, lines: number = 50) {
-		return system.getSystemLog(this.baseURL, boot, lines)
+	public getSystemLog() {
+		return system.getSystemLog(this.baseURL)
 	}
 
 	public getSystemCountry() {
@@ -184,19 +184,16 @@ export class UltimakerClient {
 	// History
 	// ###
 
-	public getJobHistory(offset: number = 0, count: number = 50) {
-		return history.getJobHistory(this.baseURL, offset, count)
+	public getJobHistory() {
+		return history.getJobHistory(this.baseURL)
 	}
 
 	public getSingleJobHistory(uuid: string) {
 		return history.getSingleJobHistory(this.baseURL, uuid)
 	}
 
-	public getEventHistory(offset: number = 0, count: number = 50, typeID?: number) {
-		if (typeof typeID != "undefined") {
-			return history.getEventHistory(this.baseURL, offset, count)
-		}
-		return history.getEventHistory(this.baseURL, offset, count, typeID)
+	public getEventHistory() {
+		return history.getEventHistory(this.baseURL)
 	}
 
 	public putEventHistory(typeID: number, parameters: string[]) {
@@ -235,72 +232,72 @@ export class UltimakerClient {
 		return printer.getPrinterHeads(this.baseURL)
 	}
 
-	public getPrinterHead(headID: string) {
-		return printer.getPrinterHead(this.baseURL, headID)
+	public getPrinterHead(headIndex: string) {
+		return printer.getPrinterHead(this.baseURL, headIndex)
 	}
 
-	public getPrinterPosition(headID: string) {
-		return printer.getPrinterHeadPosition(this.baseURL, headID)
+	public getPrinterPosition(headIndex: string) {
+		return printer.getPrinterHeadPosition(this.baseURL, headIndex)
 	}
 
-	public getPrinterHeadMaxSpeed(headID: string) {
-		return printer.getPrinterHeadMaxSpeed(this.baseURL, headID)
+	public getPrinterHeadMaxSpeed(headIndex: string) {
+		return printer.getPrinterHeadMaxSpeed(this.baseURL, headIndex)
 	}
 
-	public getPrinterHeadAcceleration(headID: string) {
-		return printer.getPrinterHeadAcceleration(this.baseURL, headID)
+	public getPrinterHeadAcceleration(headIndex: string) {
+		return printer.getPrinterHeadAcceleration(this.baseURL, headIndex)
 	}
 
-	public getPrinterHeadJerk(headID: string) {
-		return printer.getPrinterHeadJerk(this.baseURL, headID)
+	public getPrinterHeadJerk(headIndex: string) {
+		return printer.getPrinterHeadJerk(this.baseURL, headIndex)
 	}
 
-	public getPrinterHeadExtruders(headID: string) {
-		return printer.getPrinterHeadExtruders(this.baseURL, headID)
+	public getPrinterHeadExtruders(headIndex: string) {
+		return printer.getPrinterHeadExtruders(this.baseURL, headIndex)
 	}
 
-	public getPrinterHeadExtruder(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruder(this.baseURL, headID, extruderID)	
+	public getPrinterHeadExtruder(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruder(this.baseURL, headIndex, extruderIndex)	
 	}
 
-	public getPrinterHeadExtruderHotendOffset(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruderHotendOffset(this.baseURL, headID, extruderID)
+	public getPrinterHeadExtruderHotendOffset(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruderHotendOffset(this.baseURL, headIndex, extruderIndex)
 	}
 
-	public getPrinterHeadExtruderFeeder(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruderFeeder(this.baseURL, headID, extruderID)
+	public getPrinterHeadExtruderFeeder(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruderFeeder(this.baseURL, headIndex, extruderIndex)
 	}
 
-	public getPrinterHeadExtruderFeederJerk(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruderFeederJerk(this.baseURL, headID, extruderID)
+	public getPrinterHeadExtruderFeederJerk(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruderFeederJerk(this.baseURL, headIndex, extruderIndex)
 	}
 
-	public getPrinterHeadExtruderFeederMaxSpeed(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruderFeederMaxSpeed(this.baseURL, headID, extruderID)
+	public getPrinterHeadExtruderFeederMaxSpeed(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruderFeederMaxSpeed(this.baseURL, headIndex, extruderIndex)
 	}
 
-	public getPrinterHeadExtruderFeederAcceleration(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruderFeederAcceleration(this.baseURL, headID, extruderID)
+	public getPrinterHeadExtruderFeederAcceleration(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruderFeederAcceleration(this.baseURL, headIndex, extruderIndex)
 	}
 
-	public getPrinterHeadExtruderActiveMaterial(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruderActiveMaterial(this.baseURL, headID, extruderID)
+	public getPrinterHeadExtruderActiveMaterial(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruderActiveMaterial(this.baseURL, headIndex, extruderIndex)
 	}
 
-	public getPrinterHeadExtruderActiveMaterialLengthRemaining(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruderActiveMaterialLengthRemaining(this.baseURL, headID, extruderID)
+	public getPrinterHeadExtruderActiveMaterialLengthRemaining(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruderActiveMaterialLengthRemaining(this.baseURL, headIndex, extruderIndex)
 	}
 
-	public getPrinterHeadExtruderActiveMaterialGUID(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruderActiveMaterialGUID(this.baseURL, headID, extruderID)
+	public getPrinterHeadExtruderActiveMaterialGUID(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruderActiveMaterialGUID(this.baseURL, headIndex, extruderIndex)
 	}
 
-	public getPrinterHeadExtruderHotend(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruderHotend(this.baseURL, headID, extruderID)
+	public getPrinterHeadExtruderHotend(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruderHotend(this.baseURL, headIndex, extruderIndex)
 	}
 
-	public getPrinterHeadExtruderHotendTemperature(headID: string, extruderID: string) {
-		return printer.getPrinterHeadExtruderHotendTemperature(this.baseURL, headID, extruderID)
+	public getPrinterHeadExtruderHotendTemperature(headIndex: string, extruderIndex: string) {
+		return printer.getPrinterHeadExtruderHotendTemperature(this.baseURL, headIndex, extruderIndex)
 	}
 
 	public getPrinterBed() {
@@ -323,6 +320,12 @@ export class UltimakerClient {
 		return printer.postPrinterBlink(this.baseURL, frequency, count)
 	}
 
+	/*
+	public postPrinterValidateHeader(gcode: string) {
+		return printer.postPrinterValidateHeader(this.baseURL, gcode)
+	}
+	*/
+
 	public putPrinterLED(color: printer.HSV) {
 		return printer.putPrinterLED(this.baseURL, color)
 	}
@@ -339,16 +342,16 @@ export class UltimakerClient {
 		return printer.putPrinterLEDBrightness(this.baseURL, brightness)
 	}
 
-	public putPrinterHeadPosition(headID: string, x: number, y: number, z: number, speed: number) {
-		return printer.putPrinterHeadPosition(this.baseURL, headID, x, y, z, speed)
+	public putPrinterHeadPosition(headIndex: string, x: number, y: number, z: number, speed: number) {
+		return printer.putPrinterHeadPosition(this.baseURL, headIndex, x, y, z, speed)
 	}
 
-	public putPrinterHeadMaxSpeed(headID: string, xyz: printer.Cartesian) {
-		return printer.putPrinterHeadMaxSpeed(this.baseURL, headID, xyz)
+	public putPrinterHeadMaxSpeed(headIndex: string, xyz: printer.Cartesian) {
+		return printer.putPrinterHeadMaxSpeed(this.baseURL, headIndex, xyz)
 	}
 
-	public putPrinterHeadJerk(headID: string, xyz: printer.Cartesian) {
-		return printer.putPrinterHeadJerk(this.baseURL, headID, xyz)
+	public putPrinterHeadJerk(headIndex: string, xyz: printer.Cartesian) {
+		return printer.putPrinterHeadJerk(this.baseURL, headIndex, xyz)
 	}
 
 	public putPrinterBedTemperature(temperature: number) {

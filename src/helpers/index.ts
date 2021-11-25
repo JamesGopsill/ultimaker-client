@@ -66,7 +66,7 @@ export const post = (url: string, status: number, bodyArgs?: {}) => {
 
 		if (typeof bodyArgs != "undefined") {
 			res = await fetch(url, {
-				method: "PUT",
+				method: "POST",
 				mode: "cors",
 				headers: {
 					"Content-Type": "application/json",
@@ -76,7 +76,7 @@ export const post = (url: string, status: number, bodyArgs?: {}) => {
 			})
 		} else {
 			res = await fetch(url, {
-				method: "PUT",
+				method: "POST",
 				mode: "cors",
 				headers: {
 					"Content-Type": "application/json",

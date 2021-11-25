@@ -2,33 +2,32 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getSingleJobHistory = exports.getJobHistory = exports.getEventHistory = void 0;
 const helpers_1 = require("../helpers");
-const getEventHistory = (baseURL, offset = 0, count = 50, typeID) => {
-    const url = (baseURL = "/api/v1/history/events");
-    let bodyArgs = {
-        offset: offset,
-        count: count,
-    };
-    if (typeof typeID != "undefined") {
-        bodyArgs = {
-            offset: offset,
-            count: count,
-            type_id: typeID,
-        };
+const getEventHistory = async (baseURL) => {
+    const url = `${baseURL}/api/v1/history/events`;
+    const events = await (0, helpers_1.get)(url);
+    for (const event of events) {
+        event.time = new Date(event.time);
     }
-    return (0, helpers_1.get)(url, bodyArgs);
+    return events;
 };
 exports.getEventHistory = getEventHistory;
-const getJobHistory = (baseURL, offset = 0, count = 50) => {
-    const url = baseURL + "/api/v1/history/print_jobs";
-    const bodyArgs = {
-        offset,
-        count,
-    };
-    return (0, helpers_1.get)(url, bodyArgs);
+const getJobHistory = async (baseURL) => {
+    const url = `${baseURL}/api/v1/history/print_jobs`;
+    const history = await (0, helpers_1.get)(url);
+    for (const job of history) {
+        job.datetime_cleaned = new Date(job.datetime_cleaned);
+        job.datetime_started = new Date(job.datetime_started);
+        job.datetime_finished = new Date(job.datetime_finished);
+    }
+    return history;
 };
 exports.getJobHistory = getJobHistory;
-const getSingleJobHistory = (baseURL, jobUUID) => {
-    const url = baseURL + "/api/v1/history/print_jobs/" + jobUUID;
-    return (0, helpers_1.get)(url);
+const getSingleJobHistory = async (baseURL, jobUUID) => {
+    const url = `${baseURL}/api/v1/history/print_jobs/${jobUUID}`;
+    const job = await (0, helpers_1.get)(url);
+    job.datetime_cleaned = new Date(job.datetime_cleaned);
+    job.datetime_started = new Date(job.datetime_started);
+    job.datetime_finished = new Date(job.datetime_finished);
+    return job;
 };
 exports.getSingleJobHistory = getSingleJobHistory;

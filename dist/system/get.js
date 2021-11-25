@@ -57,13 +57,9 @@ const getSystemLanguage = (baseURL) => {
     return (0, helpers_1.get)(url);
 };
 exports.getSystemLanguage = getSystemLanguage;
-const getSystemLog = (baseURL, boot = 0, lines = 50) => {
+const getSystemLog = (baseURL) => {
     const url = `${baseURL}/api/v1/system/log`;
-    const bodyArgs = {
-        boot,
-        lines,
-    };
-    return (0, helpers_1.get)(url, bodyArgs);
+    return (0, helpers_1.get)(url);
 };
 exports.getSystemLog = getSystemLog;
 const getSystemMemory = (baseURL) => {

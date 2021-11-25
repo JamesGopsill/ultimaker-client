@@ -12,13 +12,13 @@ beforeAll(() => {
 
 test("GET network", async () => {
 	const networkInformation = await client.getNetwork()
-	// console.log(systemInformation)
+	console.log(networkInformation)
 	expect(typeof networkInformation).toBe("object")
 })
 
 test("GET wifi networks", async () => {
 	const wifiNetworks = await client.getWifiNetworks()
-	// console.log(systemInformation)
+	console.log(wifiNetworks)
 	expect(typeof wifiNetworks).toBe("object")
 })
 

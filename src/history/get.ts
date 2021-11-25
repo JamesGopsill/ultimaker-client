@@ -1,43 +1,31 @@
 import { get } from "../helpers"
 import { UltimakerEvent, UltimakerHistoricJob } from "./interfaces"
 
-export const getEventHistory = (
-	baseURL: string,
-	offset: number = 0,
-	count: number = 50,
-	typeID?: number
-) => {
-	const url = (baseURL = "/api/v1/history/events")
-	let bodyArgs: any = {
-		offset: offset,
-		count: count,
+export const getEventHistory = async (baseURL: string) => {
+	const url = `${baseURL}/api/v1/history/events`
+	const events = await get<UltimakerEvent[]>(url)
+	for (const event of events) {
+		event.time = new Date(event.time)
 	}
-
-	if (typeof typeID != "undefined") {
-		bodyArgs = {
-			offset: offset,
-			count: count,
-			type_id: typeID,
-		}
-	}
-
-	return get<UltimakerEvent[]>(url, bodyArgs)
+	return events
 }
 
-export const getJobHistory = (
-	baseURL: string,
-	offset: number = 0,
-	count: number = 50
-) => {
-	const url = baseURL + "/api/v1/history/print_jobs"
-	const bodyArgs = {
-		offset,
-		count,
+export const getJobHistory = async (baseURL: string) => {
+	const url = `${baseURL}/api/v1/history/print_jobs`
+	const history = await get<UltimakerHistoricJob[]>(url)
+	for (const job of history) {
+		job.datetime_cleaned = new Date(job.datetime_cleaned)
+		job.datetime_started = new Date(job.datetime_started)
+		job.datetime_finished = new Date(job.datetime_finished)
 	}
-	return get<UltimakerHistoricJob[]>(url, bodyArgs)
+	return history
 }
 
-export const getSingleJobHistory = (baseURL: string, jobUUID: string) => {
-	const url = baseURL + "/api/v1/history/print_jobs/" + jobUUID
-	return get<UltimakerHistoricJob>(url)
+export const getSingleJobHistory = async (baseURL: string, jobUUID: string) => {
+	const url = `${baseURL}/api/v1/history/print_jobs/${jobUUID}`
+	const job = await get<UltimakerHistoricJob>(url)
+	job.datetime_cleaned = new Date(job.datetime_cleaned)
+	job.datetime_started = new Date(job.datetime_started)
+	job.datetime_finished = new Date(job.datetime_finished)
+	return job
 }

@@ -7,9 +7,9 @@ export enum UltimakerJobTargetState {
 export interface UltimakerJobDetails {
 	time_elapsed: number
 	time_total: number
-	datetime_started: string
-	datetime_finished: string
-	datetime_cleaned: string
+	datetime_started: Date
+	datetime_finished: Date
+	datetime_cleaned: Date
 	source: string
 	source_user: string
 	source_application: string

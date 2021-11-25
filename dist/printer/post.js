@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postValidateHeader = exports.postPrinterHeadPosition = exports.postPrinterBeep = exports.postPrinterBlink = void 0;
+exports.postPrinterValidateHeader = exports.postPrinterHeadPosition = exports.postPrinterBeep = exports.postPrinterBlink = void 0;
 const cross_fetch_1 = require("cross-fetch");
 const helpers_1 = require("../helpers");
 const postPrinterBlink = (baseURL, frequency, count) => {
@@ -28,7 +28,7 @@ const postPrinterHeadPosition = (baseURL, headID, position) => {
     });
 };
 exports.postPrinterHeadPosition = postPrinterHeadPosition;
-const postValidateHeader = (baseURL, gcode) => {
+const postPrinterValidateHeader = (baseURL, gcode) => {
     return new Promise(async (resolve, reject) => {
         let formData;
         // let blob: any
@@ -60,4 +60,4 @@ const postValidateHeader = (baseURL, gcode) => {
         reject(res);
     });
 };
-exports.postValidateHeader = postValidateHeader;
+exports.postPrinterValidateHeader = postPrinterValidateHeader;

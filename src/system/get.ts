@@ -59,17 +59,9 @@ export const getSystemLanguage = (baseURL: string) => {
 	return get<string>(url)
 }
 
-export const getSystemLog = (
-	baseURL: string,
-	boot: number = 0,
-	lines: number = 50
-) => {
+export const getSystemLog = (baseURL: string) => {
 	const url = `${baseURL}/api/v1/system/log`
-	const bodyArgs = {
-		boot,
-		lines,
-	}
-	return get<string[]>(url, bodyArgs)
+	return get<string[]>(url)
 }
 
 export const getSystemMemory = (baseURL: string) => {
@@ -109,7 +101,7 @@ export const getSystemUpTime = (baseURL: string) => {
 
 export const getSystemVariant = (baseURL: string) => {
 	const url = `${baseURL}/api/v1/system/variant`
-	return get<number>(url)
+	return get<string>(url)
 }
 
 export const getSystem = (baseURL: string) => {
