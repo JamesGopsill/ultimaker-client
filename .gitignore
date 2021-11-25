@@ -1,6 +1,6 @@
 node_modules/
 
-tests/config.ts
+tests/test.config.ts
 *.tsbuildinfo
 
 .DS_Store

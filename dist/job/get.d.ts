@@ -1,0 +1,17 @@
+import { UltimakerJobDetails, UltimakerJobSource, UltimakerJobTargetState } from "./interfaces";
+export declare const getJob: (baseURL: string) => Promise<UltimakerJobDetails>;
+export declare const getJobUUID: (baseURL: string) => Promise<string>;
+export declare const getJobTimeTotal: (baseURL: string) => Promise<number>;
+export declare const getJobTimeElapsed: (baseURL: string) => Promise<number>;
+export declare const getJobState: (baseURL: string) => Promise<UltimakerJobTargetState>;
+export declare const getJobSource: (baseURL: string) => Promise<UltimakerJobSource>;
+export declare const getJobSourceUser: (baseURL: string) => Promise<string>;
+export declare const getJobSourceApplication: (baseURL: string) => Promise<string>;
+export declare const getJobResult: (baseURL: string) => Promise<string>;
+export declare const getJobReprintOriginalUUID: (baseURL: string) => Promise<string>;
+export declare const getJobProgress: (baseURL: string) => Promise<number>;
+export declare const getJobPauseSource: (baseURL: string) => Promise<string>;
+export declare const getJobName: (baseURL: string) => Promise<string>;
+export declare const getJobDateTimeStarted: (baseURL: string) => Promise<Date | null>;
+export declare const getJobDateTimeFinished: (baseURL: string) => Promise<Date | null>;
+export declare const getJobDateTimeCleaned: (baseURL: string) => Promise<Date | null>;
