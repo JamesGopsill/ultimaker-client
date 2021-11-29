@@ -8,13 +8,11 @@ import * as history from "./history"
 import * as airmanager from "./airmanager"
 
 // Export the individual endpoints in case someone wants to use them directly
-export * as UltimakerPrinterEndpoint from "./printer"
-export * as UltimakerJobEndpoint from "./job"
-export * as UltimakerSystemEndpoint from "./system"
-export * as UltimakerMaterialsEndpoint from "./materials"
-export * as UltimakerNetworksEndpoint from "./network"
-export * as UltimakerHistoryEndpoint from "./history"
-export * as UltimakerAirManagerEndpoint from "./airmanager"
+export * from "./printer/interfaces"
+export * from "./job/interfaces"
+export * from "./system/interfaces"
+export * from "./history/interfaces"
+export * from "./airmanager/interfaces"
 
 /**
  * Create the client to interface with the Ultimaker API.

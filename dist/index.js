@@ -18,11 +18,14 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UltimakerClient = exports.UltimakerAirManagerEndpoint = exports.UltimakerHistoryEndpoint = exports.UltimakerNetworksEndpoint = exports.UltimakerMaterialsEndpoint = exports.UltimakerSystemEndpoint = exports.UltimakerJobEndpoint = exports.UltimakerPrinterEndpoint = void 0;
+exports.UltimakerClient = void 0;
 const is_ip_1 = __importDefault(require("is-ip"));
 const job = __importStar(require("./job"));
 const printer = __importStar(require("./printer"));
@@ -32,13 +35,11 @@ const networks = __importStar(require("./network"));
 const history = __importStar(require("./history"));
 const airmanager = __importStar(require("./airmanager"));
 // Export the individual endpoints in case someone wants to use them directly
-exports.UltimakerPrinterEndpoint = __importStar(require("./printer"));
-exports.UltimakerJobEndpoint = __importStar(require("./job"));
-exports.UltimakerSystemEndpoint = __importStar(require("./system"));
-exports.UltimakerMaterialsEndpoint = __importStar(require("./materials"));
-exports.UltimakerNetworksEndpoint = __importStar(require("./network"));
-exports.UltimakerHistoryEndpoint = __importStar(require("./history"));
-exports.UltimakerAirManagerEndpoint = __importStar(require("./airmanager"));
+__exportStar(require("./printer/interfaces"), exports);
+__exportStar(require("./job/interfaces"), exports);
+__exportStar(require("./system/interfaces"), exports);
+__exportStar(require("./history/interfaces"), exports);
+__exportStar(require("./airmanager/interfaces"), exports);
 /**
  * Create the client to interface with the Ultimaker API.
  *

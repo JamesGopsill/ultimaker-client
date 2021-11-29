@@ -14,16 +14,17 @@ const postJob = (baseURL, jobname, gcode) => {
             const FormData = require("form-data");
             formData = new FormData();
             formData.append("jobname", jobname);
-            formData.append("file", gcode, "test.gcode");
+            formData.append("file", gcode, "client.gcode");
         }
         else {
             // Browser
-            // blob = new Blob([gcode], { type: "text/plain" })
+            const blob = new Blob([gcode], { type: "text/plain" });
             formData = new FormData();
             formData.append("jobname", jobname);
-            formData.append("file", gcode, "test.gcode");
+            formData.append("file", blob, "client.gcode");
         }
-        const res = await (0, cross_fetch_1.fetch)(baseURL + "/api/v1/print_job", {
+        const url = `${baseURL}/api/v1/print_job`;
+        const res = await (0, cross_fetch_1.fetch)(url, {
             method: "POST",
             mode: "cors",
             headers: {
