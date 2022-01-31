@@ -1,41 +1,4 @@
-export enum UltimakerObject {
-	AIRMANAGER = "airmanager",
-	EVENT_HISTORY = "history/events",
-	JOB_HISTORY = "history/print_jobs",
-	HISTORIC_JOB = "history/print_jobs/{id}",
-}
-
-export type UltimakerObjectResponse<T> = T extends UltimakerObject.AIRMANAGER
-	? AirManager | AirManagerNotAvailable
-	: T extends UltimakerObject.EVENT_HISTORY
-	? Event[]
-	: T extends UltimakerObject.JOB_HISTORY
-	? HistoricJob[]
-	: T extends UltimakerObject.HISTORIC_JOB
-	? HistoricJob
-	: never
-
-export type UltimakerObjectBodyArgs<T> = T extends UltimakerObject.AIRMANAGER
-	? {}
-	: T extends UltimakerObject.EVENT_HISTORY
-	? {}
-	: T extends UltimakerObject.JOB_HISTORY
-	? {}
-	: T extends UltimakerObject.HISTORIC_JOB
-	? {}
-	: never
-
-export type UltimakerObjectIdRequired<T> = T extends UltimakerObject.AIRMANAGER
-	? undefined
-	: T extends UltimakerObject.EVENT_HISTORY
-	? undefined
-	: T extends UltimakerObject.JOB_HISTORY
-	? undefined
-	: T extends UltimakerObject.HISTORIC_JOB
-	? string
-	: never
-
-export interface AirManager {
+export interface AirManagerDetailsResponse {
 	firmware_version: string
 	filter_age: number
 	filter_max_age: number
@@ -44,18 +7,18 @@ export interface AirManager {
 	fan_speed: number
 }
 
-export interface AirManagerNotAvailable {
+export interface AirManagerNotAvailableResponse {
 	status: string
 }
 
-export interface Event {
+export interface UltimakerEvent {
 	time: Date
 	type_id: number
 	message: string
 	parameters: string[]
 }
 
-export interface HistoricJob {
+export interface UltimakerHistoricJob {
 	time_elapsed: number
 	time_estimated: number
 	time_total: number
@@ -69,4 +32,32 @@ export interface HistoricJob {
 	uuid: string
 	interrupted_step: string
 	extruders_used: { [key: string]: boolean }
+}
+
+export enum UltimakerJobTargetState {
+	ABORT = "abort",
+	PAUSE = "pause",
+	PRINT = "print",
+}
+
+export interface UltimakerJobDetails {
+	time_elapsed: number
+	time_total: number
+	datetime_started: Date
+	datetime_finished: Date
+	datetime_cleaned: Date
+	source: string
+	source_user: string
+	source_application: string
+	name: string
+	uuid: string
+	reprint_original_uuid: string
+	progress: number
+	state: string
+	result: string
+}
+
+export enum UltimakerJobSource {
+	WEB_API,
+	CALIBRATION_MENU,
 }

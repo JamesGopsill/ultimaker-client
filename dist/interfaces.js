@@ -1,10 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UltimakerObject = void 0;
-var UltimakerObject;
-(function (UltimakerObject) {
-    UltimakerObject["AIRMANAGER"] = "airmanager";
-    UltimakerObject["EVENT_HISTORY"] = "history/events";
-    UltimakerObject["JOB_HISTORY"] = "history/print_jobs";
-    UltimakerObject["HISTORIC_JOB"] = "history/print_jobs/{id}";
-})(UltimakerObject = exports.UltimakerObject || (exports.UltimakerObject = {}));
+exports.UltimakerJobSource = exports.UltimakerJobTargetState = void 0;
+var UltimakerJobTargetState;
+(function (UltimakerJobTargetState) {
+    UltimakerJobTargetState["ABORT"] = "abort";
+    UltimakerJobTargetState["PAUSE"] = "pause";
+    UltimakerJobTargetState["PRINT"] = "print";
+})(UltimakerJobTargetState = exports.UltimakerJobTargetState || (exports.UltimakerJobTargetState = {}));
+var UltimakerJobSource;
+(function (UltimakerJobSource) {
+    UltimakerJobSource[UltimakerJobSource["WEB_API"] = 0] = "WEB_API";
+    UltimakerJobSource[UltimakerJobSource["CALIBRATION_MENU"] = 1] = "CALIBRATION_MENU";
+})(UltimakerJobSource = exports.UltimakerJobSource || (exports.UltimakerJobSource = {}));
