@@ -24,6 +24,10 @@
     "dist/**/*"
   ],
   "scripts": {
+    "test:airmanager": "jest airmanager.test.ts",
+    "test:materials": "jest materials.test.ts",
+    "test:history": "jest history.test.ts",
+    "test:get-methods": "jest get-methods.test.ts",
     "test:all": "jest",
     "build": "tsc",
     "docs": "typedoc",

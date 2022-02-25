@@ -25,13 +25,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UltimakerClient = void 0;
+exports.UltimakerClient = exports.ResponseError = exports.UltimakerLEDColors = void 0;
 const cross_fetch_1 = require("cross-fetch");
 const is_ip_1 = __importDefault(require("is-ip"));
 const methods_1 = require("./methods");
+const post = __importStar(require("./post"));
 const put = __importStar(require("./put"));
 const response_error_1 = require("./response-error");
 __exportStar(require("./interfaces"), exports);
+var led_colors_1 = require("./led-colors");
+Object.defineProperty(exports, "UltimakerLEDColors", { enumerable: true, get: function () { return led_colors_1.UltimakerLEDColors; } });
+var response_error_2 = require("./response-error");
+Object.defineProperty(exports, "ResponseError", { enumerable: true, get: function () { return response_error_2.ResponseError; } });
 class UltimakerClient {
     /** Checks if the IP address is a valid format before creating an instance of the client. */
     constructor(ip) {
@@ -54,15 +59,37 @@ class UltimakerClient {
                 return this.get(url);
             };
         }
-        // Run through all the put requests and add them to the Ultimaker Client
+        // add the put requests
         for (const key of Object.keys(put)) {
             //@ts-ignore
             this[key] = put[key];
+        }
+        // add the post requests
+        for (const key of Object.keys(post)) {
+            //@ts-ignore
+            this[key] = post[key];
         }
     }
     async get(url, bodyArgs) {
         return (0, cross_fetch_1.fetch)(url, {
             method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify(bodyArgs),
+        }).then(async (r) => {
+            if (r.ok) {
+                const json = await r.json();
+                return json;
+            }
+            throw new response_error_1.ResponseError(r);
+        });
+    }
+    async put(url, bodyArgs) {
+        return (0, cross_fetch_1.fetch)(url, {
+            method: "PUT",
             mode: "cors",
             headers: {
                 "Content-Type": "application/json",

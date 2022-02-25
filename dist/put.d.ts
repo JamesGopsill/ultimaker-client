@@ -1,2 +1,4 @@
 import { UltimakerClient } from ".";
-export declare const putEventHistory: (this: UltimakerClient, type_id: number, parameters: string[]) => Promise<any>;
+import * as it from "./interfaces";
+export declare const putJobState: (this: UltimakerClient, target: it.UltimakerJobTargetState) => Promise<any>;
+export declare const putLED: (this: UltimakerClient, hsv: it.HSV) => Promise<any>;
