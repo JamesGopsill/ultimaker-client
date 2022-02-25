@@ -12,7 +12,6 @@ It is also an **unofficial** open-source client for connecting to your Ultimaker
 - [Using ultimaker-client](#using-ultimaker-client)
 - [Docs](#docs)
 - [Testing](#testing)
-- [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [Support the Project](#support-the-project)
 - [References](#references)
@@ -104,7 +103,7 @@ yarn add https://github.com/JamesGopsill/ultimaker-client
 You can then use in your code via by importing
 
 ```typescript
-import { UltimakerClient } from "ultimaker-client"
+import { UltimakerClient, ResponseError } from "ultimaker-client"
 
 // Create a new client.
 const client = new UltimakerClient("000.000.000.000")
@@ -113,8 +112,10 @@ const client = new UltimakerClient("000.000.000.000")
 try {
 	const name = await client.getSystemName()
 	console.log(name)
-} catch (res) { // Promise reject will return the response that resulted in the error.
-	console.log(res)
+} catch (err) { // Promise reject will return the response that resulted in the error.
+	if (err instanceof ResponseError) {
+		console.log(err.response.status)
+	}
 }
 ```
 
@@ -131,25 +132,6 @@ To test the functionality, make sure you have an Ultimaker on the network and cr
 ```
 export const ip = "123.456.789.101"
 ```
-
-## Roadmap
-
-The first objective is to build a client that implements the entire v1 Ultimaker API without auth. Having achieved this, we will look to add digest auth and increment the version.
-
-| Version | Content | Status |
-| --- | --- | --- |
-| 0.1.0 | A smattering of API functions that we have needed to access/use in our research project. Client codebase set up with typescript and testing support.| ✔ |
-| 0.2.0 | `/system` implemented. | ✔* |
-| 0.3.0 | `/materials` implemented. | ✔ |
-| 0.4.0 | `/network` implemented. | ✔ |
-| 0.5.0 | `/history` implemented. | ✔ |
-| 0.6.0 | `/print_job` implemented. | ✔ |
-| 0.7.0 | `/airmanager` implemented. | ✔ |
-| 0.8.0 | `/printer` implemented. | ✔* |
-| 0.9.0 | `/camera` implemented. | - |
-| 1.0.0 | All endpoints implemented. | - |
-| 1.1.0 | Digest authentication. `/auth`. | - |
-* denotes partial test coverage.
 
 ## Contributing
 

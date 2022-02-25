@@ -1,5 +1,0 @@
-export * from "./get"
-export * from "./interfaces"
-//export * from "./get-printer-status"
-export * from "./post"
-export * from "./put"
