@@ -97,13 +97,13 @@ You can restart the Ultimaker API using `systemctl restart griffin.interface.htt
 To install the package, use the following code. I will look to putting up on npm soon.
 
 ```
-yarn add https://github.com/JamesGopsill/ultimaker-client
+yarn add @jamesgopsill/ultimaker-client
 ```
 
 You can then use in your code via by importing
 
 ```typescript
-import { UltimakerClient, ResponseError } from "ultimaker-client"
+import { UltimakerClient, ResponseError } from "@jamesgopsill/ultimaker-client"
 
 // Create a new client.
 const client = new UltimakerClient("000.000.000.000")

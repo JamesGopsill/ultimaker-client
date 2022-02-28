@@ -1,5 +1,5 @@
 {
-  "name": "ultimaker-client",
+  "name": "@jamesgopsill/ultimaker-client",
   "version": "0.8.1",
   "description": "Client for interacting with the Ultimaker API",
   "keywords": [
@@ -14,12 +14,15 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/JamesGopsill/ultimaker-client"
+    "url": "https://github.com/jamesgopsill/ultimaker-client"
   },
   "bugs": {
-    "url": "https://github.com/JamesGopsill/ultimaker-client/issues"
+    "url": "https://github.com/jamesgopsill/ultimaker-client/issues"
   },
   "homepage": "https://jamesgopsill.github.io/ultimaker-client/",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "files": [
     "dist/**/*"
   ],
