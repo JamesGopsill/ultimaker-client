@@ -1,4 +1,4 @@
-<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>ultimaker-client</title><meta name="description" content="Documentation for ultimaker-client"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">ultimaker-client</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>ultimaker-client</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@jamesgopsill/ultimaker-client</title><meta name="description" content="Documentation for @jamesgopsill/ultimaker-client"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@jamesgopsill/ultimaker-client</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>@jamesgopsill/ultimaker-client</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography">
 <a href="#a-typescript-client-for-the-ultimaker-api" id="a-typescript-client-for-the-ultimaker-api" style="color: inherit; text-decoration: none;">
   <h1>A Typescript client for the Ultimaker API</h1>
 </a>
@@ -14,7 +14,6 @@
 <li><a href="#using-ultimaker-client">Using ultimaker-client</a></li>
 <li><a href="#docs">Docs</a></li>
 <li><a href="#testing">Testing</a></li>
-<li><a href="#roadmap">Roadmap</a></li>
 <li><a href="#contributing">Contributing</a></li>
 <li><a href="#support-the-project">Support the Project</a></li>
 <li><a href="#references">References</a></li>
@@ -50,10 +49,10 @@
   <h2>Using ultimaker-client</h2>
 </a>
 <p>To install the package, use the following code. I will look to putting up on npm soon.</p>
-<pre><code><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-0">add</span><span class="hl-1"> </span><span class="hl-9">https</span><span class="hl-1">:</span><span class="hl-3">//github.com/JamesGopsill/ultimaker-client</span>
+<pre><code><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-0">add</span><span class="hl-1"> @</span><span class="hl-0">jamesgopsill</span><span class="hl-1">/</span><span class="hl-0">ultimaker</span><span class="hl-1">-</span><span class="hl-0">client</span>
 </code></pre>
 <p>You can then use in your code via by importing</p>
-<pre><code class="language-typescript"><span class="hl-6">import</span><span class="hl-1"> { </span><span class="hl-0">UltimakerClient</span><span class="hl-1"> } </span><span class="hl-6">from</span><span class="hl-1"> </span><span class="hl-8">&quot;ultimaker-client&quot;</span><br/><br/><span class="hl-3">// Create a new client.</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-2">client</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-5">UltimakerClient</span><span class="hl-1">(</span><span class="hl-8">&quot;000.000.000.000&quot;</span><span class="hl-1">)</span><br/><br/><span class="hl-3">// Retrieve the name of your printer.</span><br/><span class="hl-6">try</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-2">name</span><span class="hl-1"> = </span><span class="hl-6">await</span><span class="hl-1"> </span><span class="hl-0">client</span><span class="hl-1">.</span><span class="hl-5">getSystemName</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-5">log</span><span class="hl-1">(</span><span class="hl-0">name</span><span class="hl-1">)</span><br/><span class="hl-1">} </span><span class="hl-6">catch</span><span class="hl-1"> (</span><span class="hl-0">res</span><span class="hl-1">) { </span><span class="hl-3">// Promise reject will return the response that resulted in the error.</span><br/><span class="hl-1">    </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-5">log</span><span class="hl-1">(</span><span class="hl-0">res</span><span class="hl-1">)</span><br/><span class="hl-1">}</span>
+<pre><code class="language-typescript"><span class="hl-6">import</span><span class="hl-1"> { </span><span class="hl-0">UltimakerClient</span><span class="hl-1">, </span><span class="hl-0">ResponseError</span><span class="hl-1"> } </span><span class="hl-6">from</span><span class="hl-1"> </span><span class="hl-8">&quot;@jamesgopsill/ultimaker-client&quot;</span><br/><br/><span class="hl-3">// Create a new client.</span><br/><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-2">client</span><span class="hl-1"> = </span><span class="hl-4">new</span><span class="hl-1"> </span><span class="hl-5">UltimakerClient</span><span class="hl-1">(</span><span class="hl-8">&quot;000.000.000.000&quot;</span><span class="hl-1">)</span><br/><br/><span class="hl-3">// Retrieve the name of your printer.</span><br/><span class="hl-6">try</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-2">name</span><span class="hl-1"> = </span><span class="hl-6">await</span><span class="hl-1"> </span><span class="hl-0">client</span><span class="hl-1">.</span><span class="hl-5">getSystemName</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-5">log</span><span class="hl-1">(</span><span class="hl-0">name</span><span class="hl-1">)</span><br/><span class="hl-1">} </span><span class="hl-6">catch</span><span class="hl-1"> (</span><span class="hl-0">err</span><span class="hl-1">) { </span><span class="hl-3">// Promise reject will return the response that resulted in the error.</span><br/><span class="hl-1">    </span><span class="hl-6">if</span><span class="hl-1"> (</span><span class="hl-0">err</span><span class="hl-1"> </span><span class="hl-4">instanceof</span><span class="hl-1"> </span><span class="hl-7">ResponseError</span><span class="hl-1">) {</span><br/><span class="hl-1">        </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-5">log</span><span class="hl-1">(</span><span class="hl-0">err</span><span class="hl-1">.</span><span class="hl-0">response</span><span class="hl-1">.</span><span class="hl-0">status</span><span class="hl-1">)</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">}</span>
 </code></pre>
 
 <a href="#docs" id="docs" style="color: inherit; text-decoration: none;">
@@ -68,78 +67,6 @@
 <p>To test the functionality, make sure you have an Ultimaker on the network and create a <code>test.config.ts</code> file in the test directory (This is ignore by git via .gitignore). Then add the following export to make sure the tests know the ip address of the printer.</p>
 <pre><code><span class="hl-6">export</span><span class="hl-1"> </span><span class="hl-4">const</span><span class="hl-1"> </span><span class="hl-2">ip</span><span class="hl-1"> = </span><span class="hl-8">&quot;123.456.789.101&quot;</span>
 </code></pre>
-
-<a href="#roadmap" id="roadmap" style="color: inherit; text-decoration: none;">
-  <h2>Roadmap</h2>
-</a>
-<p>The first objective is to build a client that implements the entire v1 Ultimaker API without auth. Having achieved this, we will look to add digest auth and increment the version.</p>
-<table>
-<thead>
-<tr>
-<th>Version</th>
-<th>Content</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>0.1.0</td>
-<td>A smattering of API functions that we have needed to access/use in our research project. Client codebase set up with typescript and testing support.</td>
-<td>✔</td>
-</tr>
-<tr>
-<td>0.2.0</td>
-<td><code>/system</code> implemented.</td>
-<td>✔*</td>
-</tr>
-<tr>
-<td>0.3.0</td>
-<td><code>/materials</code> implemented.</td>
-<td>✔</td>
-</tr>
-<tr>
-<td>0.4.0</td>
-<td><code>/network</code> implemented.</td>
-<td>✔</td>
-</tr>
-<tr>
-<td>0.5.0</td>
-<td><code>/history</code> implemented.</td>
-<td>✔</td>
-</tr>
-<tr>
-<td>0.6.0</td>
-<td><code>/print_job</code> implemented.</td>
-<td>✔</td>
-</tr>
-<tr>
-<td>0.7.0</td>
-<td><code>/airmanager</code> implemented.</td>
-<td>✔</td>
-</tr>
-<tr>
-<td>0.8.0</td>
-<td><code>/printer</code> implemented.</td>
-<td>✔*</td>
-</tr>
-<tr>
-<td>0.9.0</td>
-<td><code>/camera</code> implemented.</td>
-<td>-</td>
-</tr>
-<tr>
-<td>1.0.0</td>
-<td>All endpoints implemented.</td>
-<td>-</td>
-</tr>
-<tr>
-<td>1.1.0</td>
-<td>Digest authentication. <code>/auth</code>.</td>
-<td>-</td>
-</tr>
-</tbody></table>
-<ul>
-<li>denotes partial test coverage.</li>
-</ul>
 
 <a href="#contributing" id="contributing" style="color: inherit; text-decoration: none;">
   <h2>Contributing</h2>
