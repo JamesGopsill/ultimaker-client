@@ -6,7 +6,7 @@
 		"declaration": true,
 		"esModuleInterop": true,
 		"strict": true,
-		"incremental": true
+		"incremental": false
 	},
 	"include": ["src/"]
 }
