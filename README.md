@@ -141,7 +141,7 @@ We would love to have additional contributors to the project to help us maintain
 
 The project has been supported by the [EPSRC-funded Brokering Additive Manufacturing project (EP/V05113X/1)](https://gow.epsrc.ukri.org/NGBOViewGrant.aspx?GrantRef=EP/V05113X/1). More details on the project can be found at the [Design Manufacturing Futures Lab](https://dmf-lab.co.uk/) website.
 
-To donate and provide continued support, please go to **[TODO]**.
+You can also support the developers directly by sponsoring them.
 
 ## References
 
