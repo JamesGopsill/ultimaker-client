@@ -3,7 +3,7 @@ scratch/
 dist/
 docs/
 
-tests/test.config.ts
+__tests__/test.config.ts
 *.tsbuildinfo
 
 .DS_Store
