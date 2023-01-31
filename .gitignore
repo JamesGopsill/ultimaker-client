@@ -1,6 +1,7 @@
 node_modules/
 scratch/
-examples/
+dist/
+docs/
 
 tests/test.config.ts
 *.tsbuildinfo
