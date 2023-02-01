@@ -58,7 +58,6 @@ def __init__(self, import_name, **kwargs):
 
 Scroll down in the file and add this line to the end of the `__init__` function.
 
-
 ```python
 # [...find this bit in the file]
 # Disable the default werkzeug logger, this logs all http requests, which spams the logs
@@ -79,7 +78,7 @@ def allow_cors(response):
 	response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
 	response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
 	response.headers.add('Access-Control-Allow-Credentials', 'true')
-	return response 
+	return response
 ```
 
 Make sure you make a copy of the original file just in case.
