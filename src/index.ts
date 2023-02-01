@@ -1,13 +1,17 @@
+import type * as Def from "./definitions.js"
+import { get } from "./get-fcn.js"
 import { getMethods } from "./get-methods.js"
 import { getObjectMethods } from "./get-object-methods.js"
-import type * as Def from "./definitions.js"
-import { get } from "./get-fcn"
+import * as postMethods from "./post-methods.js"
 import { put } from "./put-fcn.js"
-import * as putMethods from "./put-methods"
-import * as postMethods from "./post-methods"
+import * as putMethods from "./put-methods.js"
+
+export * from "./definitions.js"
 
 export class UltimakerClient {
-	public readonly baseUrl: string
+	protected readonly baseUrl: string
+	protected username: string = ""
+	protected password: string = ""
 
 	constructor(url: string) {
 		this.baseUrl = url

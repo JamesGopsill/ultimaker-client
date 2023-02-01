@@ -1,9 +1,8 @@
-import type { UltimakerClient } from "./index.js"
-import type * as Def from "./definitions"
+import type { HSV, UltimakerClient, UltimakerJobTargetState } from "./index.js"
 
 export const putJobState = async function (
 	this: UltimakerClient,
-	target: Def.UltimakerJobTargetState
+	target: UltimakerJobTargetState
 ) {
 	const url = `${this.baseUrl}/api/v1/print_job/state`
 	const bodyArgs = {
@@ -12,7 +11,7 @@ export const putJobState = async function (
 	return this.put(url, bodyArgs)
 }
 
-export const putLED = async function (this: UltimakerClient, hsv: Def.HSV) {
+export const putLED = async function (this: UltimakerClient, hsv: HSV) {
 	const url = `${this.baseUrl}/api/v1/printer/led`
 	const bodyArgs = hsv
 	return this.put(url, bodyArgs)

@@ -1,5 +1,4 @@
-import type { UltimakerClient } from "./index.js"
-import type * as Def from "./definitions"
+import type { HttpResponse, UltimakerClient } from "./index.js"
 
 export async function postJob<T>(
 	this: UltimakerClient,
@@ -26,7 +25,7 @@ export async function postJob<T>(
 
 	const request = new Request(url, config)
 
-	const r = (await fetch(request)) as Def.HttpResponse<T>
+	const r = (await fetch(request)) as HttpResponse<T>
 	r.data = null
 	if (r.ok) r.data = await r.json()
 	return r

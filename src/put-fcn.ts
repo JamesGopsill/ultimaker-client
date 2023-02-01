@@ -1,5 +1,4 @@
-import type { HttpResponse } from "./definitions.js"
-import type { UltimakerClient } from "./index.js"
+import type { HttpResponse, UltimakerClient } from "./index.js"
 
 export async function put<T>(
 	this: UltimakerClient,
