@@ -97,26 +97,19 @@ You can restart the Ultimaker API using `systemctl restart griffin.interface.htt
 To install the package, use the following code. I will look to putting up on npm soon.
 
 ```
-yarn add @jamesgopsill/ultimaker-client
+pnpm add @jamesgopsill/ultimaker-client
 ```
 
 You can then use in your code via by importing
 
 ```typescript
-import { UltimakerClient, ResponseError } from "@jamesgopsill/ultimaker-client"
+import { UltimakerClient } from "@jamesgopsill/ultimaker-client"
 
 // Create a new client.
-const client = new UltimakerClient("000.000.000.000")
+const client = new UltimakerClient("<URL_GOES_HERE>")
 
-// Retrieve the name of your printer.
-try {
-	const name = await client.getSystemName()
-	console.log(name)
-} catch (err) { // Promise reject will return the response that resulted in the error.
-	if (err instanceof ResponseError) {
-		console.log(err.response.status)
-	}
-}
+const r = await client.getSystemName()
+if (r.ok) console.log(r.data)
 ```
 
 ## Docs
@@ -130,7 +123,7 @@ Testing uses jest. We use a range of Ultimakers in the lab and are currently tes
 To test the functionality, make sure you have an Ultimaker on the network and create a `test.config.ts` file in the test directory (This is ignore by git via .gitignore). Then add the following export to make sure the tests know the ip address of the printer.
 
 ```
-export const ip = "123.456.789.101"
+export const url = "<PRINTER_URL>"
 ```
 
 ## Contributing
