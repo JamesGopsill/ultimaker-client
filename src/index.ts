@@ -2,9 +2,9 @@ import type * as Def from "./definitions.js"
 import { get } from "./get-fcn.js"
 import { getMethods } from "./get-methods.js"
 import { getObjectMethods } from "./get-object-methods.js"
-import * as postMethods from "./post-methods.js"
+import * as PostMethods from "./post-methods.js"
 import { put } from "./put-fcn.js"
-import * as putMethods from "./put-methods.js"
+import * as PutMethods from "./put-methods.js"
 
 export * from "./definitions.js"
 
@@ -19,26 +19,27 @@ export class UltimakerClient {
 		// Create the get methods
 		for (const method of getMethods) {
 			//@ts-expect-error
-			this[method.name] = this.get(`${this.baseUrl}/${method.endpoint}`)
+			this[method.name] = async () =>
+				this.get(`${this.baseUrl}/${method.endpoint}`)
 		}
 
 		for (const method of getObjectMethods) {
 			//@ts-expect-error
-			this[method.name] = (id: string) => {
+			this[method.name] = async (id: string) => {
 				const url = `${this.baseUrl}/${method.endpoint}/${id}`
 				return this.get(url)
 			}
 		}
 
-		for (const key of Object.keys(putMethods)) {
+		for (const [k, v] of Object.entries(PutMethods)) {
 			//@ts-expect-error
-			this[key] = put[key]
+			this[k] = v
 		}
 
 		// add the post requests
-		for (const key of Object.keys(postMethods)) {
-			//@ts-ignore
-			this[key] = post[key]
+		for (const [k, v] of Object.entries(PostMethods)) {
+			//@ts-expect-error
+			this[k] = v
 		}
 	}
 

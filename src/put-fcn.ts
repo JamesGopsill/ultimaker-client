@@ -1,13 +1,12 @@
 import type { HttpResponse, UltimakerClient } from "./index.js"
 
-export async function put<T>(
+export async function put(
 	this: UltimakerClient,
 	url: string,
-	bodyArgs?: {}
+	bodyArgs: {} = {}
 ) {
-	if (typeof bodyArgs != "undefined") {
-		bodyArgs = {}
-	}
+	const controller = new AbortController()
+	const signal = controller.signal
 
 	const config: RequestInit = {
 		method: "PUT",
@@ -17,12 +16,13 @@ export async function put<T>(
 			Accept: "application/json",
 		},
 		body: JSON.stringify(bodyArgs),
+		signal,
 	}
 
 	const request = new Request(url, config)
 
-	const r = (await fetch(request)) as HttpResponse<T>
+	const r = (await fetch(request)) as HttpResponse<null>
 	r.data = null
-	if (r.ok) r.data = await r.json()
+	controller.abort()
 	return r
 }

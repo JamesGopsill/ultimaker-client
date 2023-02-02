@@ -12,8 +12,9 @@ test("GET material", async () => {
 	const r = await c.getMaterial(materialUuid)
 	if (r.ok) {
 		console.log(r.data)
+		expect(r.ok).toBe(true)
 	} else {
 		console.log(r.status, await r.text())
+		expect(r.ok).toBe(false)
 	}
-	expect(r.ok).toBe(true)
 })

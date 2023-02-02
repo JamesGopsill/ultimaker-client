@@ -1,2 +1,4 @@
+dist/
+docs/
 *.gcode
 pnpm-lock.yaml

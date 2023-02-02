@@ -1,6 +1,6 @@
 import type { HSV, UltimakerClient, UltimakerJobTargetState } from "./index.js"
 
-export const putJobState = async function (
+export const putJobState = function (
 	this: UltimakerClient,
 	target: UltimakerJobTargetState
 ) {
@@ -11,7 +11,7 @@ export const putJobState = async function (
 	return this.put(url, bodyArgs)
 }
 
-export const putLED = async function (this: UltimakerClient, hsv: HSV) {
+export async function putLED(this: UltimakerClient, hsv: HSV) {
 	const url = `${this.baseUrl}/api/v1/printer/led`
 	const bodyArgs = hsv
 	return this.put(url, bodyArgs)

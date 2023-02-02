@@ -1,6 +1,6 @@
+import { getMethods } from "../src/get-methods.js"
 import { UltimakerClient } from "../src/index.js"
 import { url } from "./test.config.js"
-import { getMethods } from "../src/get-methods.js"
 
 let c: UltimakerClient
 
@@ -13,10 +13,11 @@ getMethods.map((method: any) => {
 		//@ts-ignore
 		const r = await c[method.name]()
 		if (r.ok) {
-			console.log(r.data)
+			//console.log(r.data)
+			expect(r.ok).toBe(true)
 		} else {
-			console.log(r.status, await r.text())
+			console.log(method.name, r.status, await r.text())
+			expect(r.ok).toBe(false)
 		}
-		expect(r.ok).toBe(true)
 	})
 })
