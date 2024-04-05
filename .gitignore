@@ -1,9 +1,6 @@
-node_modules/
-scratch/
-dist/
-docs/
+node_modules
+scratch
+dist
+docs
 
-__tests__/test.config.ts
-*.tsbuildinfo
-
-.DS_Store
+.env

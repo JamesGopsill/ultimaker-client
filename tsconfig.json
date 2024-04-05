@@ -1,13 +1,28 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-	"extends": "@tsconfig/node18-strictest-esm/tsconfig.json",
-	"include": ["src", "scratch/auth-methods.ts"],
+	"include": ["src"],
 	"compilerOptions": {
-		"lib": ["DOM", "ES2022"],
-		"outDir": "dist/esm",
+		"outDir": "dist",
 		"rootDir": "src",
 		"declaration": true,
-		"newLine": "LF",
-		"moduleResolution": "node16"
+		"newLine": "lf",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"incremental": false,
+		"strict": true,
+		"allowUnusedLabels": false,
+		"allowUnreachableCode": false,
+		"exactOptionalPropertyTypes": false,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noPropertyAccessFromIndexSignature": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"checkJs": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true
 	}
 }

@@ -5,10 +5,19 @@ export type HttpResponse<T> =
 	  } & Response)
 	| ({
 			ok: false
-			data: null
+			data: undefined
 	  } & Response)
 
-export interface AirManagerDetailsResponse {
+export interface AuthRequest {
+	id: string
+	key: string
+}
+
+export interface AuthCheck {
+	message: string
+}
+
+export interface AirManagerDetails {
 	firmware_version: string
 	filter_age: number
 	filter_max_age: number
@@ -17,18 +26,18 @@ export interface AirManagerDetailsResponse {
 	fan_speed: number
 }
 
-export interface AirManagerNotAvailableResponse {
+export interface AirManagerNotAvailable {
 	status: string
 }
 
-export interface UltimakerEvent {
+export interface Event {
 	time: Date
 	type_id: number
 	message: string
 	parameters: string[]
 }
 
-export interface UltimakerHistoricJob {
+export interface HistoricJob {
 	time_elapsed: number
 	time_estimated: number
 	time_total: number
@@ -44,13 +53,13 @@ export interface UltimakerHistoricJob {
 	extruders_used: { [key: string]: boolean }
 }
 
-export enum UltimakerJobTargetState {
+export enum JobTargetState {
 	ABORT = "abort",
 	PAUSE = "pause",
 	PRINT = "print",
 }
 
-export interface UltimakerJobDetails {
+export interface Job {
 	time_elapsed: number
 	time_total: number
 	datetime_started: Date
@@ -67,7 +76,7 @@ export interface UltimakerJobDetails {
 	result: string
 }
 
-export enum UltimakerJobSource {
+export enum JobSource {
 	WEB_API,
 	CALIBRATION_MENU,
 }
@@ -101,7 +110,7 @@ export interface Printer {
 				ssid: string
 				security_required: true
 				strength: number
-			}
+			},
 		]
 		ethernet: {
 			connected: boolean
@@ -242,4 +251,18 @@ export interface System {
 export interface SystemMemory {
 	total: number
 	used: number
+}
+
+export interface SystemTime {
+	utc: number
+}
+
+export interface SystemHardware {
+	typeid: number
+	revision: number
+}
+
+export interface PostJobResponse {
+	message: string
+	uuid: string
 }
