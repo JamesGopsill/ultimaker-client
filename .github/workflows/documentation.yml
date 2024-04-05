@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - uses: actions/setup-bun@v1
+      - uses: oven-sh/setup-bun@v1
       - name: Install Packages
         run: bun install
       - name: Build Docs
