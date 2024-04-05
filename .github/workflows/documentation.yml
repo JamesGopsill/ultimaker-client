@@ -7,13 +7,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: main
       - uses: actions/setup-bun@v1
-        with:
-          node-version: 19
-          registry-url: "https://registry.npmjs.org"
       - name: Install Packages
         run: bun install
       - name: Build Docs
