@@ -6,17 +6,18 @@ export async function f<T = any>(
 	method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD",
 	uri: string,
 	content?: Object | FormData | string,
-) {
+): Promise<HttpResponse<T>> {
 	const url = `${this.baseUrl}${uri}`
 
 	const headers = new Headers()
-	let body = ""
+	let body: string | FormData = ""
 	headers.set("Accept", "application/json")
 	switch (true) {
 		case content instanceof String:
 			headers.set("Content-Type", "plain/text")
 			break
 		case content instanceof FormData:
+			body = content
 			break
 		case content instanceof Object:
 			headers.set("Content-Type", "application/json")

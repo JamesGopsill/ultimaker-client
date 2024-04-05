@@ -1,7 +1,4 @@
-import {
-	UltimakerClient,
-	UltimakerClientConfig,
-} from "@jamesgopsill/ultimaker-client"
+import { UltimakerClient, UltimakerClientConfig } from "../src/index.ts" //"@jamesgopsill/ultimaker-client"
 
 const config: UltimakerClientConfig = {
 	url: "",
@@ -10,7 +7,7 @@ const config: UltimakerClientConfig = {
 const client = new UltimakerClient(config)
 
 {
-	const r = await client.api.v1.auth.request.post()
+	const r = await client.api.v1.auth.request.post("UltimakerClient", "Test")
 	if (r.ok) {
 		console.log(r.data)
 	}

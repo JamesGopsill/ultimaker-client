@@ -3,4 +3,4 @@ scratch
 dist
 docs
 
-__tests__/test.config.ts
+.env

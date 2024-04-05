@@ -1,12 +1,12 @@
 {
 	"$schema": "https://json.schemastore.org/tsconfig",
-  "include": ["src"],
+	"include": ["src"],
 	"compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "src",
-    "declaration": true,
-    "newLine": "lf",
-    "module": "NodeNext",
+		"outDir": "dist",
+		"rootDir": "src",
+		"declaration": true,
+		"newLine": "lf",
+		"module": "NodeNext",
 		"moduleResolution": "NodeNext",
 		"incremental": false,
 		"strict": true,

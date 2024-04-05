@@ -39,7 +39,10 @@ const client = new UltimakerClient(config)
 // Authenticate your connection to the printer.
 // You will have to press allow on your machine.
 {
-	const r = await client.api.v1.auth.request.post()
+	const r = await client.api.v1.auth.request.post(
+		"APPLICATION_NAME",
+		"USER_NAME",
+	)
 	if (r.ok) {
 		console.log(r.data)
 	}
@@ -66,10 +69,10 @@ The docs have been produced using [TypeDoc](https://typedoc.org/) and can be acc
 
 We're using Bun.js to develop the client and its in-built test functionality. We use a range of Ultimakers in the lab and are currently testing with printers using Ultimaker firmware version 6.40.
 
-To test the functionality, make sure you have an Ultimaker on the network and create a `test.config.ts` file in the test directory (This is ignored by git via .gitignore). Then add the following export to make sure the tests know the IP address of the printer.
+To test the functionality, make sure you have an Ultimaker on the network and create a `.env` file at the top-level (This is ignored by git via .gitignore). Then add the following environment variable to make sure the tests know the IP address of the printer.
 
-```typescript
-export const url = "<PRINTER_URL>"
+```env
+ULTIMAKER_URL =
 ```
 
 ## Contributing

@@ -37,7 +37,6 @@
 		"@types/bun": "latest",
 		"prettier": "latest",
 		"typedoc": "latest",
-		"typescript": "latest",
-		"@jamesgopsill/ultimaker-client": "link:@jamesgopsill/ultimaker-client"
+		"typescript": "latest"
 	}
 }
