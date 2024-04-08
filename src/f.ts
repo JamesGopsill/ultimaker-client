@@ -10,7 +10,7 @@ export async function f<T = any>(
 	const url = `${this.baseUrl}${uri}`
 
 	const headers = new Headers()
-	let body: string | FormData = ""
+	let body: string | FormData | undefined = undefined
 	headers.set("Accept", "application/json")
 	switch (true) {
 		case content instanceof String:
