@@ -43,27 +43,31 @@ export async function df<T = any>(
 			method,
 			mode,
 		})
-		const res = await fetch(req)
-		digest = res.headers.get("WWW-Authenticate")
-		if (digest == null) {
-			console.log("Warning: Expected Digest")
-			return res as HttpResponse<T>
+		try {
+			const res = await fetch(req)
+			digest = res.headers.get("WWW-Authenticate")
+			if (digest == null) {
+				console.log("Warning: Expected Digest")
+				return res as HttpResponse<T>
+			}
+			const m = digest.match(/"[\w\s-]+"/g)
+			if (m == null) {
+				console.log("Warning: No Matches")
+				return res as HttpResponse<T>
+			}
+			realm = m[0]
+			nonce = m[1]
+			qop = m[2]
+			if (!(realm && nonce && qop)) {
+				console.log("Could not match realm, nonce and auth")
+				return res as HttpResponse<T>
+			}
+			realm = realm.replaceAll('"', "")
+			nonce = nonce.replaceAll('"', "")
+			qop = qop.replaceAll('"', "")
+		} catch {
+			return new Response(undefined, { status: 503 }) as HttpResponse<T>
 		}
-		const m = digest.match(/"[\w\s-]+"/g)
-		if (m == null) {
-			console.log("Warning: No Matches")
-			return res as HttpResponse<T>
-		}
-		realm = m[0]
-		nonce = m[1]
-		qop = m[2]
-		if (!(realm && nonce && qop)) {
-			console.log("Could not match realm, nonce and auth")
-			return res as HttpResponse<T>
-		}
-		realm = realm.replaceAll('"', "")
-		nonce = nonce.replaceAll('"', "")
-		qop = qop.replaceAll('"', "")
 	}
 
 	const authorization = digestHeader({
@@ -102,11 +106,15 @@ export async function df<T = any>(
 		headers,
 		body,
 	})
-	const res = (await fetch(req)) as HttpResponse<T>
-	if (res.ok) {
-		if (res.headers.get("Content-Type")?.includes("application/json")) {
-			res.data = await res.json()
+	try {
+		const res = (await fetch(req)) as HttpResponse<T>
+		if (res.ok) {
+			if (res.headers.get("Content-Type")?.includes("application/json")) {
+				res.data = await res.json()
+			}
 		}
+		return res
+	} catch {
+		return new Response(undefined, { status: 503 }) as HttpResponse<T>
 	}
-	return res
 }

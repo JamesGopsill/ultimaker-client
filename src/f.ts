@@ -32,11 +32,15 @@ export async function f<T = any>(
 		headers,
 		body,
 	})
-	const res = (await fetch(req)) as HttpResponse<T>
-	if (res.ok) {
-		if (res.headers.get("Content-Type")?.includes("application/json")) {
-			res.data = await res.json()
+	try {
+		const res = (await fetch(req)) as HttpResponse<T>
+		if (res.ok) {
+			if (res.headers.get("Content-Type")?.includes("application/json")) {
+				res.data = await res.json()
+			}
 		}
+		return res
+	} catch {
+		return new Response(undefined, { status: 500 }) as HttpResponse<T>
 	}
-	return res
 }
